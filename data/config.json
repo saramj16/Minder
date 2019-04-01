@@ -1,0 +1,14 @@
+{
+	"configServer": {
+		"port_bbdd": "example port_bbdd",
+		"ip_bbdd": "example ip_bbdd",
+		"name_bbdd": "example name_bbdd",
+		"username_bbdd": "example username_bbdd",
+		"password_bbdd": "example password_bbdd",
+		"port_client": "example port_client"
+	},
+	"configClient": {
+		"ip_server": "example ip_server",
+		"port_server": "example port_server"
+	}
+}

@@ -1,0 +1,27 @@
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import configReader.Configuration;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+public class Main {
+    public static void main(String[] args) {
+        Configuration config = new Configuration();
+        Gson gson = new Gson();
+        JsonReader jReader;         //Lector
+
+        try {                        //Try per si no podem obrir l'arxiu Json
+            jReader = new JsonReader(new FileReader("data/config.json"));
+            config = gson.fromJson(jReader, Configuration.class);                       //Llegeix el fitxer Json
+
+
+            //debug
+            System.out.println("Fitxer trobat");
+            System.out.println("port bbdd: "+config.getConfigServer().getPort_bbdd());
+
+        } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
+            System.out.println("Error: Fitxer no trobat.");
+        }
+    }
+}

@@ -23,6 +23,7 @@ public class MainServer {
             //debug
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
+
             server.start();
 
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json

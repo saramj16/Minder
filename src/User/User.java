@@ -1,4 +1,10 @@
+package User;
+
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class User {
@@ -7,15 +13,19 @@ public class User {
     private boolean premium;
     private String correo;
     private String contraseña;
-    private Image urlFoto;
+    private String urlFoto;
     private String lenguaje;
     private String descripción;
     private ArrayList<Match> listaMatch;
     private ArrayList<User> listaAcceptedUsers;
+    private int serverPort;
+    private Socket sServidor;
+    private DataOutputStream doStream;
+    private DataInputStream diStream;
 
     public User(String userName, int edat, boolean premium, String correo, String contraseña,
-                Image urlFoto, String lenguaje, String descripción,
-                ArrayList<Match> listaMatch, ArrayList<User> listaAcceptedUsers) {
+                String urlFoto, String lenguaje, String descripción) throws IOException {
+        this.serverPort = 34567;
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
@@ -24,9 +34,31 @@ public class User {
         this.urlFoto = urlFoto;
         this.lenguaje = lenguaje;
         this.descripción = descripción;
-        this.listaMatch = listaMatch;
-        this.listaAcceptedUsers = listaAcceptedUsers;
+        this.listaMatch = new ArrayList<>();
+        this.listaAcceptedUsers = new ArrayList<>();
     }
+
+    public void start() throws IOException {
+        sServidor = new Socket("127.0.0.1", serverPort);
+        doStream = new DataOutputStream(sServidor.getOutputStream());
+        diStream = new DataInputStream(sServidor.getInputStream());
+        String respostaServer = diStream.readUTF();
+        System.out.println("el server dice: " + respostaServer);
+        sServidor.close();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41,8 +73,8 @@ public class User {
     public void setCorreo(String correo) { this.correo = correo; }
     public String getContraseña() { return contraseña; }
     public void setContraseña(String contraseña) { this.contraseña = contraseña; }
-    public Image getUrlFoto() { return urlFoto; }
-    public void setUrlFoto(Image urlFoto) { this.urlFoto = urlFoto; }
+    public String getUrlFoto() { return urlFoto; }
+    public void setUrlFoto(String urlFoto) { this.urlFoto = urlFoto; }
     public String getLenguaje() { return lenguaje; }
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }
     public String getDescripción() { return descripción; }

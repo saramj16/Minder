@@ -7,7 +7,7 @@ import java.io.IOException;
 public class MainUser {
     public static void main(String[] args) throws IOException {
         User user = new User("Javo", 21, true, "javo@gmail.com", "pene",
-                "hola", "java", "puto parguelas");
+                "hola", "java", "puto parguelas y marcel tambien");
 
         user.start();
     }

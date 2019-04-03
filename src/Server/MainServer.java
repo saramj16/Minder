@@ -19,8 +19,8 @@ public class MainServer {
             jReader = new JsonReader(new FileReader("data/config.json"));
             config = gson.fromJson(jReader, Configuration.class);                       //Llegeix el fitxer Json
 
-
             //debug
+
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
 

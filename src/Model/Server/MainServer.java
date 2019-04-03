@@ -1,4 +1,4 @@
-package Server;
+package Model.Server;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;

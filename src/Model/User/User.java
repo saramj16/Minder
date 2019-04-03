@@ -1,6 +1,5 @@
-package User;
+package Model.User;
 
-import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,8 +45,6 @@ public class User {
         System.out.println("el server dice: " + respostaServer);
         sServidor.close();
     }
-
-
 
 
 

@@ -1,4 +1,4 @@
-package User;
+package Model.User;
 
 public class Mensaje {
     private int id; //num de linea

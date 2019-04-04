@@ -2,13 +2,13 @@ package Model.User;
 
 import java.io.IOException;
 import Autentication.AutenticationView;
-import Controller.Controller;
+import Controller.ControllerClient;
 
 public class MainUser {
     public static void main(String[] args) throws IOException {
 
         AutenticationView autenticationView = new AutenticationView();
-        Controller controller = new Controller(autenticationView);
+        ControllerClient controller = new ControllerClient(autenticationView);
 
         User user = new User("Javo", 21, true, "javo@gmail.com", "pene",
                 "hola", "java", "puto parguelas y marcel tambien");

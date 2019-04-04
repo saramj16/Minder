@@ -1,4 +1,5 @@
 package Model.Server;
+import Model.User.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -37,6 +38,11 @@ public class Server {
     }
 
     public boolean logIn(String password, String username){
+        //SARA Y MARCEL ESTO PAH VOSOTROS!!!
+        return true;
+    }
+
+    public boolean registration(User user){
         //SARA Y MARCEL ESTO PAH VOSOTROS!!!
         return true;
     }

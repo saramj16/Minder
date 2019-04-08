@@ -1,11 +1,15 @@
 package User.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
+@Entity
 public class Match {
+    @Id
+    private int id;
     private User user1;
     private User user2;
-    private int id;
     private ArrayList<Mensaje> chat;
 
 

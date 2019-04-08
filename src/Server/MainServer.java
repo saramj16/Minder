@@ -1,5 +1,6 @@
-package Model.Server;
+package Server;
 
+import Server.Model.Server;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import configReader.Configuration;

@@ -1,5 +1,5 @@
-package Model.Server;
-import Model.User.*;
+package Server.Model;
+import User.Model.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

@@ -1,9 +1,9 @@
-package Controller;
+package User.Controller;
 
-import Autentication.AutenticationView;
-import Autentication.RegistrationView;
-import Model.User.*;
-import Model.Server.*;
+import Server.Model.Server;
+import User.View.AutenticationView;
+import User.View.RegistrationView;
+import User.Model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

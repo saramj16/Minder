@@ -1,4 +1,4 @@
-package Autentication;
+package User.View;
 
 import javax.swing.*;
 import java.awt.*;

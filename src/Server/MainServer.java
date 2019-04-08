@@ -1,5 +1,6 @@
-package Model.Server;
+package Server;
 
+import Server.Model.Server;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import configReader.Configuration;
@@ -11,11 +12,10 @@ import java.io.IOException;
 public class MainServer {
 
 
-    //proba
     
     public static void main(String[] args) throws IOException {
         Server server = new Server();
-        Configuration config = new Configuration();
+        Configuration config;
         Gson gson = new Gson();
         JsonReader jReader;         //Lector
 

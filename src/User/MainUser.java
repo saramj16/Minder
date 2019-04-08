@@ -1,8 +1,10 @@
-package Model.User;
+package User;
 
 import java.io.IOException;
-import Autentication.AutenticationView;
-import Controller.ControllerClient;
+import User.View.AutenticationView;
+import User.Controller.ControllerClient;
+import User;
+import User.Model.User;
 
 public class MainUser {
     public static void main(String[] args) throws IOException {

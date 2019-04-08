@@ -42,7 +42,7 @@ public class User {
         this.listaAcceptedUsers = new ArrayList<>();
     }
 
-    void start() throws IOException {
+    public void start() throws IOException {
         sServidor = new Socket("127.0.0.1", serverPort);
         doStream = new DataOutputStream(sServidor.getOutputStream());
         diStream = new DataInputStream(sServidor.getInputStream());

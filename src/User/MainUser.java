@@ -3,7 +3,6 @@ package User;
 import java.io.IOException;
 import User.View.AutenticationView;
 import User.Controller.ControllerClient;
-import User;
 import User.Model.User;
 
 public class MainUser {

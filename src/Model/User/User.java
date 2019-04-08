@@ -22,6 +22,8 @@ public class User {
     private DataOutputStream doStream;
     private DataInputStream diStream;
 
+    private String borreuAquestaVar;
+
     public User(String userName, int edat, boolean premium, String correo, String password,
                 String urlFoto, String lenguaje, String description) throws IOException {
         this.serverPort = 34567;

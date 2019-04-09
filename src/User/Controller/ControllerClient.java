@@ -1,5 +1,6 @@
 package User.Controller;
 
+import Network.NetworkManager;
 import Server.Model.Server;
 import User.View.AutenticationView;
 import User.View.RegistrationView;
@@ -13,11 +14,13 @@ import java.io.IOException;
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
+    private NetworkManager networkManager;
     private Server server;
 
 
-    public ControllerClient(AutenticationView autenticationView){
+    public ControllerClient(AutenticationView autenticationView, NetworkManager networkManager){
         this.autenticationView = autenticationView;
+        this.networkManager = networkManager;
     }
 
     public void start(){
@@ -63,7 +66,7 @@ public class ControllerClient implements ActionListener {
                     user = newUserFromRegistration();
                     if (user != null) {
                         registrationView.setVisible(false);
-                        server.registration(user);
+                        networkManager.newUser(user);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -1,12 +1,8 @@
 package User.Model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
-
-import javax.persistence.*;
 
 
 @Entity
@@ -23,13 +19,10 @@ public class User {
     private ArrayList<Match> listaMatch;
     private ArrayList<User> listaAcceptedUsers;
     private int serverPort;
-    private Socket sServidor;
-    private DataOutputStream doStream;
-    private DataInputStream diStream;
+
 
     public User(String userName, int edat, boolean premium, String correo, String password,
                 String urlFoto, String lenguaje, String description){
-        this.serverPort = 34567;
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
@@ -40,15 +33,6 @@ public class User {
         this.description = description;
         this.listaMatch = new ArrayList<>();
         this.listaAcceptedUsers = new ArrayList<>();
-    }
-
-    void start() throws IOException {
-        sServidor = new Socket("127.0.0.1", serverPort);
-        doStream = new DataOutputStream(sServidor.getOutputStream());
-        diStream = new DataInputStream(sServidor.getInputStream());
-        String respostaServer = diStream.readUTF();
-        System.out.println("el server dice: " + respostaServer);
-        sServidor.close();
     }
 
     public String getUserName() { return userName; }

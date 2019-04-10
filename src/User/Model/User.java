@@ -1,13 +1,10 @@
 package User.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
 import java.util.ArrayList;
 
 
-@Entity
 public class User {
-    @Id
     private String userName;
     private int edat;
     private boolean premium;

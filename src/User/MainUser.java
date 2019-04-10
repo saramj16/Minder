@@ -1,6 +1,6 @@
 package User;
 
-import Network.NetworkManager;
+import Network.ClientNetworkManager;
 import User.Controller.ControllerClient;
 import User.View.AutenticationView;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 public class MainUser {
     public static void main(String[] args) throws IOException {
 
-        NetworkManager networkManager = new NetworkManager();
+        ClientNetworkManager networkManager = new ClientNetworkManager();
         AutenticationView autenticationView = new AutenticationView();
         ControllerClient controller = new ControllerClient(autenticationView, networkManager);
 

@@ -1,6 +1,6 @@
 package User.Controller;
 
-import Network.NetworkManager;
+import Network.ClientNetworkManager;
 import Server.Model.Server;
 import User.View.AutenticationView;
 import User.View.RegistrationView;
@@ -14,11 +14,11 @@ import java.io.IOException;
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
-    private NetworkManager networkManager;
+    private ClientNetworkManager networkManager;
     private Server server;
 
 
-    public ControllerClient(AutenticationView autenticationView, NetworkManager networkManager){
+    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager){
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
     }

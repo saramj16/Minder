@@ -23,13 +23,14 @@ public class ClientNetworkManager{
         this.sServidor = new Socket(IP, PORT);
         this.diStream = new DataInputStream(sServidor.getInputStream());
         this.doStream = new DataOutputStream(sServidor.getOutputStream());
-        //this.ooStream = new ObjectOutputStream(sServidor.getOutputStream());
+        this.ooStream = new ObjectOutputStream(sServidor.getOutputStream());
     }
 
     //-------------------------------------------------------------------------------//
     public void connectClient() throws IOException {
         String respostaServer = diStream.readUTF();
         System.out.println("el server dice: " + respostaServer);
+
 
         diStream.close();
         doStream.close();
@@ -45,6 +46,7 @@ public class ClientNetworkManager{
     }
 
     public void newUser(User user) throws IOException {
+            doStream.writeUTF("Registra");
             ooStream.writeObject(user);
     }
 

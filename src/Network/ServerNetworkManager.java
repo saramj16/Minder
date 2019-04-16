@@ -1,8 +1,10 @@
 package Network;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import Server.Model.entity.Usuari;
+import Server.Model.entity.UsuariManager;
+import User.Model.User;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,6 +15,8 @@ public class ServerNetworkManager {
     private ServerSocket sServer;
     private DataOutputStream doStream;
     private DataInputStream diStream;
+    private ObjectInputStream oiStream;
+
     private static final int PORT = 9999;
 
     public ServerNetworkManager() throws IOException {
@@ -21,6 +25,14 @@ public class ServerNetworkManager {
 
     public void connectServer() throws IOException {
         System.out.println("The date server is running...");
+
+        UsuariManager um = new UsuariManager();
+
+        Usuari user = new Usuari("Sara",20,false,"sara.marti@putamerda.com","Sara",null,null,null);
+
+        um.addUsuari(user);
+
+        System.out.println("Entra");
         while (true) {
             this.sClient = sServer.accept();
             System.out.println("He acceptat");

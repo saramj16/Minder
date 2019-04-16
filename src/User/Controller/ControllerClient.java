@@ -66,6 +66,7 @@ public class ControllerClient implements ActionListener {
                     user = newUserFromRegistration();
                     if (user != null) {
                         registrationView.setVisible(false);
+
                         networkManager.newUser(user);
                     }
                 } catch (IOException e) {

@@ -6,16 +6,26 @@ import User.Model.User;
 import java.util.ArrayList;
 
 public class Usuari {
+
+
     private String userName;
     private int edat;
-    private boolean premium;
+    private String premium;
     private String correo;
     private String password;
     private String urlFoto;
     private String lenguaje;
     private String description;
 
-    public Usuari(String userName, int edat, boolean premium, String correo, String password, String urlFoto, String lenguaje, String description) {
+    public Usuari(String userName, int edat, String premium, String correo, String password) {
+        this.userName = userName;
+        this.edat = edat;
+        this.premium = premium;
+        this.correo = correo;
+        this.password = password;
+    }
+
+    public Usuari(String userName, int edat, String premium, String correo, String password, String urlFoto, String lenguaje, String description) {
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
@@ -42,11 +52,11 @@ public class Usuari {
         this.edat = edat;
     }
 
-    public boolean isPremium() {
+    public String isPremium() {
         return premium;
     }
 
-    public void setPremium(boolean premium) {
+    public void setPremium(String premium) {
         this.premium = premium;
     }
 

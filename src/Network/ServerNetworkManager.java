@@ -26,13 +26,7 @@ public class ServerNetworkManager {
     public void connectServer() throws IOException {
         System.out.println("The date server is running...");
 
-        UsuariManager um = new UsuariManager();
 
-        Usuari user = new Usuari("Sara",20,false,"sara.marti@putamerda.com","Sara",null,null,null);
-
-        um.addUsuari(user);
-
-        System.out.println("Entra");
         while (true) {
             this.sClient = sServer.accept();
             System.out.println("He acceptat");

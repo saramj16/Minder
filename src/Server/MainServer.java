@@ -2,6 +2,7 @@ package Server;
 
 import Network.ServerNetworkManager;
 import Server.Model.Server;
+import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -19,7 +20,10 @@ public class MainServer {
         Server server;
         ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
-        try {
+
+        Usuari user = new Usuari("Amor",21,"false","manel@putamerda.com","M",null,null,null);
+        model.addUsuari(user);
+       try {
             server = new Server(model);
             networkManager = new ServerNetworkManager();
         } catch (IOException e) {
@@ -29,8 +33,6 @@ public class MainServer {
         Configuration config;
         Gson gson = new Gson();
         JsonReader jReader;         //Lector
-
-
 
         try {                        //Try per si no podem obrir l'arxiu Json
             jReader = new JsonReader(new FileReader("data/config.json"));

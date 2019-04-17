@@ -35,6 +35,7 @@ public class DBConnector {
             if(instance == null){
                 instance = new DBConnector("root", "root", "minder", 3306);
                 instance.connect();
+
             }
             return  instance;
         }
@@ -42,6 +43,7 @@ public class DBConnector {
         public void connect() {
             try {
                 Class.forName("com.mysql.jdbc.Connection");
+
                 conn = (Connection) DriverManager.getConnection(url, userName, password);
                 if (conn != null) {
                     System.out.println("Connexió a base de dades "+url+" ... Ok");

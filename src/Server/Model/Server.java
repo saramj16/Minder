@@ -19,7 +19,7 @@ public class Server {
         return true;
     }
 
-    public boolean registration(String userName, int edat, boolean premium, String correo, String password){
+    public boolean registration(String userName, int edat, String premium, String correo, String password){
         Usuari u = new Usuari(userName,edat,premium,correo,password,null,null,null);
         usuariManager.addUsuari(u);
         return true;

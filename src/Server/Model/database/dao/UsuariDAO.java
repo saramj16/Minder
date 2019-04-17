@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class UsuariDAO {
     public void addUsuari(Usuari usuari) {
-        String query = "INSERT INTO Usuari(userName, edat, premium, correo, password) VALUES ('"+usuari.getUserName()+"', '"
+        String query = "INSERT INTO Usuari(userName, edat, premium, correo, contrasena) VALUES ('"+usuari.getUserName()+"', '"
                 +usuari.getEdat()+"', '"+usuari.isPremium()+"', '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);
@@ -24,6 +24,6 @@ public class UsuariDAO {
     public void searchUsuari(String userName) {
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
         System.out.println(query);
-        DBConnector.getInstance().deleteQuery(query);
+        DBConnector.getInstance().selectQuery(query);
     }
 }

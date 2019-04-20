@@ -32,9 +32,9 @@ public class ClientNetworkManager{
         System.out.println("el server dice: " + respostaServer);
 
 
-        diStream.close();
-        doStream.close();
-        disconnectClient();
+        //diStream.close();
+        //doStream.close();
+        //disconnectClient();
     }
 
     public void disconnectClient() {
@@ -46,8 +46,8 @@ public class ClientNetworkManager{
     }
 
     public void newUser(User user) throws IOException {
-            doStream.writeUTF("Registra");
-            ooStream.writeObject(user);
+            System.out.println("New User");
+        ooStream.writeObject(user);
     }
 
 }

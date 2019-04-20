@@ -36,6 +36,10 @@ public class Usuari {
         this.description = description;
     }
 
+    public Usuari() {
+
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -74,5 +78,29 @@ public class Usuari {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
+    public String getLenguaje() {
+        return lenguaje;
+    }
+
+    public void setLenguaje(String lenguaje) {
+        this.lenguaje = lenguaje;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

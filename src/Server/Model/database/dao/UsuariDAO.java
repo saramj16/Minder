@@ -21,9 +21,29 @@ public class UsuariDAO {
         DBConnector.getInstance().deleteQuery(query);
     }
 
-    public void searchUsuari(String userName) {
+    public boolean searchUsuari(String userName) {
+
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
         System.out.println(query);
-        DBConnector.getInstance().selectQuery(query);
+        ResultSet resultat = DBConnector.getInstance().selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String nom = resultat.getString("userName");
+
+                if (nom.equals(userName)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void modificaUsuari(Usuari u) {
+        String query = "UPDATE Usuari SET urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
+        System.out.println(query);
+        DBConnector.getInstance().updateQuery(query);
     }
 }

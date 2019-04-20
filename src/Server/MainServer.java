@@ -21,8 +21,7 @@ public class MainServer {
         ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
 
-        Usuari user = new Usuari("Amor",21,"false","manel@putamerda.com","M",null,null,null);
-        model.addUsuari(user);
+
        try {
             server = new Server(model);
             networkManager = new ServerNetworkManager();

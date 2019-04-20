@@ -2,9 +2,11 @@ package User.Model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class User {
+    private int id;
     private String userName;
     private int edat;
     private boolean premium;
@@ -13,13 +15,14 @@ public class User {
     private String urlFoto;
     private String lenguaje;
     private String description;
-    private ArrayList<Match> listaMatch;
-    private ArrayList<User> listaAcceptedUsers;
+    private HashMap<String, Match> listaMatch;
+    private ArrayList<User> listaUsers;
     private int serverPort;
 
 
-    public User(String userName, int edat, boolean premium, String correo, String password,
-                String urlFoto, String lenguaje, String description){
+    public User(int id, String userName, int edat, boolean premium, String correo, String password,
+                String urlFoto, String lenguaje, String description, ArrayList<User> matches){
+        this.id = id;
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
@@ -28,8 +31,8 @@ public class User {
         this.urlFoto = urlFoto;
         this.lenguaje = lenguaje;
         this.description = description;
-        this.listaMatch = new ArrayList<>();
-        this.listaAcceptedUsers = new ArrayList<>();
+        this.listaMatch = new HashMap<>();
+        this.listaUsers = matches;
     }
 
     public String getUserName() { return userName; }
@@ -48,8 +51,10 @@ public class User {
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-    public ArrayList<Match> getListaMatch() { return listaMatch; }
-    public void setListaMatch(ArrayList<Match> listaMatch) { this.listaMatch = listaMatch; }
-    public ArrayList<User> getListaAcceptedUsers() { return listaAcceptedUsers; }
-    public void setListaAcceptedUsers(ArrayList<User> listaAcceptedUsers) { this.listaAcceptedUsers = listaAcceptedUsers; }
+    public HashMap<String, Match> getListaMatch() { return listaMatch; }
+    public void setListaMatch(HashMap<String, Match> listaMatch) { this.listaMatch = listaMatch; }
+    public ArrayList<User> getListaUsers() { return listaUsers; }
+    public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 }

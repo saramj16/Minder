@@ -1,6 +1,6 @@
 package Server.Model;
-import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
+import User.Model.Match;
 import User.Model.User;
 
 import java.io.IOException;
@@ -17,17 +17,47 @@ public class Server {
         this.users = new HashMap<>();
     }
 
+    //---------------------------------------------------------------------------------------//
 
-    public boolean logIn(String password, String username){
-        //SARA Y MARCEL ESTO PAH VOSOTROS!!!
+    public boolean comprobarLogIn(String username, String password){
+
         return true;
     }
 
-    public boolean registration(String userName, int edat, String premium, String correo, String password){
+    public boolean comprobarRegistro(User user){
+
+        return true;
+    }
+
+    public void acceptUser(User currentUser, User userLike){
+        //TODO: modificar esto en la BBDD
+        currentUser.getListaLikedUsers().add(userLike);
+        for (User u : userLike.getListaLikedUsers()){
+            if (u == currentUser){
+                String id = currentUser.getId() + "-" + userLike.getId();
+                Match match = new Match(currentUser, userLike, id);
+                currentUser.getListaMatch().put(id, match);
+                userLike.getListaMatch().put(id, match);
+                //TODO informar a los 2 users de que ha habido un match
+            }
+        }
+    }
+
+    public void declineUser(User currentUser, User userLike){
+        //TODO: ns que coño se ha de hacer
+    }
+
+
+
+
+
+
+
+    /*public boolean registration(String userName, int edat, String premium, String correo, String password){
         Usuari u = new Usuari(userName,edat,premium,correo,password,null,null,null);
         usuariManager.addUsuari(u);
         return true;
-    }
+    }*/
 
     public int getServerPort() { return serverPort; }
     public void setServerPort(int serverPort) { this.serverPort = serverPort; }

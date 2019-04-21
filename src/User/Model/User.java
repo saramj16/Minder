@@ -17,8 +17,7 @@ public class User {
     private String description;
     private HashMap<String, Match> listaMatch;
     private ArrayList<User> listaUsers;
-    private int serverPort;
-
+    private ArrayList<User> listaLikedUsers;
 
     public User(int id, String userName, int edat, boolean premium, String correo, String password,
                 String urlFoto, String lenguaje, String description, ArrayList<User> matches){
@@ -33,6 +32,7 @@ public class User {
         this.description = description;
         this.listaMatch = new HashMap<>();
         this.listaUsers = matches;
+        this.listaLikedUsers = new ArrayList<>();
     }
 
     public String getUserName() { return userName; }
@@ -57,4 +57,6 @@ public class User {
     public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+    public ArrayList<User> getListaLikedUsers() { return listaLikedUsers; }
+    public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
 }

@@ -1,10 +1,13 @@
 package Network;
 
-import Server.Model.entity.Usuari;
+import Server.Model.Server;
 import Server.Model.entity.UsuariManager;
 import User.Model.User;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,6 +19,7 @@ public class ServerNetworkManager {
     private DataOutputStream doStream;
     private DataInputStream diStream;
     private ObjectInputStream oiStream;
+    private Server server;
 
     private static final int PORT = 9999;
 
@@ -23,27 +27,54 @@ public class ServerNetworkManager {
         this.sServer = new ServerSocket(PORT);
     }
 
-    public void connectServer() throws IOException {
+    public void connectServer() throws IOException, ClassNotFoundException {
         UsuariManager usuariManager = new UsuariManager();
         System.out.println("The date server is running...");
 
        while (true) {
             this.sClient = sServer.accept();
             System.out.println("He acceptat");
+            User currentUser, likedUser;
             diStream = new DataInputStream(sClient.getInputStream());
             doStream = new DataOutputStream(sClient.getOutputStream());
-
+            oiStream = new ObjectInputStream(sClient.getInputStream());
+            boolean ok;
             doStream.writeUTF("Hola!! Sóc el servidor.");
 
+            int id = diStream.readInt();
 
+            switch (id){
+                case 1:
+                    String username = diStream.readUTF();
+                    String password = diStream.readUTF();
+                    ok = server.comprobarLogIn(username, password);
+                    doStream.writeBoolean(ok);
+                    break;
 
+                case 2:
+                    User user = (User) oiStream.readObject();
+                    ok = server.comprobarRegistro(user);
+                    doStream.writeBoolean(ok);
+                    break;
 
-            //diStream.close();
-            //doStream.close();
-            //sServer.close();
+                case 3:
+                    currentUser = (User) oiStream.readObject();
+                    likedUser = (User) oiStream.readObject();
+                    server.acceptUser(currentUser, likedUser);
+                    break;
+
+                case 4:
+                    currentUser = (User) oiStream.readObject();
+                    likedUser = (User) oiStream.readObject();
+                    server.declineUser(currentUser, likedUser);
+                    break;
+            }
+
+            diStream.close();
+            doStream.close();
+            sServer.close();
+            oiStream.close();
         }
-
-
 
     }
 }

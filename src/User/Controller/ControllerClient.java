@@ -2,11 +2,10 @@ package User.Controller;
 
 import Network.ClientNetworkManager;
 import Server.Model.Server;
-import User.Model.Match;
 import User.Model.Mensaje;
+import User.Model.User;
 import User.View.AutenticationView;
 import User.View.RegistrationView;
-import User.Model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -47,8 +46,11 @@ public class ControllerClient implements ActionListener {
                 if (username.equals("") || password.equals("")){
                     JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos!");
                 }else{
-                    ok = server.logIn(password, username);
-
+                    try {
+                        ok = networkManager.functionalities(1, username, password);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (!ok) {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
@@ -70,10 +72,15 @@ public class ControllerClient implements ActionListener {
                 try {
                     user = newUserFromRegistration();
                     if (user != null) {
-                        this.currentUser = user;
-                        registrationView.setVisible(false);
+                        ok = networkManager.functionalities(2, user, null);
+                        if (ok){
+                            this.currentUser = user;
+                            registrationView.setVisible(false);
+                            //TODO: llamamos vista principal
+                        }else{
+                            System.out.println("algun tipo de error al registrar usuario");
+                        }
 
-                        networkManager.newUser(user);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -82,28 +89,38 @@ public class ControllerClient implements ActionListener {
 
             case "AcceptUser":
                 // pillamos el user al que le ha dado like userLike =
-                currentUser.getListaUsers().add(userLike);
-                for (User u : userLike.getListaUsers()){
-                    if (u == currentUser){
-                        String id = currentUser.getId() + "-" + userLike.getId();
-                        Match match = new Match(currentUser, userLike, id);
-                        currentUser.getListaMatch().put(id, match);
-                        userLike.getListaMatch().put(id, match);
-                        //llamamos a la vista del chat
-                    }
+                try {
+                    //TODO:3er parámetro ha de ser userLike!!!!!!
+                    networkManager.functionalities(3, currentUser, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 break;
 
             case "DeclineUser":
                 // pillamos el user al que le ha dado dislike userLike =
-                currentUser.getListaUsers().remove(userLike);
+                try {
+                    //TODO:3er parámetro ha de ser userLike!!!!!!
+                    networkManager.functionalities(4, currentUser, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case "EditarPerfil":
+                //llamamos a la vista de editar perfil
+                break;
+
+            case "GuardarPerfil":
+                //nos guardamos toda la info y volvemos a pantalla principal
                 break;
 
             case "enviarMensage":
-                //pillamos el match que ha clicado --> match =
+                /*pillamos el match que ha clicado --> match =
                 Mensaje mensaje = getMensaje();
                 currentUser.getListaMatch().get(match.getId).getChat().add(mensaje);
-                userLike.getListaMatch().get(match.getId).getChat().add(mensaje);
+                userLike.getListaMatch().get(match.getId).getChat().add(mensaje);*/
+                break;
         }
     }
 
@@ -139,7 +156,11 @@ public class ControllerClient implements ActionListener {
 
     }
 
+    private Mensaje getMensaje(){
+        Mensaje mensaje = null;
 
+        return mensaje;
+    }
 
     public AutenticationView getAutenticationView() { return autenticationView; }
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }

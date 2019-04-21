@@ -24,10 +24,10 @@ public class ServerNetworkManager {
     }
 
     public void connectServer() throws IOException {
+        UsuariManager usuariManager = new UsuariManager();
         System.out.println("The date server is running...");
 
-
-        while (true) {
+       while (true) {
             this.sClient = sServer.accept();
             System.out.println("He acceptat");
             diStream = new DataInputStream(sClient.getInputStream());
@@ -35,10 +35,15 @@ public class ServerNetworkManager {
 
             doStream.writeUTF("Hola!! Sóc el servidor.");
 
-            diStream.close();
-            doStream.close();
-            sServer.close();
+
+
+
+            //diStream.close();
+            //doStream.close();
+            //sServer.close();
         }
+
+
 
     }
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Server {
     private int serverPort;
     private UsuariManager usuariManager;
-    private HashMap<String, User> users;
+    private static HashMap<String, User> users;
 
 
     public Server(UsuariManager usuariManager) throws IOException {
@@ -20,7 +20,7 @@ public class Server {
     //---------------------------------------------------------------------------------------//
 
     public boolean comprobarLogIn(String username, String password){
-
+        System.out.println("login = true");
         return true;
     }
 
@@ -61,6 +61,6 @@ public class Server {
 
     public int getServerPort() { return serverPort; }
     public void setServerPort(int serverPort) { this.serverPort = serverPort; }
-    public HashMap<String, User> getUsers() { return users; }
+    public static HashMap<String, User> getUsers() { return users; }
     public void setUsers(HashMap<String, User> users) { this.users = users; }
 }

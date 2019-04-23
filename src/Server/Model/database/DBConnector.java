@@ -1,15 +1,6 @@
 package Server.Model.database;
 
-import Server.Model.Server;
-
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnector {
         private static String userName;

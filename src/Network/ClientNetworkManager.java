@@ -32,9 +32,9 @@ public class ClientNetworkManager{
         System.out.println("el server dice: " + respostaServer);
 
 
-        diStream.close();
-        doStream.close();
-        disconnectClient();
+        //diStream.close();
+        //doStream.close();
+        //disconnectClient();
     }
 
     public void disconnectClient() {

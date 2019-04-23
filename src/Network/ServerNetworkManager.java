@@ -23,8 +23,9 @@ public class ServerNetworkManager {
 
     private static final int PORT = 9999;
 
-    public ServerNetworkManager() throws IOException {
+    public ServerNetworkManager(Server server) throws IOException {
         this.sServer = new ServerSocket(PORT);
+        this.server = server;
     }
 
     public void connectServer() throws IOException, ClassNotFoundException {
@@ -47,6 +48,8 @@ public class ServerNetworkManager {
                 case 1:
                     String username = diStream.readUTF();
                     String password = diStream.readUTF();
+                    System.out.println("username = " + username);
+                    System.out.println("password = " + password);
                     ok = server.comprobarLogIn(username, password);
                     doStream.writeBoolean(ok);
                     break;
@@ -67,6 +70,10 @@ public class ServerNetworkManager {
                     currentUser = (User) oiStream.readObject();
                     likedUser = (User) oiStream.readObject();
                     server.declineUser(currentUser, likedUser);
+                    break;
+
+                default:
+                    System.out.println("DEFAULT!!!");
                     break;
             }
 

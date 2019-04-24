@@ -1,49 +1,66 @@
 package Server.Model;
+import Server.Model.entity.UsuariManager;
+import User.Model.Match;
 import User.Model.User;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.HashMap;
 
 public class Server {
     private int serverPort;
-    private Socket sClient;
-    private ServerSocket sServer;
-    private DataOutputStream doStream;
-    private DataInputStream diStream;
+    private UsuariManager usuariManager;
+    private HashMap<String, User> users;
 
-    public Server() throws IOException {
-        this.serverPort = 34567;
-        this.sClient = new Socket();
 
+    public Server(UsuariManager usuariManager) throws IOException {
+        this.usuariManager = usuariManager;
+        this.users = new HashMap<>();
     }
 
-    public void start() throws IOException {
+    //---------------------------------------------------------------------------------------//
 
+    public boolean comprobarLogIn(String username, String password){
 
-        try (var sServer = new ServerSocket(serverPort)) {
-            System.out.println("The date server is running...");
-            while (true) {
-                try (var sClient = sServer.accept()) {
-                    diStream = new DataInputStream(sClient.getInputStream());
-                    doStream = new DataOutputStream(sClient.getOutputStream());
+        return true;
+    }
 
-                    doStream.writeUTF("Hola!! Sóc el servidor.");
+    public boolean comprobarRegistro(User user){
 
-                }
+        return true;
+    }
+
+    public void acceptUser(User currentUser, User userLike){
+        //TODO: modificar esto en la BBDD
+        currentUser.getListaLikedUsers().add(userLike);
+        for (User u : userLike.getListaLikedUsers()){
+            if (u == currentUser){
+                String id = currentUser.getId() + "-" + userLike.getId();
+                Match match = new Match(currentUser, userLike, id);
+                currentUser.getListaMatch().put(id, match);
+                userLike.getListaMatch().put(id, match);
+                //TODO informar a los 2 users de que ha habido un match
             }
         }
     }
 
-    public boolean logIn(String password, String username){
-        //SARA Y MARCEL ESTO PAH VOSOTROS!!!
-        return true;
+    public void declineUser(User currentUser, User userLike){
+        //TODO: ns que coño se ha de hacer
     }
 
-    public boolean registration(User user){
-        //SARA Y MARCEL ESTO PAH VOSOTROS!!!
+
+
+
+
+
+
+    /*public boolean registration(String userName, int edat, String premium, String correo, String password){
+        Usuari u = new Usuari(userName,edat,premium,correo,password,null,null,null);
+        usuariManager.addUsuari(u);
         return true;
-    }
+    }*/
+
+    public int getServerPort() { return serverPort; }
+    public void setServerPort(int serverPort) { this.serverPort = serverPort; }
+    public HashMap<String, User> getUsers() { return users; }
+    public void setUsers(HashMap<String, User> users) { this.users = users; }
 }

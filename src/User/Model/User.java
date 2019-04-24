@@ -1,17 +1,12 @@
 package User.Model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import javax.persistence.*;
 
-
-@Entity
 public class User {
-    @Id
+    private int id;
     private String userName;
     private int edat;
     private boolean premium;
@@ -20,16 +15,13 @@ public class User {
     private String urlFoto;
     private String lenguaje;
     private String description;
-    private ArrayList<Match> listaMatch;
-    private ArrayList<User> listaAcceptedUsers;
-    private int serverPort;
-    private Socket sServidor;
-    private DataOutputStream doStream;
-    private DataInputStream diStream;
+    private HashMap<String, Match> listaMatch;
+    private ArrayList<User> listaUsers;
+    private ArrayList<User> listaLikedUsers;
 
-    public User(String userName, int edat, boolean premium, String correo, String password,
-                String urlFoto, String lenguaje, String description){
-        this.serverPort = 34567;
+    public User(int id, String userName, int edat, boolean premium, String correo, String password,
+                String urlFoto, String lenguaje, String description, ArrayList<User> matches){
+        this.id = id;
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
@@ -38,17 +30,9 @@ public class User {
         this.urlFoto = urlFoto;
         this.lenguaje = lenguaje;
         this.description = description;
-        this.listaMatch = new ArrayList<>();
-        this.listaAcceptedUsers = new ArrayList<>();
-    }
-
-    public void start() throws IOException {
-        sServidor = new Socket("127.0.0.1", serverPort);
-        doStream = new DataOutputStream(sServidor.getOutputStream());
-        diStream = new DataInputStream(sServidor.getInputStream());
-        String respostaServer = diStream.readUTF();
-        System.out.println("el server dice: " + respostaServer);
-        sServidor.close();
+        this.listaMatch = new HashMap<>();
+        this.listaUsers = matches;
+        this.listaLikedUsers = new ArrayList<>();
     }
 
     public String getUserName() { return userName; }
@@ -67,8 +51,12 @@ public class User {
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-    public ArrayList<Match> getListaMatch() { return listaMatch; }
-    public void setListaMatch(ArrayList<Match> listaMatch) { this.listaMatch = listaMatch; }
-    public ArrayList<User> getListaAcceptedUsers() { return listaAcceptedUsers; }
-    public void setListaAcceptedUsers(ArrayList<User> listaAcceptedUsers) { this.listaAcceptedUsers = listaAcceptedUsers; }
+    public HashMap<String, Match> getListaMatch() { return listaMatch; }
+    public void setListaMatch(HashMap<String, Match> listaMatch) { this.listaMatch = listaMatch; }
+    public ArrayList<User> getListaUsers() { return listaUsers; }
+    public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public ArrayList<User> getListaLikedUsers() { return listaLikedUsers; }
+    public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
 }

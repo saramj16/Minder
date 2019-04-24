@@ -1,26 +1,20 @@
 package User;
 
-import java.io.IOException;
-import User.View.AutenticationView;
+import Network.ClientNetworkManager;
 import User.Controller.ControllerClient;
-import User.Model.User;
-import User.View.View;
+import User.View.AutenticationView;
+
+import java.io.IOException;
 
 public class MainUser {
     public static void main(String[] args) throws IOException {
 
-        User user = new User("Javo", 21, true, "javo@gmail.com", "pene",
-                "hola", "java", "puto parguelas y marcel tambien");
-
-        View view = new View(user);
+        ClientNetworkManager networkManager = new ClientNetworkManager();
         AutenticationView autenticationView = new AutenticationView();
-        ControllerClient controller = new ControllerClient(autenticationView);
+        ControllerClient controller = new ControllerClient(autenticationView, networkManager);
 
-
-        user.start();
+        networkManager.connectClient();
         controller.start();
         autenticationView.setVisible(true);
-        view.setVisible(true);
-
     }
 }

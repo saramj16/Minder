@@ -1,11 +1,8 @@
 package User.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
+
 public class Mensaje {
-    @Id
     private int id; //num de linea
     private String mensaje;
     private User userSend;

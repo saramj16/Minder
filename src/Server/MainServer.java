@@ -1,6 +1,9 @@
 package Server;
 
+import Network.ServerNetworkManager;
 import Server.Model.Server;
+import Server.Model.entity.Usuari;
+import Server.Model.entity.UsuariManager;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import configReader.Configuration;
@@ -13,8 +16,19 @@ public class MainServer {
 
 
     
-    public static void main(String[] args) throws IOException {
-        Server server = new Server();
+    public static void main(String[] args){
+        Server server;
+        ServerNetworkManager networkManager = null;
+        UsuariManager model = new UsuariManager();
+
+
+       try {
+            server = new Server(model);
+            networkManager = new ServerNetworkManager();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Configuration config;
         Gson gson = new Gson();
         JsonReader jReader;         //Lector
@@ -28,7 +42,16 @@ public class MainServer {
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
 
-            server.start();
+            try {
+                if (networkManager != null) {
+                    networkManager.connectServer();
+
+                } else {
+                    System.out.println("Null");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
             System.out.println("Error: Fitxer no trobat.");

@@ -1,23 +1,29 @@
 package User.Controller;
 
+import Network.ClientNetworkManager;
 import Server.Model.Server;
+import User.Model.Mensaje;
+import User.Model.User;
 import User.View.AutenticationView;
 import User.View.RegistrationView;
-import User.Model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
+    private ClientNetworkManager networkManager;
     private Server server;
+    private User currentUser;
 
 
-    public ControllerClient(AutenticationView autenticationView){
+    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager){
         this.autenticationView = autenticationView;
+        this.networkManager = networkManager;
     }
 
     public void start(){
@@ -28,7 +34,7 @@ public class ControllerClient implements ActionListener {
 
         String username;
         String password;
-        User user;
+        User user, userLike;
 
         boolean ok = false;
 
@@ -40,11 +46,15 @@ public class ControllerClient implements ActionListener {
                 if (username.equals("") || password.equals("")){
                     JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos!");
                 }else{
-                    ok = server.logIn(password, username);
-
+                    try {
+                        ok = networkManager.functionalities(1, username, password);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (!ok) {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
+                        this.currentUser = server.getUsers().get(username);
                         //llamamos a la ventana principal
                     }
                 }
@@ -62,12 +72,54 @@ public class ControllerClient implements ActionListener {
                 try {
                     user = newUserFromRegistration();
                     if (user != null) {
-                        registrationView.setVisible(false);
-                        server.registration(user);
+                        ok = networkManager.functionalities(2, user, null);
+                        if (ok){
+                            this.currentUser = user;
+                            registrationView.setVisible(false);
+                            //TODO: llamamos vista principal
+                        }else{
+                            System.out.println("algun tipo de error al registrar usuario");
+                        }
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+
+            case "AcceptUser":
+                // pillamos el user al que le ha dado like userLike =
+                try {
+                    //TODO:3er parámetro ha de ser userLike!!!!!!
+                    networkManager.functionalities(3, currentUser, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case "DeclineUser":
+                // pillamos el user al que le ha dado dislike userLike =
+                try {
+                    //TODO:3er parámetro ha de ser userLike!!!!!!
+                    networkManager.functionalities(4, currentUser, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case "EditarPerfil":
+                //llamamos a la vista de editar perfil
+                break;
+
+            case "GuardarPerfil":
+                //nos guardamos toda la info y volvemos a pantalla principal
+                break;
+
+            case "enviarMensage":
+                /*pillamos el match que ha clicado --> match =
+                Mensaje mensaje = getMensaje();
+                currentUser.getListaMatch().get(match.getId).getChat().add(mensaje);
+                userLike.getListaMatch().get(match.getId).getChat().add(mensaje);*/
                 break;
         }
     }
@@ -90,17 +142,25 @@ public class ControllerClient implements ActionListener {
         urlFoto = getRegistrationView().getUrlFoto().getText();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
+        ArrayList<User> listaMatch = new ArrayList<>(server.getUsers().values());
+        //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
-            User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+            int id = server.getUsers().size();
+            User user = new User(id, username, edat, false, correo, password, urlFoto, lenguaje, descripción, listaMatch);
             return user;
         }else{
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
             return null;
         }
+
     }
 
+    private Mensaje getMensaje(){
+        Mensaje mensaje = null;
 
+        return mensaje;
+    }
 
     public AutenticationView getAutenticationView() { return autenticationView; }
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }

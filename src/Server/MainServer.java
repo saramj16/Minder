@@ -49,8 +49,6 @@ public class MainServer {
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
 
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json

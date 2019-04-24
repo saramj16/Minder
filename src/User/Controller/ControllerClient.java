@@ -54,7 +54,7 @@ public class ControllerClient implements ActionListener {
                     if (!ok) {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
-                        this.currentUser = server.getUsers().get(username);
+                        this.currentUser = Server.getUsers().get(username);
                         //llamamos a la ventana principal
                     }
                 }

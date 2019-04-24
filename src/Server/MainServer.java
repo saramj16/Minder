@@ -2,7 +2,6 @@ package Server;
 
 import Network.ServerNetworkManager;
 import Server.Model.Server;
-import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -24,7 +23,7 @@ public class MainServer {
 
        try {
             server = new Server(model);
-            networkManager = new ServerNetworkManager();
+            networkManager = new ServerNetworkManager(server);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +48,7 @@ public class MainServer {
                 } else {
                     System.out.println("Null");
                 }
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

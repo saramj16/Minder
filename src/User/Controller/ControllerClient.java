@@ -146,8 +146,8 @@ public class ControllerClient implements ActionListener {
         //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
-            int id = server.getUsers().size();
-            User user = new User(id, username, edat, false, correo, password, urlFoto, lenguaje, descripción, listaMatch);
+           int id = server.getUsers().size();
+            User user = new User(0, username, edat, false, correo, password, urlFoto, lenguaje, descripción);
             return user;
         }else{
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");

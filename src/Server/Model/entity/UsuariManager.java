@@ -4,6 +4,8 @@ import Server.Model.database.dao.MatxDAO;
 import Server.Model.database.dao.MissatgeDAO;
 import Server.Model.database.dao.UsuariDAO;
 
+import java.sql.SQLException;
+
 public class UsuariManager {
     private MatxDAO matxDAO;
     private MissatgeDAO missatgeDAO;
@@ -33,5 +35,9 @@ public class UsuariManager {
 
     public void deleteUsuari(String nom) {
         usuariDAO.deleteUsuari(nom);
+    }
+
+    public boolean comprovaLogin(String username, String password) throws SQLException {
+       return usuariDAO.comprovaUsuari(username,password);
     }
 }

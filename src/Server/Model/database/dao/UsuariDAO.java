@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class UsuariDAO {
+
     public void addUsuari(Usuari usuari) {
         String query = "INSERT INTO Usuari(userName, edat, premium, correo, contrasena) VALUES ('"+usuari.getUserName()+"', '"
-                +usuari.getEdat()+"', '"+usuari.isPremium()+"', '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
+                +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);
     }
@@ -45,5 +46,20 @@ public class UsuariDAO {
         String query = "UPDATE Usuari SET urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
         System.out.println(query);
         DBConnector.getInstance().updateQuery(query);
+    }
+
+    public boolean comprovaUsuari(String username, String password) throws SQLException {
+        String query = "SELECT userName FROM Usuari WHERE userName = '"+username+"' AND contsasena = '" + password + "';";
+        System.out.println(query);
+        ResultSet resultat = DBConnector.getInstance().selectQuery(query);
+
+        String nom = resultat.getString("userName");
+        String contrasenya = resultat.getString("contrasena");
+
+        if (username.equals(nom) && password.equals(contrasenya)){
+            return true;
+        }
+
+        return false;
     }
 }

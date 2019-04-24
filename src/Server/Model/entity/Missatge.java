@@ -8,11 +8,13 @@ public class Missatge {
     private int id; //num de linea
     private String missatge;
     private String userSend;
+    private String userReceive;
 
-    public Missatge(int id, String missatge, String userSend) {
+    public Missatge(int id, String missatge, String userSend, String userReceive) {
         this.id = id;
         this.missatge = missatge;
         this.userSend = userSend;
+        this.userReceive = userReceive;
     }
 
 
@@ -23,4 +25,12 @@ public class Missatge {
     public void setMissatge(String mensaje) { this.missatge = missatge; }
     public String getUserSend() { return userSend; }
     public void setUserSend(String userSend) { this.userSend = userSend; }
+
+    public String getUserReceive() {
+        return userReceive;
+    }
+
+    public void setUserReceive(String userReceive) {
+        this.userReceive = userReceive;
+    }
 }

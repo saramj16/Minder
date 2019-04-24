@@ -37,7 +37,6 @@ public class MainServer {
             config = gson.fromJson(jReader, Configuration.class);                       //Llegeix el fitxer Json
 
             //debug
-
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
 
@@ -49,6 +48,8 @@ public class MainServer {
                     System.out.println("Null");
                 }
             } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

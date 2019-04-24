@@ -1,23 +1,18 @@
 package Server.Model.entity;
 
 public class Matx {
-    private int id;
     private String user1;
     private String user2;
+    private boolean matx;
+    private boolean vist;
 
-    public Matx(int id, String user1, String user2) {
-        this.id = id;
+    public Matx(String user1, String user2, boolean matx, boolean vist) {
         this.user1 = user1;
         this.user2 = user2;
+        this.matx = matx;
+        this.vist = vist;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUser1() {
         return user1;
@@ -33,5 +28,21 @@ public class Matx {
 
     public void setUser2(String user2) {
         this.user2 = user2;
+    }
+
+    public boolean isMatx() {
+        return matx;
+    }
+
+    public void setMatx(boolean matx) {
+        this.matx = matx;
+    }
+
+    public boolean isVist() {
+        return vist;
+    }
+
+    public void setVist(boolean vist) {
+        this.vist = vist;
     }
 }

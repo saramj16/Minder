@@ -35,6 +35,9 @@ public class User {
         this.listaLikedUsers = new ArrayList<>();
     }
 
+    public User(int id, String username, int edat, boolean b, String correo, String password, String urlFoto, String lenguaje, String descripción) {
+    }
+
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
     public int getEdat() { return edat; }

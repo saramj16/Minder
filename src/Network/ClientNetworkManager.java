@@ -78,12 +78,5 @@ public class ClientNetworkManager{
 
         return ok;
     }
-    public boolean newUser(User user) throws IOException {
-            doStream.writeUTF("Registra");
-            ooStream.writeObject(user);
-
-            //el server habrá de devolver un booleano según se ha puesto el nuevo user o no
-            return true;
-    }
 
 }

@@ -6,14 +6,14 @@ import Server.Model.database.DBConnector;
 
 public class MatxDAO {
     public void addMatx(Matx matx) {
-        String query = "INSERT INTO Matx(id, user1, user2) VALUES ('"+matx.getId()+"', '"
-                + matx.getUser1()+"', '"+matx.getUser2() + "');";
+        String query = "INSERT INTO Matx(user1, user2, matx, vist) VALUES ('"+matx.getUser1()+"', '"
+                + matx.getUser2()+"', '"+matx.isMatx() + "' , '" + matx.isVist() + "';";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);
     }
 
-    public void deleteMatx(int id) {
-        String query = "DELETE FROM Matx WHERE id = '"+id+"';";
+    public void deleteMatx(String usuari) {
+        String query = "DELETE FROM Matx WHERE userName = '"+usuari+"';";
         System.out.println(query);
         DBConnector.getInstance().deleteQuery(query);
     }

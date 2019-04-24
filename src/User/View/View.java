@@ -126,7 +126,7 @@ public class View extends JFrame {
         JPanel jpInfoMatch = new JPanel();
 
         jpInfoMatch.setLayout(new GridLayout(5,1));
-        jlName = new JLabel("Sara Martí");
+        jlName = new JLabel("Sara Martí ");
         jlName.setFont(new Font("Arial", Font.PLAIN, 50));
         jpInfoMatch.add(jlName);
         jlAge = new JLabel("20");

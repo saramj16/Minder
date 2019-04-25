@@ -1,9 +1,11 @@
 package Server.Model;
+import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class Server {
@@ -21,12 +23,20 @@ public class Server {
 
     public boolean comprobarLogIn(String username, String password){
         System.out.println("login = true");
-        return true;
+        try {
+            return usuariManager.comprovaLogin(username,password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean comprobarRegistro(User user){
-
-        return true;
+        if (!usuariManager.searchUsuari(user.getUserName())){
+            usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword()));
+            return true;
+        }
+        return false;
     }
 
     public void acceptUser(User currentUser, User userLike){

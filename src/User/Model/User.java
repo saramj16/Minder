@@ -16,11 +16,11 @@ public class User {
     private String lenguaje;
     private String description;
     private HashMap<String, Match> listaMatch;
-    private ArrayList<User> listaUsers;
-    private ArrayList<User> listaLikedUsers;
+    //private ArrayList<User> listaUsers;
+    //private ArrayList<User> listaLikedUsers;
 
     public User(int id, String userName, int edat, boolean premium, String correo, String password,
-                String urlFoto, String lenguaje, String description, ArrayList<User> matches){
+                String urlFoto, String lenguaje, String description){
         this.id = id;
         this.userName = userName;
         this.edat = edat;
@@ -31,12 +31,10 @@ public class User {
         this.lenguaje = lenguaje;
         this.description = description;
         this.listaMatch = new HashMap<>();
-        this.listaUsers = matches;
-        this.listaLikedUsers = new ArrayList<>();
+        //this.listaUsers = matches;
+        //this.listaLikedUsers = new ArrayList<>();
     }
 
-    public User(int id, String username, int edat, boolean b, String correo, String password, String urlFoto, String lenguaje, String descripción) {
-    }
 
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
@@ -56,10 +54,10 @@ public class User {
     public void setDescription(String description) { this.description = description; }
     public HashMap<String, Match> getListaMatch() { return listaMatch; }
     public void setListaMatch(HashMap<String, Match> listaMatch) { this.listaMatch = listaMatch; }
-    public ArrayList<User> getListaUsers() { return listaUsers; }
-    public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }
+    //public ArrayList<User> getListaUsers() { return listaUsers; }
+    //public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    public ArrayList<User> getListaLikedUsers() { return listaLikedUsers; }
-    public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
+    //public ArrayList<User> getListaLikedUsers() { return listaLikedUsers; }
+    //public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
 }

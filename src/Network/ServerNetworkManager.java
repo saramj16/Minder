@@ -77,10 +77,10 @@ public class ServerNetworkManager {
                     break;
             }
 
-            diStream.close();
-            doStream.close();
-            sServer.close();
-            oiStream.close();
+            //diStream.close();
+            //doStream.close();
+            //sServer.close();
+            //oiStream.close();
         }
 
     }

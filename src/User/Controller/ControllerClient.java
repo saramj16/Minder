@@ -6,6 +6,7 @@ import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
 import User.View.RegistrationView;
+import User.View.View;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
     private ClientNetworkManager networkManager;
+    private View mainView;
     private Server server;
     private User currentUser;
 
@@ -54,8 +56,10 @@ public class ControllerClient implements ActionListener {
                     if (!ok) {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
+                        autenticationView.setVisible(false);
                         this.currentUser = Server.getUsers().get(username);
-                        //llamamos a la ventana principal
+                        mainView = new View(currentUser);
+
                     }
                 }
                 break;

@@ -9,7 +9,8 @@ public class MatxDAO {
         String query = "INSERT INTO Matx(user1, user2, matx, vist) VALUES ('"+matx.getUser1()+"', '"
                 + matx.getUser2()+"', '"+matx.isMatx() + "' , '" + matx.isVist() + "';";
         System.out.println(query);
-        DBConnector.getInstance().insertQuery(query);
+        DBConnector dbConnector =  DBConnector.getInstance();
+        dbConnector.insertQuery(query);
     }
 
     public void deleteMatx(String usuari) {

@@ -9,24 +9,31 @@ import java.util.LinkedList;
 
 public class UsuariDAO {
 
+    private DBConnector dbConnector;
+
+    public UsuariDAO(){
+        dbConnector = DBConnector.getInstance();
+    }
+
+
     public void addUsuari(Usuari usuari) {
         String query = "INSERT INTO Usuari(userName, edat, premium, correo, contrasena) VALUES ('"+usuari.getUserName()+"', '"
                 +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
         System.out.println(query);
-        DBConnector.getInstance().insertQuery(query);
+        dbConnector.insertQuery(query);
     }
 
     public void deleteUsuari (String userName){
         String query = "DELETE FROM Usuari WHERE userName = '"+userName+"';";
         System.out.println(query);
-        DBConnector.getInstance().deleteQuery(query);
+        dbConnector.deleteQuery(query);
     }
 
     public boolean searchUsuari(String userName) {
 
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
         System.out.println(query);
-        ResultSet resultat = DBConnector.getInstance().selectQuery(query);
+        ResultSet resultat = dbConnector.selectQuery(query);
 
         try{
             while(resultat.next()){
@@ -45,13 +52,13 @@ public class UsuariDAO {
     public void modificaUsuari(Usuari u) {
         String query = "UPDATE Usuari SET urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
         System.out.println(query);
-        DBConnector.getInstance().updateQuery(query);
+        dbConnector.updateQuery(query);
     }
 
     public boolean comprovaUsuari(String username, String password) throws SQLException {
-        String query = "SELECT userName FROM Usuari WHERE userName = '"+username+"' AND contsasena = '" + password + "';";
+        String query = "SELECT * FROM Usuari WHERE userName = '"+username+"' AND contrasena = '" + password + "';";
         System.out.println(query);
-        ResultSet resultat = DBConnector.getInstance().selectQuery(query);
+        ResultSet resultat = dbConnector.selectQuery(query);
 
         String nom = resultat.getString("userName");
         String contrasenya = resultat.getString("contrasena");

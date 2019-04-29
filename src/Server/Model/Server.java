@@ -40,7 +40,7 @@ public class Server {
     }
 
     public void acceptUser(User currentUser, User userLike){
-        //TODO: modificar esto en la BBDD
+     /*   //TODO: modificar esto en la BBDD
         currentUser.getListaLikedUsers().add(userLike);
         for (User u : userLike.getListaLikedUsers()){
             if (u == currentUser){
@@ -50,7 +50,7 @@ public class Server {
                 userLike.getListaMatch().put(id, match);
                 //TODO informar a los 2 users de que ha habido un match
             }
-        }
+        }*/
     }
 
     public void declineUser(User currentUser, User userLike){

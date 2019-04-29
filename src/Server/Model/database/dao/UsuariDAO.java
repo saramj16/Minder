@@ -69,4 +69,30 @@ public class UsuariDAO {
 
         return false;
     }
+
+
+    public  LinkedList<Usuari> getAllUsuari() {
+
+        String query = "SELECT * FROM Usuari;";
+        System.out.println(query);
+        ResultSet resultat = dbConnector.selectQuery(query);
+        System.out.println(resultat);
+
+        LinkedList<Usuari> usuariList = new LinkedList<>();
+
+
+        try{
+
+            while (resultat.next()) {
+                Usuari usuari = new Usuari(resultat.getString("userName"), resultat.getInt("edat"), resultat.getBoolean("premium"), resultat.getString("correo"), resultat.getString("password"), resultat.getString("urlFoto"),resultat.getString("lenguaje"), resultat.getString("description") );
+                usuariList.add(usuari);
+                System.out.println(usuari.getUserName());
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuariList;
+    }
 }

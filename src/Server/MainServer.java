@@ -40,7 +40,7 @@ public class MainServer {
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
 
-            model.getAllUsuari();
+
 
             try {
                 if (networkManager != null) {

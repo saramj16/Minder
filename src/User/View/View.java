@@ -1,9 +1,12 @@
 package User.View;
 
+import User.Model.Mensaje;
 import User.Model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class View extends JFrame {
     private final int WIDTH = 800;  //Amplada
@@ -61,6 +64,8 @@ public class View extends JFrame {
     private JTextField jtfMessage;
     private JButton jbSend;
 
+    private ArrayList<ClosedChat> chats;
+
 
 
     public View(User user) {
@@ -72,7 +77,17 @@ public class View extends JFrame {
         tabbedPane.add("Matches",getJpMatches(user));
         tabbedPane.add("Chats",getJpChats(user));
 
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //chats = new ArrayList<>();
+        ClosedChat[] chats = new ClosedChat[10];
+        //chats[1] = new ClosedChat();
+        //showClosedChats(chats, actionListener);
+        for (int i = 0; i < 10; i++) {
+            ClosedChat chat = new ClosedChat();
+            chats[i] = chat;
+        }
+
+
+            this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(tabbedPane);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
@@ -87,6 +102,11 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         jpProfilePic.setBackground(Color.BLUE);
+
+        ImagePanel imgPanel = new ImagePanel("/koala.jpg");
+        jpProfilePic.add(imgPanel);
+        //imgPanel.paintComponent(new  );
+
         jpProfile.add(jpProfilePic);
 
         //Panel Info
@@ -159,10 +179,14 @@ public class View extends JFrame {
 
         JScrollPane scrollpaneChats = new JScrollPane();
         //Aqui van els chats tancats
-        jpMatches.add(scrollpaneChats);
+        //jpMatches.add(scrollpaneChats);
 
         //Part dreta, on van els missatges d'una conversa
         JPanel jpChat = new JPanel(null);
+        jpChat = showClosedChats(jpChat);
+        scrollpaneChats.add(jpChat);
+
+        jpMatches.add(scrollpaneChats);
 
         JTextArea jtaMessages = new JTextArea("Javo: Como van las vistas \nManel: De puta madre\nJavo: haberlas");
         jtfMessage = new JTextField(30);
@@ -185,5 +209,31 @@ public class View extends JFrame {
         jpMatches.add(jpChat);
 
         return jpMatches;
+    }
+
+
+    //public void showClosedChats(ClosedChat[] chats, ActionListener actionListener) {
+    //public void showClosedChats(ClosedChat[] chats) {
+    public JPanel showClosedChats(JPanel jpChat) {
+
+        //jpChat.setLayout(new BoxLayout());
+        //chats.clear();
+        //jpChats.removeAll();
+
+        User manel = new User(1234, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
+
+        for (int i = 0; i < 10; i++){
+            //ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ), actionListener);
+            ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ));
+//            jpChats.add(closedChat);
+            //chats.add(closedChat);
+            System.out.println(i);
+//            jpChats.add(closedChat);
+        }
+
+//        jpChats.validate();
+  //      jpChats.repaint();
+
+        return jpChat;
     }
 }

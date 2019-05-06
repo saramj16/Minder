@@ -1,12 +1,15 @@
 package Server.Model;
+import Server.Model.database.DBConnector;
 import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.User;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Server {
     private int serverPort;
@@ -40,7 +43,7 @@ public class Server {
     }
 
     public void acceptUser(User currentUser, User userLike){
-        //TODO: modificar esto en la BBDD
+     /*   //TODO: modificar esto en la BBDD
         currentUser.getListaLikedUsers().add(userLike);
         for (User u : userLike.getListaLikedUsers()){
             if (u == currentUser){
@@ -50,7 +53,7 @@ public class Server {
                 userLike.getListaMatch().put(id, match);
                 //TODO informar a los 2 users de que ha habido un match
             }
-        }
+        }*/
     }
 
     public void declineUser(User currentUser, User userLike){
@@ -73,4 +76,18 @@ public class Server {
     public void setServerPort(int serverPort) { this.serverPort = serverPort; }
     public static HashMap<String, User> getUsers() { return users; }
     public void setUsers(HashMap<String, User> users) { this.users = users; }
+
+
+    public LinkedList<Usuari> getAllUsers() throws SQLException {
+       return usuariManager.getAllUsuari();
+    }
+
+
+
+
+
+
 }
+
+
+

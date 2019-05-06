@@ -5,6 +5,7 @@ import Server.Model.database.dao.MissatgeDAO;
 import Server.Model.database.dao.UsuariDAO;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class UsuariManager {
     private MatxDAO matxDAO;
@@ -40,4 +41,9 @@ public class UsuariManager {
     public boolean comprovaLogin(String username, String password) throws SQLException {
        return usuariDAO.comprovaUsuari(username,password);
     }
-}
+
+    public LinkedList<Usuari> getAllUsuari() {
+        return usuariDAO.getAllUsuari();
+    }
+
+    }

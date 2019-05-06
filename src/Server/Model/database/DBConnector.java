@@ -3,13 +3,13 @@ package Server.Model.database;
 import java.sql.*;
 
 public class DBConnector {
-        private static String userName;
-        private static String password;
-        private static String db;
-        private static int port;
-        private static String url = "jdbc:mysql://localhost";
-        private static Connection conn;
-        private static Statement s;
+        private String userName;
+        private String password;
+        private String db;
+        private int port;
+        private String url = "jdbc:mysql://localhost";
+        private Connection conn;
+        private Statement s;
         private static DBConnector instance;
 
         private DBConnector(String usr, String pass, String db, int port) {
@@ -24,16 +24,15 @@ public class DBConnector {
 
         public static DBConnector getInstance(){
             if(instance == null){
-                instance = new DBConnector("root", "root", "minder", 3306);
+                instance = new DBConnector("root", "5432", "minder", 3306);
                 instance.connect();
-
             }
-            return  instance;
+            return instance;
         }
 
         public void connect() {
             try {
-                Class.forName("com.mysql.jdbc.Connection");
+                //Class.forName("com.mysql.jdbc.Connection");
 
                 conn = (Connection) DriverManager.getConnection(url, userName, password);
                 if (conn != null) {
@@ -41,10 +40,8 @@ public class DBConnector {
                 }
             }
             catch(SQLException ex) {
+                ex.printStackTrace();
                 System.out.println("Problema al connecta-nos a la BBDD --> "+url);
-            }
-            catch(ClassNotFoundException ex) {
-                System.out.println(ex);
             }
 
         }
@@ -83,7 +80,7 @@ public class DBConnector {
         public ResultSet selectQuery(String query){
             ResultSet rs = null;
             try {
-                s =(Statement) conn.createStatement();
+                s = (Statement) conn.createStatement();
                 rs = s.executeQuery (query);
 
             } catch (SQLException ex) {

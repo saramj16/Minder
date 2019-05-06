@@ -21,6 +21,8 @@ public class ControllerClient implements ActionListener {
     private View mainView;
     private Server server;
     private User currentUser;
+    private ArrayList<User> connectedUsers;
+    private int contadorMuestreoUsersConectados = 0;
 
 
     public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager){
@@ -57,8 +59,8 @@ public class ControllerClient implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
                         autenticationView.setVisible(false);
-                        this.currentUser = Server.getUsers().get(username);
-                        mainView = new View(currentUser);
+                        this.currentUser = server.getUsers().get(username);
+                        this.mainView = new View(currentUser);
 
                     }
                 }
@@ -80,7 +82,8 @@ public class ControllerClient implements ActionListener {
                         if (ok){
                             this.currentUser = user;
                             registrationView.setVisible(false);
-                            //TODO: llamamos vista principal
+                            this.mainView = new View(currentUser);
+
                         }else{
                             System.out.println("algun tipo de error al registrar usuario");
                         }
@@ -96,6 +99,9 @@ public class ControllerClient implements ActionListener {
                 try {
                     //TODO:3er parámetro ha de ser userLike!!!!!!
                     networkManager.functionalities(3, currentUser, null);
+                    contadorMuestreoUsersConectados++;
+                    mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -106,6 +112,8 @@ public class ControllerClient implements ActionListener {
                 try {
                     //TODO:3er parámetro ha de ser userLike!!!!!!
                     networkManager.functionalities(4, currentUser, null);
+                    contadorMuestreoUsersConectados++;
+                    mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -68,14 +68,14 @@ public class View extends JFrame {
 
 
 
-    public View(User user) {
+    public View(User currentUser, User firstConnectedUser) {
 
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
-        tabbedPane.add("Profile",getJpProfile(user));
-        tabbedPane.add("Matches",getJpMatches(user));
-        tabbedPane.add("Chats",getJpChats(user));
+        tabbedPane.add("Profile",getJpProfile(currentUser));
+        tabbedPane.add("Matches",getJpMatches(firstConnectedUser));
+        tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
         ClosedChat[] chats = new ClosedChat[10];
@@ -86,8 +86,7 @@ public class View extends JFrame {
             chats[i] = chat;
         }
 
-
-            this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(tabbedPane);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
@@ -112,16 +111,16 @@ public class View extends JFrame {
         //Panel Info
         JPanel jpInfoProfile = new JPanel();
         jpInfoProfile.setLayout(new GridLayout(5,1));
-        jlName = new JLabel("Manel López");
+        jlName = new JLabel(user.getUserName());
         jlName.setFont(new Font("Arial", Font.PLAIN, 50));
         jpInfoProfile.add(jlName);
-        jlAge = new JLabel("22");
+        jlAge = new JLabel(String.valueOf(user.getEdat()));
         jlAge.setFont(new Font("Arial", Font.PLAIN, 40));
         jpInfoProfile.add(jlAge);
-        jlLanguage = new JLabel("Java");
+        jlLanguage = new JLabel(user.getLenguaje());
         jlLanguage.setFont(new Font("Arial", Font.PLAIN, 40));
         jpInfoProfile.add(jlLanguage);
-        jtaDescription = new JTextArea("Lorem ipsum noseque.");
+        jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setFont(new Font("Arial", Font.PLAIN, 20));
         jpInfoProfile.add(jtaDescription);
         jbEditProfile = new JButton("Editar Perfil");
@@ -132,6 +131,7 @@ public class View extends JFrame {
 
         return jpProfile;
     }
+
 
     public JPanel getJpMatches(User user) {
         jpMatches = new JPanel();
@@ -145,17 +145,17 @@ public class View extends JFrame {
         //Panel Info
         JPanel jpInfoMatch = new JPanel();
 
-        jpInfoMatch.setLayout(new GridLayout(5,1));
-        jlName = new JLabel("Sara Martí ");
+        jpInfoMatch.setLayout(new GridLayout(5, 1));
+        jlName = new JLabel(user.getUserName());
         jlName.setFont(new Font("Arial", Font.PLAIN, 50));
         jpInfoMatch.add(jlName);
-        jlAge = new JLabel("20");
+        jlAge = new JLabel(String.valueOf(user.getEdat()));
         jlAge.setFont(new Font("Arial", Font.PLAIN, 40));
         jpInfoMatch.add(jlAge);
-        jlLanguage = new JLabel("Java");
+        jlLanguage = new JLabel(user.getLenguaje());
         jlLanguage.setFont(new Font("Arial", Font.PLAIN, 40));
         jpInfoMatch.add(jlLanguage);
-        jtaDescription = new JTextArea("Lorem ipsum mimimi.");
+        jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setFont(new Font("Arial", Font.PLAIN, 20));
         jpInfoMatch.add(jtaDescription);
 
@@ -235,5 +235,13 @@ public class View extends JFrame {
   //      jpChats.repaint();
 
         return jpChat;
+    }
+
+    public void autenticationController(ActionListener controller){
+        jbMatchYes.addActionListener(controller);
+        jbMatchYes.setActionCommand("AcceptUser");
+
+        jbMatchNo.addActionListener(controller);
+        jbMatchNo.setActionCommand("DeclineUser");
     }
 }

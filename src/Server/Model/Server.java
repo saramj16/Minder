@@ -5,21 +5,23 @@ import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.User;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server {
     private int serverPort;
     private UsuariManager usuariManager;
-    private static HashMap<String, User> users;
+    private  ArrayList<User> users;
 
 
     public Server(UsuariManager usuariManager) throws IOException {
         this.usuariManager = usuariManager;
-        this.users = new HashMap<>();
+        this.users = new ArrayList<>();
     }
 
     //---------------------------------------------------------------------------------------//
@@ -43,26 +45,23 @@ public class Server {
     }
 
     public void acceptUser(User currentUser, User userLike){
-     /*   //TODO: modificar esto en la BBDD
+        ArrayList<User> currentUserlikedUsers = new ArrayList<>();
+        ArrayList<User> userLikeLikedUsers = new ArrayList<>();
+
+        addLikedUserToCurrentUser(currentUser, userLike);
+        userLikeLikedUsers = getLikedUsers(userLike);
+        //TODO: modificar esto en la BBDD
         currentUser.getListaLikedUsers().add(userLike);
-        for (User u : userLike.getListaLikedUsers()){
+        for (User u : userLikeLikedUsers){
             if (u == currentUser){
                 String id = currentUser.getId() + "-" + userLike.getId();
                 Match match = new Match(currentUser, userLike, id);
                 currentUser.getListaMatch().put(id, match);
                 userLike.getListaMatch().put(id, match);
-                //TODO informar a los 2 users de que ha habido un match
+                JOptionPane.showMessageDialog(null, "NEW MATCH!");
             }
-        }*/
+        }
     }
-
-    public void declineUser(User currentUser, User userLike){
-        //TODO: ns que coño se ha de hacer
-    }
-
-
-
-
 
 
 
@@ -74,17 +73,8 @@ public class Server {
 
     public int getServerPort() { return serverPort; }
     public void setServerPort(int serverPort) { this.serverPort = serverPort; }
-    public static HashMap<String, User> getUsers() { return users; }
-    public void setUsers(HashMap<String, User> users) { this.users = users; }
-
-
-    public LinkedList<Usuari> getAllUsers() throws SQLException {
-       return usuariManager.getAllUsuari();
-    }
-
-
-
-
+    public ArrayList<User> getUsers() { return users; }
+    public void setUsers(ArrayList users) { this.users = users; }
 
 
 }

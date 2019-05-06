@@ -56,7 +56,7 @@ public class UsuariDAO {
     }
 
     public boolean comprovaUsuari(String username, String password) throws SQLException {
-        String query = "SELECT * FROM Usuari WHERE userName = '"+username+"' AND contrasena = '" + password + "';";
+        String query = "SELECT * FROM Usuari WHERE userName = "+username+"';";
         System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
 

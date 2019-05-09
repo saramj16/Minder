@@ -15,9 +15,9 @@ public class MainUser {
         AutenticationView autenticationView = new AutenticationView();
         ControllerClient controller = new ControllerClient(autenticationView, networkManager);
 
-        User manel = new User(6969, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
-        View view = new View(manel);
-        view.setVisible(true);
+      //  User manel = new User(6969, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
+       // View view = new View();
+       // view.setVisible(true);
 
         networkManager.connectClient();
         controller.start();

@@ -220,11 +220,11 @@ public class View extends JFrame {
         //chats.clear();
         //jpChats.removeAll();
 
-        User manel = new User(1234, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
+      //  User manel = new User(1234, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
 
         for (int i = 0; i < 10; i++){
             //ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ), actionListener);
-            ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ));
+         //   ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ));
 //            jpChats.add(closedChat);
             //chats.add(closedChat);
             System.out.println(i);

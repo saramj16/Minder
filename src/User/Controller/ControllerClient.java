@@ -67,9 +67,6 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-
-                        mainView = new View(currentUser);
-                        this.currentUser = server.getUsers().get(username);
                         this.mainView = new View(currentUser);
 
                     }

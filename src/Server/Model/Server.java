@@ -1,17 +1,13 @@
 package Server.Model;
-import Server.Model.database.DBConnector;
+
 import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.User;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Server {
     private int serverPort;
@@ -19,7 +15,7 @@ public class Server {
     private ArrayList<User> users;
 
 
-    public Server(UsuariManager usuariManager) throws IOException {
+    public Server(UsuariManager usuariManager) {
         this.usuariManager = usuariManager;
         try {
             this.users = getAllUsers();
@@ -54,21 +50,33 @@ public class Server {
 
     public void acceptUser(User currentUser, User userLike){
         ArrayList<User> currentUserlikedUsers = new ArrayList<>();
-        ArrayList<User> userLikeLikedUsers = new ArrayList<>();
+        ArrayList<User> userLikeLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
         userLikeLikedUsers = getLikedUsers(userLike);
-        //TODO: modificar esto en la BBDD
-        currentUser.getListaLikedUsers().add(userLike);
+
         for (User u : userLikeLikedUsers){
             if (u == currentUser){
-                String id = currentUser.getId() + "-" + userLike.getId();
+                //TODO de Javo -> ver como poner los IDs de los matches
+                /*String id = currentUser.getId() + "-" + userLike.getId();
                 Match match = new Match(currentUser, userLike, id);
                 currentUser.getListaMatch().put(id, match);
                 userLike.getListaMatch().put(id, match);
-                JOptionPane.showMessageDialog(null, "NEW MATCH!");
+                JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
+                //TODO de la bbdd -> añadir este nuevo match a los 2 usuarios
             }
         }
+    }
+
+    private ArrayList<User> getLikedUsers(User userLike) {
+        ArrayList likedUsers = null;
+
+        //TODO pillar la lista de todos los users que el userLike ha dado like
+        return likedUsers;
+    }
+
+    private void addLikedUserToCurrentUser(User currentUser, User userLike) {
+        //TODO: actualizar la bbdd, poner el likedUser en la lista de users que el currentUser ha dado like
     }
 
 

@@ -1,10 +1,5 @@
 package User.Model;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
 public class User {
 
     private String userName;
@@ -51,6 +46,7 @@ public class User {
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
 
     //public ArrayList<User> getListaUsers() { return listaUsers; }
     //public void setListaUsers(ArrayList<User> listaAcceptedUsers) { this.listaUsers = listaAcceptedUsers; }

@@ -68,13 +68,13 @@ public class View extends JFrame {
 
 
 
-    public View(User currentUser, User firstConnectedUser) {
+    public View(User currentUser) {
 
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Profile",getJpProfile(currentUser));
-        tabbedPane.add("Matches",getJpMatches(firstConnectedUser));
+       // tabbedPane.add("Matches",getJpMatches(firstConnectedUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();

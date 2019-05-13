@@ -24,7 +24,7 @@ public class DBConnector {
 
         public static DBConnector getInstance(){
             if(instance == null){
-                instance = new DBConnector("root", "5432", "minder", 3306);
+                instance = new DBConnector("root", "root", "minder", 3306);
                 instance.connect();
             }
             return instance;
@@ -81,7 +81,7 @@ public class DBConnector {
             ResultSet rs = null;
             try {
                 s = (Statement) conn.createStatement();
-                rs = s.executeQuery (query);
+                rs = s.executeQuery(query);
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());

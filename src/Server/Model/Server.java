@@ -16,18 +16,26 @@ import java.util.LinkedList;
 public class Server {
     private int serverPort;
     private UsuariManager usuariManager;
-    private  ArrayList<User> users;
+    private ArrayList<User> users;
 
 
     public Server(UsuariManager usuariManager) throws IOException {
         this.usuariManager = usuariManager;
-        this.users = new ArrayList<>();
+        try {
+            this.users = getAllUsers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //---------------------------------------------------------------------------------------//
 
+    public void addUsuari(Usuari u){
+        usuariManager.addUsuari(u);
+    }
+
     public boolean comprobarLogIn(String username, String password){
-        System.out.println("login = true");
+        //System.out.println("login = true");
         try {
             return usuariManager.comprovaLogin(username,password);
         } catch (SQLException e) {
@@ -64,17 +72,35 @@ public class Server {
     }
 
 
-
-    /*public boolean registration(String userName, int edat, String premium, String correo, String password){
-        Usuari u = new Usuari(userName,edat,premium,correo,password,null,null,null);
-        usuariManager.addUsuari(u);
-        return true;
-    }*/
-
     public int getServerPort() { return serverPort; }
     public void setServerPort(int serverPort) { this.serverPort = serverPort; }
     public ArrayList<User> getUsers() { return users; }
     public void setUsers(ArrayList users) { this.users = users; }
+
+
+
+    public ArrayList<User> getAllUsers() throws SQLException {
+        ArrayList<Usuari> usuaris = usuariManager.getAllUsuari();
+        ArrayList<User> users = new ArrayList<>();
+        for (int i = 0; i < usuaris.size(); i++){
+            users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
+                    usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
+                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
+        }
+        return users;
+    }
+
+    public User getUser(String username){
+
+       Usuari u = usuariManager.getUsuari(username);
+
+       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());
+
+       return user;
+    }
+
+
+
 
 
 }

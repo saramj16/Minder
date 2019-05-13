@@ -52,6 +52,7 @@ public class ControllerClient implements ActionListener {
                 }else{
                     try {
                         ok = networkManager.functionalities(1, username, password);
+                        System.out.println("ok = " + ok );
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -59,6 +60,15 @@ public class ControllerClient implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
                     }else{
                         autenticationView.setVisible(false);
+                        try {
+                            this.currentUser = networkManager.getCurrentUser();
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        System.out.println("Current user = " + currentUser.getUserName());
+
+                        mainView = new View(currentUser);
                         this.currentUser = server.getUsers().get(username);
                         this.mainView = new View(currentUser);
 
@@ -154,13 +164,14 @@ public class ControllerClient implements ActionListener {
         urlFoto = getRegistrationView().getUrlFoto().getText();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
-        ArrayList<User> listaMatch = new ArrayList<>(server.getUsers().values());
+   //     ArrayList<User> listaMatch = new ArrayList<>(server.getUsers().values());
         //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
-           int id = server.getUsers().size();
-            User user = new User(0, username, edat, false, correo, password, urlFoto, lenguaje, descripción);
-            return user;
+          // int id = server.getUsers().size();
+          //  User user = new User(0, username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+          // return user;
+            return null;
         }else{
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
             return null;

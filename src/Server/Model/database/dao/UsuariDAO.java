@@ -5,6 +5,7 @@ import Server.Model.database.DBConnector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class UsuariDAO {
@@ -13,11 +14,13 @@ public class UsuariDAO {
 
     public UsuariDAO(){
         dbConnector = DBConnector.getInstance();
+
+        System.out.println(dbConnector);
     }
 
 
     public void addUsuari(Usuari usuari) {
-        String query = "INSERT INTO Usuari(userName, edat, premium, correo, contrasena) VALUES ('"+usuari.getUserName()+"', '"
+        String query = "INSERT INTO Usuari(userName, edat, premium, correo, password) VALUES ('"+usuari.getUserName()+"', '"
                 +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
         System.out.println(query);
         dbConnector.insertQuery(query);
@@ -55,35 +58,41 @@ public class UsuariDAO {
         dbConnector.updateQuery(query);
     }
 
-    public boolean comprovaUsuari(String username, String password) throws SQLException {
-        String query = "SELECT * FROM Usuari WHERE userName = "+username+"';";
-        System.out.println(query);
+    public boolean comprovaUsuari(String username, String password){
+        System.out.println(username);
+        System.out.println(password);
+        String query = "SELECT * FROM Usuari WHERE userName = '"+username+"' AND password = '" + password + "';";
+      //  System.out.println(query);
+
         ResultSet resultat = dbConnector.selectQuery(query);
 
-        String nom = resultat.getString("userName");
-        String contrasenya = resultat.getString("contrasena");
-
-        if (username.equals(nom) && password.equals(contrasenya)){
-            return true;
+        try{
+            while(resultat.next()){
+                String nom = resultat.getString("userName");
+                System.out.println(nom);
+                String password2 = resultat.getString("password");
+                System.out.println(password2);
+                if (username.equals(nom) && password.equals(password2)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return false;
     }
 
 
-    public  LinkedList<Usuari> getAllUsuari() {
+    public ArrayList<Usuari> getAllUsuari() {
 
         String query = "SELECT * FROM Usuari;";
         System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
         System.out.println(resultat);
 
-        LinkedList<Usuari> usuariList = new LinkedList<>();
-
-
-        try{
-
-            while (resultat.next()) {
+        ArrayList<Usuari> usuariList = new ArrayList<>();
+      try{
+           while (resultat.next()) {
                 Usuari usuari = new Usuari(resultat.getString("userName"), resultat.getInt("edat"), resultat.getBoolean("premium"), resultat.getString("correo"), resultat.getString("password"), resultat.getString("urlFoto"),resultat.getString("lenguaje"), resultat.getString("description") );
                 usuariList.add(usuari);
                 System.out.println(usuari.getUserName());
@@ -94,5 +103,34 @@ public class UsuariDAO {
             e.printStackTrace();
         }
         return usuariList;
+    }
+
+    public Usuari getUsuari(String userName) {
+
+        String query = "SELECT * FROM Usuari WHERE userName = '"+userName+"';";
+        System.out.println(query);
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String nom = resultat.getString("userName");
+                int edat = resultat.getInt("edat");
+                boolean premium = resultat.getBoolean("premium");
+                String correo = resultat.getString("correo");
+                String password = resultat.getString("password");
+                String urlFoto = resultat.getString("urlFoto");
+                String lenguaje = resultat.getString("lenguaje");
+                String description = resultat.getString("description");
+
+
+                Usuari usuari = new Usuari(nom, edat,premium,correo,password,urlFoto,lenguaje,description);
+
+                return usuari;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -5,6 +5,7 @@ import Server.Model.database.dao.MissatgeDAO;
 import Server.Model.database.dao.UsuariDAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class UsuariManager {
@@ -42,8 +43,13 @@ public class UsuariManager {
        return usuariDAO.comprovaUsuari(username,password);
     }
 
-    public LinkedList<Usuari> getAllUsuari() {
+    public ArrayList<Usuari> getAllUsuari() {
         return usuariDAO.getAllUsuari();
     }
 
+    public Usuari getUsuari(String userName) {
+        return usuariDAO.getUsuari(userName);
     }
+
+
+}

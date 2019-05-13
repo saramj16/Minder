@@ -2,10 +2,7 @@ package Network;
 
 import User.Model.User;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientNetworkManager{
@@ -16,6 +13,7 @@ public class ClientNetworkManager{
     private DataOutputStream doStream;
     private DataInputStream diStream;
     private ObjectOutputStream ooStream;
+    private ObjectInputStream oiStream;
     private static final int PORT = 9999;
 
     public ClientNetworkManager() throws IOException {
@@ -24,6 +22,7 @@ public class ClientNetworkManager{
         this.diStream = new DataInputStream(sServidor.getInputStream());
         this.doStream = new DataOutputStream(sServidor.getOutputStream());
         this.ooStream = new ObjectOutputStream(sServidor.getOutputStream());
+        this.oiStream = new ObjectInputStream(sServidor.getInputStream());
     }
 
     //-------------------------------------------------------------------------------//
@@ -48,6 +47,7 @@ public class ClientNetworkManager{
     public boolean functionalities (int id, Object object1, Object object2) throws IOException {
         boolean ok = false;
         doStream.writeInt(id);
+        System.out.println(id);
 
         switch (id){
             case 1:
@@ -79,4 +79,11 @@ public class ClientNetworkManager{
         return ok;
     }
 
+    public User getCurrentUser() throws IOException, ClassNotFoundException {
+
+        User currentUser = (User) oiStream.readObject();
+        System.out.println(currentUser.getUserName());
+
+        return currentUser;
+    }
 }

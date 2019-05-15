@@ -32,6 +32,34 @@ public class UsuariDAO {
         dbConnector.deleteQuery(query);
     }
 
+    public ArrayList<Usuari> searchUsuaris (ArrayList<String> usuaris){
+        ArrayList<Usuari> usuaris1 = new ArrayList<>();
+
+        for (int i = 0; i < usuaris.size(); i++){
+            String query = "SELECT * FROM Usuari WHERE userName = '"+usuaris.get(i)+"';";
+            System.out.println(query);
+            ResultSet resultat = dbConnector.selectQuery(query);
+
+            try{
+                while(resultat.next()){
+                    Usuari u = new Usuari(resultat.getString("userName"),
+                            resultat.getInt("edat"),
+                            resultat.getBoolean("premium"),
+                            resultat.getString("correo"),
+                            resultat.getString("password"),
+                            resultat.getString("urlFoto"),
+                            resultat.getString("lenguaje"),
+                            resultat.getString("description") );
+                    usuaris1.add(u);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return usuaris1;
+    }
+
     public boolean searchUsuari(String userName) {
 
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
@@ -54,7 +82,7 @@ public class UsuariDAO {
 
     public void modificaUsuari(Usuari u) {
         String query = "UPDATE Usuari SET urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
-        System.out.println(query);
+        //System.out.println(query);
         dbConnector.updateQuery(query);
     }
 
@@ -93,7 +121,14 @@ public class UsuariDAO {
         ArrayList<Usuari> usuariList = new ArrayList<>();
       try{
            while (resultat.next()) {
-                Usuari usuari = new Usuari(resultat.getString("userName"), resultat.getInt("edat"), resultat.getBoolean("premium"), resultat.getString("correo"), resultat.getString("password"), resultat.getString("urlFoto"),resultat.getString("lenguaje"), resultat.getString("description") );
+                Usuari usuari = new Usuari(resultat.getString("userName"),
+                                            resultat.getInt("edat"),
+                                            resultat.getBoolean("premium"),
+                                            resultat.getString("correo"),
+                                            resultat.getString("password"),
+                                            resultat.getString("urlFoto"),
+                                            resultat.getString("lenguaje"),
+                                            resultat.getString("description") );
                 usuariList.add(usuari);
                 System.out.println(usuari.getUserName());
             }

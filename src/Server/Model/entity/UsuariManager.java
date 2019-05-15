@@ -47,6 +47,14 @@ public class UsuariManager {
         return usuariDAO.getAllUsuari();
     }
 
+    public ArrayList<Usuari> getUsuarisAccepted(String usuari){
+        return  usuariDAO.searchUsuaris(matxDAO.selectAcceptedUsers(usuari));
+    }
+
+    public ArrayList<Usuari> getUsuarisMatxes(String usuari){
+        return  usuariDAO.searchUsuaris(matxDAO.selectMatxedUsers(usuari));
+    }
+
     public Usuari getUsuari(String userName) {
         return usuariDAO.getUsuari(userName);
     }

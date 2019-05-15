@@ -65,7 +65,7 @@ public class ServerNetworkManager {
                         User u = server.getUser(username);
                         System.out.println("user name connected " + u.getUserName());
 
-                        //ooStream.writeObject(u);
+                        ooStream.writeObject(u);
 
                     }
                     break;
@@ -85,7 +85,7 @@ public class ServerNetworkManager {
                 case 4:
                     currentUser = (User) oiStream.readObject();
                     likedUser = (User) oiStream.readObject();
-                    server.declineUser(currentUser, likedUser);
+                  //  server.declineUser(currentUser, likedUser);
                     break;
 
                 default:

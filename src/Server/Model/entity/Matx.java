@@ -4,12 +4,14 @@ public class Matx {
     private String user1;
     private String user2;
     private boolean matx;
+    private boolean accept;
     private boolean vist;
 
-    public Matx(String user1, String user2, boolean matx, boolean vist) {
+    public Matx(String user1, String user2, boolean matx, boolean accept, boolean vist) {
         this.user1 = user1;
         this.user2 = user2;
         this.matx = matx;
+        this.accept = accept;
         this.vist = vist;
     }
 
@@ -28,6 +30,14 @@ public class Matx {
 
     public void setUser2(String user2) {
         this.user2 = user2;
+    }
+
+    public boolean isAccept() {
+        return accept;
+    }
+
+    public void setAccept(boolean accept) {
+        this.accept = accept;
     }
 
     public boolean isMatx() {

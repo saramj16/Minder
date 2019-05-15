@@ -107,7 +107,7 @@ public class ControllerClient implements ActionListener {
                     //TODO:3er parámetro ha de ser userLike!!!!!!
                     networkManager.functionalities(3, currentUser, null);
                     contadorMuestreoUsersConectados++;
-                    mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
+                   // mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -120,7 +120,7 @@ public class ControllerClient implements ActionListener {
                     //TODO:3er parámetro ha de ser userLike!!!!!!
                     networkManager.functionalities(4, currentUser, null);
                     contadorMuestreoUsersConectados++;
-                    mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
+                   // mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

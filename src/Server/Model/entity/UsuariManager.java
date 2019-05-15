@@ -60,4 +60,7 @@ public class UsuariManager {
     }
 
 
+    public void addAccepted(String user1, String user2){
+
+    }
 }

@@ -48,7 +48,7 @@ public class Server {
         return false;
     }
 
-    public void acceptUser(User currentUser, User userLike){
+    public void acceptUser(User currentUser, User userLike) throws SQLException {
         ArrayList<User> currentUserlikedUsers = new ArrayList<>();
         ArrayList<User> userLikeLikedUsers;
 
@@ -68,15 +68,22 @@ public class Server {
         }
     }
 
-    private ArrayList<User> getLikedUsers(User userLike) {
-        ArrayList likedUsers = null;
+    private ArrayList<User> getLikedUsers(User userLike) throws SQLException {
+        ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike.getUserName());
 
-        //TODO pillar la lista de todos los users que el userLike ha dado like
-        return likedUsers;
+        return convertUsuaristoUsers(likedUsers);
+
+    }
+
+    private ArrayList<User> getMatchedUsers(User userMatch) throws SQLException {
+        ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch.getUserName());
+
+        return convertUsuaristoUsers(usuaris);
+
     }
 
     private void addLikedUserToCurrentUser(User currentUser, User userLike) {
-        //TODO: actualizar la bbdd, poner el likedUser en la lista de users que el currentUser ha dado like
+        usuariManager.addAccepted(currentUser.getUserName(), userLike.getUserName());
     }
 
 
@@ -89,6 +96,12 @@ public class Server {
 
     public ArrayList<User> getAllUsers() throws SQLException {
         ArrayList<Usuari> usuaris = usuariManager.getAllUsuari();
+
+        return convertUsuaristoUsers(usuaris);
+    }
+
+
+    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris) throws SQLException {
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < usuaris.size(); i++){
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),

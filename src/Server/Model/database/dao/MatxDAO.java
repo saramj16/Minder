@@ -2,6 +2,7 @@ package Server.Model.database.dao;
 
 import Server.Model.entity.Matx;
 import Server.Model.database.DBConnector;
+import Server.Model.entity.Usuari;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,20 +19,68 @@ public class MatxDAO {
         System.out.println(dbConnector);
     }
 
-    public void addMatx(Matx matx) {
-        String query = "INSERT INTO Matx(user1, user2, matx, vist) VALUES ('"+matx.getUser1()+"', '"
-                + matx.getUser2()+"', '"+matx.isMatx() + "' , '" + matx.isVist() + "';";
-        System.out.println(query);
+    public void addMatx(String user1, String user2) {
+        String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
+        ResultSet resultat = dbConnector.selectQuery(query);
 
-        dbConnector.insertQuery(query);
+        try{
+            while(resultat.next()){
+                String nom1 = resultat.getString("user1");
+                String nom2 = resultat.getString("user2");
+
+                if(nom1.equals(user1) && nom2.equals(user2)) {
+                    String query1 = "UPDATE Matx SET matx = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    dbConnector.updateQuery(query1);
+                }
+            }
+        } catch (SQLException e) {
+            String query2 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "' , '" + true + "' , '" + true + "');";
+            dbConnector.insertQuery(query2);
+            e.printStackTrace();
+        }
     }
 
-    public void addVist(Matx matx) {
-        String query = "INSERT INTO Matx(user1, user2, vist) VALUES ('"+matx.getUser1()+"', '"
-                + matx.getUser2()+ "' , '" + matx.isVist() + "';";
-        System.out.println(query);
+    public void addVist(String user1, String user2) {
+        String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
+        ResultSet resultat = dbConnector.selectQuery(query);
 
-        dbConnector.insertQuery(query);
+        try{
+            while(resultat.next()){
+                String nom1 = resultat.getString("user1");
+                String nom2 = resultat.getString("user2");
+
+                if(nom1.equals(user1) && nom2.equals(user2)) {
+                    String query1 = "UPDATE Matx SET vist = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    dbConnector.updateQuery(query1);
+                }
+            }
+        } catch (SQLException e) {
+            String query2 = "INSERT INTO Matx(user1, user2, vist) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "');";
+            dbConnector.insertQuery(query2);
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addAcceptedUser(String user1, String user2) {
+        String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String nom1 = resultat.getString("user1");
+                String nom2 = resultat.getString("user2");
+
+                if(nom1.equals(user1) && nom2.equals(user2)) {
+                    String query1 = "UPDATE Matx SET accept = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    dbConnector.updateQuery(query1);
+                }
+            }
+        } catch (SQLException e) {
+            String query2 = "INSERT INTO Matx(user1, user2, vist, accept) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "' , '" + true + "');";
+            dbConnector.insertQuery(query2);
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<String> selectAcceptedUsers (String user1){
@@ -46,7 +95,6 @@ public class MatxDAO {
         try{
             while(resultat.next()){
                 String nom = resultat.getString("user2");
-
                 acceptedUsers.add(nom);
             }
         } catch (SQLException e) {
@@ -72,7 +120,6 @@ public class MatxDAO {
         try{
             while(resultat.next()){
                 String nom = resultat.getString("user2");
-
                 matxedUsers.add(nom);
             }
         } catch (SQLException e) {

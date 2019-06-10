@@ -119,7 +119,7 @@ public class UsuariDAO {
         System.out.println(resultat);
 
         ArrayList<Usuari> usuariList = new ArrayList<>();
-      try{
+        try{
            while (resultat.next()) {
                 Usuari usuari = new Usuari(resultat.getString("userName"),
                                             resultat.getInt("edat"),

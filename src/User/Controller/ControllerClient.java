@@ -37,11 +37,7 @@ public class ControllerClient implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event){
-        try {
-            this.connectedUsers = server.getAllUsers();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.connectedUsers = server.getAllUsers();
         String username;
         String password;
         User user, userLike;

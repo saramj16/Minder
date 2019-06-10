@@ -3,6 +3,9 @@ package Server.Model.database.dao;
 import Server.Model.entity.Missatge;
 import Server.Model.database.DBConnector;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class MissatgeDAO {
 
@@ -15,8 +18,11 @@ public class MissatgeDAO {
     }
 
     public void addMissatge(Missatge missatge) {
-        String query = "INSERT INTO Missatge(missatge, userSend ) VALUES ('"
-                +missatge.getMissatge()+"', '"+missatge.getUserSend() + "');";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        String query = "INSERT INTO Missatge(missatge, userSend, dateMessage ) VALUES ('"
+                +missatge.getMissatge()+"', '"+missatge.getUserSend() + "', '" + dtf.format(now) + "');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);
     }

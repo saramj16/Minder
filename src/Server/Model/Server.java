@@ -17,11 +17,7 @@ public class Server {
 
     public Server(UsuariManager usuariManager) {
         this.usuariManager = usuariManager;
-        try {
-            this.users = getAllUsers();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.users = getAllUsers();
     }
 
     public int getServerPort() { return serverPort; }
@@ -93,20 +89,23 @@ public class Server {
         usuariManager.addAccepted(currentUser.getUserName(), userLike.getUserName());
     }
 
-    public ArrayList<User> getAllUsers() throws SQLException {
-        ArrayList<Usuari> usuaris = usuariManager.getAllUsuari();
+    public ArrayList<User> getAllUsers(){
+
+        ArrayList<Usuari> usuaris;
+        usuaris = usuariManager.getAllUsuari();
 
         return convertUsuaristoUsers(usuaris);
     }
 
 
-    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris) throws SQLException {
+    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris){
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < usuaris.size(); i++){
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
                     usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
         }
+        System.out.println("Usuaris affegits" + users.size());
         return users;
     }
 

@@ -49,7 +49,7 @@ public class Server {
         return false;
     }
 
-    public void acceptUser(User currentUser, User userLike) throws SQLException {
+    public boolean acceptUser(User currentUser, User userLike) throws SQLException {
         ArrayList<User> currentUserlikedUsers = new ArrayList<>();
         ArrayList<User> userLikeLikedUsers;
 
@@ -66,9 +66,10 @@ public class Server {
                 JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
                 //Aqui se añade matx a los dos USuarios
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
-
+                return true;
             }
         }
+        return false;
     }
 
     private ArrayList<User> getLikedUsers(User userLike) throws SQLException {
@@ -118,11 +119,4 @@ public class Server {
        return user;
     }
 
-
-
-
-
 }
-
-
-

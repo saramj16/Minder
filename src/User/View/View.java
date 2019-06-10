@@ -13,7 +13,7 @@ public class View extends JFrame {
     private final int WIDTH = 800;  //Amplada
     private final int HEIGHT = 600; //Alçada
     private JTabbedPane tabbedPane;
-
+    private User userLooking;
 
     //Profile Pane and its elements
     private JPanel jpProfile;
@@ -69,13 +69,13 @@ public class View extends JFrame {
 
 
 
-    public View(User currentUser, User userLooking) {
+    public View(User currentUser, User firstUser) {
 
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Profile",getJpProfile(currentUser));
-        tabbedPane.add("Matches",getJpMatches(userLooking));
+        tabbedPane.add("Matches",getJpMatches(firstUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
@@ -248,5 +248,13 @@ public class View extends JFrame {
 
         jbMatchNo.addActionListener(controller);
         jbMatchNo.setActionCommand("DeclineUser");
+    }
+
+    public User getUserLooking() {
+        return userLooking;
+    }
+
+    public void setUserLooking(User userLooking) {
+        this.userLooking = userLooking;
     }
 }

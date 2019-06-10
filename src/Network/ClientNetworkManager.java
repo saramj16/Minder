@@ -4,6 +4,7 @@ import User.Model.User;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientNetworkManager{
 
@@ -62,10 +63,10 @@ public class ClientNetworkManager{
                 ok = diStream.readBoolean();
                 break;
 
-            case 3:
-                //object1 = currentUser, object2 = likedUser
+            case 3://user aceptado(liked) --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
+                ok = diStream.readBoolean();
                 break;
 
             case 4:
@@ -84,5 +85,9 @@ public class ClientNetworkManager{
         System.out.println(currentUser.getUserName());
 
         return currentUser;
+    }
+
+    public ArrayList<User> getAllUsers() throws IOException, ClassNotFoundException {
+        return (ArrayList<User>) oiStream.readObject();
     }
 }

@@ -50,6 +50,7 @@ public class ServerNetworkManager {
             boolean ok;
             doStream.writeUTF("Hola!! Sóc el servidor.");
 
+            ooStream.writeObject(server.getAllUsers());
 
            int id = diStream.readInt();
             switch (id){
@@ -78,7 +79,8 @@ public class ServerNetworkManager {
                 case 3:
                     currentUser = (User) oiStream.readObject();
                     likedUser = (User) oiStream.readObject();
-                    server.acceptUser(currentUser, likedUser);
+                    ok = server.acceptUser(currentUser, likedUser);
+                    doStream.writeBoolean(ok);
                     break;
 
                 case 4:

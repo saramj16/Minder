@@ -34,10 +34,16 @@ public class ControllerClient implements ActionListener {
 
     public void start() {
         autenticationView.autenticationController(this);
+
     }
 
     public void actionPerformed(ActionEvent event){
-        this.connectedUsers = server.getAllUsers();
+        try {
+            this.connectedUsers = networkManager.getAllUsers();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         String username;
         String password;
         User user, userLike;
@@ -107,13 +113,16 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "AcceptUser":
-                // pillamos el user al que le ha dado like userLike =
                 try {
-                    //TODO:3er parámetro ha de ser userLike!!!!!!
-                    networkManager.functionalities(3, currentUser, null);
-                    contadorMuestreoUsersConectados++;
-                   // mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
+                    System.out.println("user aceptado!");
+                    ok = networkManager.functionalities(3, currentUser, connectedUsers.get(0));
+                    User userRemoved = connectedUsers.remove(0);
+                    connectedUsers.add(userRemoved);
+                    mainView.setUserLooking(connectedUsers.get(0));
 
+                    if (ok){
+                        JOptionPane.showMessageDialog(null, "NEW MATCH!");
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -123,9 +132,11 @@ public class ControllerClient implements ActionListener {
                 // pillamos el user al que le ha dado dislike userLike =
                 try {
                     //TODO:3er parámetro ha de ser userLike!!!!!!
-                    networkManager.functionalities(4, currentUser, null);
-                    contadorMuestreoUsersConectados++;
-                   // mainView.getJpMatches(usersConnected.get(contadorMuestreoUsersConectados));
+                    networkManager.functionalities(4, currentUser, connectedUsers.get(0));
+                    User userRemoved = connectedUsers.remove(0);
+                    connectedUsers.add(userRemoved);
+                    mainView.setUserLooking(connectedUsers.get(0));
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

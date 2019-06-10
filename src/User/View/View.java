@@ -1,5 +1,6 @@
 package User.View;
 
+import Server.Model.Server;
 import User.Model.Mensaje;
 import User.Model.User;
 
@@ -68,13 +69,13 @@ public class View extends JFrame {
 
 
 
-    public View(User currentUser) {
+    public View(User currentUser, User userLooking) {
 
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Profile",getJpProfile(currentUser));
-       // tabbedPane.add("Matches",getJpMatches(firstConnectedUser));
+        tabbedPane.add("Matches",getJpMatches(userLooking));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
@@ -141,6 +142,10 @@ public class View extends JFrame {
         JPanel jpMatchPic = new JPanel();
         jpMatchPic.setBackground(Color.PINK );
         jpMatches.add(jpMatchPic);
+
+        //general
+        /*User user = users.remove(0);
+        users.add(user);  */
 
         //Panel Info
         JPanel jpInfoMatch = new JPanel();

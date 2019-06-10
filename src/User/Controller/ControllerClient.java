@@ -2,6 +2,7 @@ package User.Controller;
 
 import Network.ClientNetworkManager;
 import Server.Model.Server;
+import Server.Model.entity.Usuari;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ControllerClient implements ActionListener {
@@ -25,17 +27,21 @@ public class ControllerClient implements ActionListener {
     private int contadorMuestreoUsersConectados = 0;
 
 
-    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager){
+    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
     }
 
-    public void start(){
+    public void start() {
         autenticationView.autenticationController(this);
     }
 
     public void actionPerformed(ActionEvent event){
-
+        try {
+            this.connectedUsers = server.getAllUsers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String username;
         String password;
         User user, userLike;
@@ -67,7 +73,8 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        this.mainView = new View(currentUser);
+                        this.mainView = new View(currentUser, connectedUsers.get(0));
+                        mainView.setVisible(true);
 
                     }
                 }
@@ -87,9 +94,11 @@ public class ControllerClient implements ActionListener {
                     if (user != null) {
                         ok = networkManager.functionalities(2, user, null);
                         if (ok){
+                            JOptionPane.showMessageDialog(null, "Usuario registrado!");
                             this.currentUser = user;
                             registrationView.setVisible(false);
-                            this.mainView = new View(currentUser);
+                            this.mainView = new View(currentUser, connectedUsers.get(0));
+                            mainView.setVisible(true);
 
                         }else{
                             System.out.println("algun tipo de error al registrar usuario");
@@ -161,14 +170,12 @@ public class ControllerClient implements ActionListener {
         urlFoto = getRegistrationView().getUrlFoto().getText();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
-   //     ArrayList<User> listaMatch = new ArrayList<>(server.getUsers().values());
         //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
-          // int id = server.getUsers().size();
-          //  User user = new User(0, username, edat, false, correo, password, urlFoto, lenguaje, descripción);
-          // return user;
-            return null;
+           User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+           return user;
+
         }else{
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
             return null;

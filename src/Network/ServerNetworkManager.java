@@ -28,7 +28,7 @@ public class ServerNetworkManager {
         this.server = server;
     }
 
-    public void connectServer() throws IOException, ClassNotFoundException {
+    public void connectServer() throws IOException, ClassNotFoundException, SQLException {
 
         System.out.println("The date server is running...");
      /*   server.addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre"));

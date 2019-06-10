@@ -10,6 +10,7 @@ import configReader.Configuration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainServer {
 
@@ -50,6 +51,8 @@ public class MainServer {
                     System.out.println("Null");
                 }
             } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 

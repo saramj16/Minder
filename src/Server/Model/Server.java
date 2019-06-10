@@ -24,6 +24,11 @@ public class Server {
         }
     }
 
+    public int getServerPort() { return serverPort; }
+    public void setServerPort(int serverPort) { this.serverPort = serverPort; }
+    public ArrayList<User> getUsers() { return users; }
+    public void setUsers(ArrayList users) { this.users = users; }
+
     //---------------------------------------------------------------------------------------//
 
     public void addUsuari(Usuari u){
@@ -85,14 +90,6 @@ public class Server {
     private void addLikedUserToCurrentUser(User currentUser, User userLike) {
         usuariManager.addAccepted(currentUser.getUserName(), userLike.getUserName());
     }
-
-
-    public int getServerPort() { return serverPort; }
-    public void setServerPort(int serverPort) { this.serverPort = serverPort; }
-    public ArrayList<User> getUsers() { return users; }
-    public void setUsers(ArrayList users) { this.users = users; }
-
-
 
     public ArrayList<User> getAllUsers() throws SQLException {
         ArrayList<Usuari> usuaris = usuariManager.getAllUsuari();

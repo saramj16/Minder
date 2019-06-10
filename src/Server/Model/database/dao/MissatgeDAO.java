@@ -15,7 +15,7 @@ public class MissatgeDAO {
     }
 
     public void addMissatge(Missatge missatge) {
-        String query = "INSERT INTO Missatge(id, missatge, userSend ) VALUES ('"+missatge.getId()+"', '"
+        String query = "INSERT INTO Missatge(missatge, userSend ) VALUES ('"
                 +missatge.getMissatge()+"', '"+missatge.getUserSend() + "');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);

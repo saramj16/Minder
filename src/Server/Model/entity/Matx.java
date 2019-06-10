@@ -1,18 +1,22 @@
 package Server.Model.entity;
 
+import java.util.Date;
+
 public class Matx {
     private String user1;
     private String user2;
     private boolean matx;
     private boolean accept;
     private boolean vist;
+    private Date dataMatch;
 
-    public Matx(String user1, String user2, boolean matx, boolean accept, boolean vist) {
+    public Matx(String user1, String user2, boolean matx, boolean accept, boolean vist, Date dataMatch) {
         this.user1 = user1;
         this.user2 = user2;
         this.matx = matx;
         this.accept = accept;
         this.vist = vist;
+        this.dataMatch = dataMatch;
     }
 
 
@@ -54,5 +58,13 @@ public class Matx {
 
     public void setVist(boolean vist) {
         this.vist = vist;
+    }
+
+    public Date getDataMatch() {
+        return dataMatch;
+    }
+
+    public void setDataMatch(Date dataMatch) {
+        this.dataMatch = dataMatch;
     }
 }

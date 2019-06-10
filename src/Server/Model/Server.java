@@ -68,7 +68,9 @@ public class Server {
                 currentUser.getListaMatch().put(id, match);
                 userLike.getListaMatch().put(id, match);
                 JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
-                //TODO de la bbdd -> añadir este nuevo match a los 2 usuarios
+                //Aqui se añade matx a los dos USuarios
+                usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
+
             }
         }
     }

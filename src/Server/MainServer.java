@@ -3,6 +3,7 @@ package Server;
 import Network.ServerNetworkManager;
 import Server.Model.Server;
 import Server.Model.entity.UsuariManager;
+import Server.View.View;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import configReader.Configuration;
@@ -20,6 +21,7 @@ public class MainServer {
         Server server;
         ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
+        View v = new View();
 
 
        try {

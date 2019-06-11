@@ -1,8 +1,8 @@
 package Server.Model.database.dao;
 
-import Server.Model.entity.Matx;
+
 import Server.Model.database.DBConnector;
-import Server.Model.entity.Usuari;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +21,15 @@ public class MatxDAO {
         System.out.println(dbConnector);
     }
 
+    /**
+     * Mètode per afegir els match que s'ha produit dins la BBDD de SQL
+     * S'afegeix per els dos Usuaris que estan relacionats
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @param  user2    nom de l'Usuari 2
+     * @return void
+     *
+     */
     public void addMatx(String user1, String user2) {
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -49,6 +58,14 @@ public class MatxDAO {
         }
     }
 
+    /**
+     * Mètode per afegir si un usuari ha vist a un altre dins la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @param  user2    nom de l'Usuari 2
+     * @return void
+     *
+     */
     public void addVist(String user1, String user2) {
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -71,6 +88,15 @@ public class MatxDAO {
 
     }
 
+    /**
+     * Mètode per afegir si un usuari ha acceptat a un altre
+     * dins la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @param  user2    nom de l'Usuari 2
+     * @return void
+     *
+     */
     public void addAcceptedUser(String user1, String user2) {
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -92,6 +118,15 @@ public class MatxDAO {
         }
     }
 
+    /**
+     * Mètode per comprovar si hi ha match entre dos usuaris
+     * de la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @param  user2    nom de l'Usuari 2
+     * @return boolean  true en cas que hi hagi match, false en cas contrari
+     *
+     */
     public boolean comprovaMatx(String user1, String user2){
 
         boolean accept = false, accept1 = false;
@@ -124,6 +159,15 @@ public class MatxDAO {
         return false;
     }
 
+    /**
+     * Mètode per crear una llista amb els noms d'Usuaris
+     * que ha acceptat l'usuari que entra com a parametre
+     * user1 agafant la info de la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @return ArrayList</String> llista dels noms dels usuaris que han sigut acceptats
+     *
+     */
     public ArrayList<String> selectAcceptedUsers (String user1){
         ArrayList<String> acceptedUsers = new ArrayList<>();
 
@@ -145,6 +189,15 @@ public class MatxDAO {
         return acceptedUsers;
     }
 
+    /**
+     * Mètode per crear una llista amb els noms d'Usuaris
+     * amb els que hi ha hagut match amb l'usuari que entra com a parametre
+     * user1 agafant la info de la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @return ArrayList</String> llista dels noms dels usuaris amb els que hi ha match
+     *
+     */
     public ArrayList<String> selectMatxedUsers(String user1) {
         ArrayList<String> matxedUsers = new ArrayList<>();
 
@@ -164,7 +217,14 @@ public class MatxDAO {
         return matxedUsers;
     }
 
-
+    /**
+     * Mètode per eliminar el match entre dos usuaris dins la BBDD de SQL
+     *
+     * @param  user1    nom de l'Usuari 1
+     * @param  user2    nom de l'Usuari 2
+     * @return void
+     *
+     */
     public void deleteMatx(String user1, String user2) {
         String query = "UPDATE Matx SET matx = '" + false + "' AND accept = '" + false + "' WHERE user1 = '"+user1+"' AND user2 = '" + user2 + "';";
         System.out.println(query);

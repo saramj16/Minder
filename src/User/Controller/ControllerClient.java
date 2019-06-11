@@ -37,11 +37,11 @@ public class ControllerClient implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event){
-        try {
+       /* try {
             this.connectedUsers = networkManager.getAllUsers();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         String username;
         String password;

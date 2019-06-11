@@ -3,8 +3,11 @@ package Server.Model.database.dao;
 import Server.Model.entity.Missatge;
 import Server.Model.database.DBConnector;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class MissatgeDAO {
@@ -31,6 +34,32 @@ public class MissatgeDAO {
         String query = "DELETE FROM Missatge WHERE id = '"+id+"';";
         System.out.println(query);
         DBConnector.getInstance().deleteQuery(query);
+    }
+
+    public ArrayList<Missatge> llistaMissatges (String userSend, String userRecive){
+
+        String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userRecive = '" + userRecive + "';";
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        ArrayList<Missatge> messageList = new ArrayList<>();
+        try{
+            while (resultat.next()) {
+                Missatge missatges = new Missatge(
+                        resultat.getString("missatge"),
+                        resultat.getString("userSend"),
+                        resultat.getString("userRecive"),
+                        resultat.getDate("dataMessage")
+                         );
+                messageList.add(missatges);
+                System.out.println(missatges.getMissatge());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return messageList;
     }
 
 }

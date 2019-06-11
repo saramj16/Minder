@@ -33,25 +33,20 @@ public class ControllerClient implements ActionListener {
 
     public void start() {
         autenticationView.autenticationController(this);
-    }
-
-    public void actionPerformed(ActionEvent event){
         try {
             this.connectedUsers = networkManager.getAllUsers();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        String username;
-        String password;
-        User user, userLike;
-
+    public void actionPerformed(ActionEvent event){
         boolean ok = false;
 
         switch (event.getActionCommand()){
             case "logIn":
-                username = getAutenticationView().getUsernameTextField().getText();
-                password = getAutenticationView().getPasswordTextField().getText();
+                String username = getAutenticationView().getUsernameTextField().getText();
+                String password = getAutenticationView().getPasswordTextField().getText();
 
                 if (username.equals("") || password.equals("")){
                     JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos!");
@@ -88,7 +83,7 @@ public class ControllerClient implements ActionListener {
             case "Register":
                 System.out.println("registrando!!");
                 try {
-                    user = newUserFromRegistration();
+                    User user = newUserFromRegistration();
                     if (user != null) {
                         ok = networkManager.functionalities(2, user, null);
                         if (ok){
@@ -99,7 +94,6 @@ public class ControllerClient implements ActionListener {
                         }else{
                             System.out.println("algun tipo de error al registrar usuario");
                         }
-
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -113,6 +107,8 @@ public class ControllerClient implements ActionListener {
                     User userRemoved = connectedUsers.remove(0);
                     connectedUsers.add(userRemoved);
                     mainView.setUserLooking(connectedUsers.get(0));
+                    mainView.setVisible(false);
+                    startMainView(currentUser);
 
                     if (ok){
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
@@ -123,9 +119,8 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "DeclineUser":
-                // pillamos el user al que le ha dado dislike userLike =
                 try {
-                    //TODO:3er parámetro ha de ser userLike!!!!!!
+                    System.out.println("user declinado!");
                     networkManager.functionalities(4, currentUser, connectedUsers.get(0));
                     User userRemoved = connectedUsers.remove(0);
                     connectedUsers.add(userRemoved);
@@ -144,11 +139,11 @@ public class ControllerClient implements ActionListener {
                 //nos guardamos toda la info y volvemos a pantalla principal
                 break;
 
-            case "enviarMensage":
-                /*pillamos el match que ha clicado --> match =
-                Mensaje mensaje = getMensaje();
-                currentUser.getListaMatch().get(match.getId).getChat().add(mensaje);
-                userLike.getListaMatch().get(match.getId).getChat().add(mensaje);*/
+            case "SendMessage":
+                String mensaje = String.valueOf(mainView.getJtfMessage());
+                String chat = String.valueOf(mainView.getJtaMessages());
+                chat += currentUser.getUserName() + ": " + mensaje + "\n";
+               // mainView.setJtaMessages(chat);
                 break;
         }
     }

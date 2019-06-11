@@ -69,8 +69,7 @@ public class ClientNetworkManager{
                 ok = diStream.readBoolean();
                 break;
 
-            case 4:
-                //object1 = currentUser, object2 = likedUser
+            case 4://user declinaod --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;

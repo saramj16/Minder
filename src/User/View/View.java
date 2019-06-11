@@ -1,6 +1,7 @@
 package User.View;
 
 import Server.Model.Server;
+import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 
@@ -34,6 +35,7 @@ public class View extends JFrame {
     private JComboBox jcYearBorn;
     private JLabel jlPasswordTitle;
     private JTextField jtPassword;
+
     //private JLabel jlDescriptionTitle;     //Already on jpProfile
     private JTextField jtDescritpion;
     private JLabel jlPremiumTitle;
@@ -64,6 +66,7 @@ public class View extends JFrame {
     private JTextPane jtpChat;
     private JTextField jtfMessage;
     private JButton jbSend;
+    JTextArea jtaMessages;
 
     private ArrayList<ClosedChat> chats;
 
@@ -74,8 +77,8 @@ public class View extends JFrame {
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
-        tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Matches",getJpMatches(firstUser));
+        tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
@@ -183,64 +186,34 @@ public class View extends JFrame {
         jpMatches = new JPanel(new GridLayout(1,2));
 
         JScrollPane scrollpaneChats = new JScrollPane();
-        //Aqui van els chats tancats
-        //jpMatches.add(scrollpaneChats);
 
-        //Part dreta, on van els missatges d'una conversa
-        JPanel jpChat = new JPanel(null);
-        jpChat = showClosedChats(jpChat);
-        scrollpaneChats.add(jpChat);
+        if(user.getListaMatch() == null){
+            scrollpaneChats.add(new JLabel("Ningún Chat activo!"));
+        }else {
+            for (Match m : user.getListaMatch()){
+                JLabel jpChat = new JLabel("chat with: " + m.getUser1());
+                scrollpaneChats.add(jpChat);
+            }
+        }
 
+        JPanel jRight = new JPanel(new GridLayout(2,1));
         jpMatches.add(scrollpaneChats);
 
-        JTextArea jtaMessages = new JTextArea("Javo: Como van las vistas \nManel: De puta madre\nJavo: haberlas");
-        jtfMessage = new JTextField(30);
+        jtaMessages = new JTextArea();
+        jRight.add(jtaMessages, BorderLayout.CENTER);
+
+        JPanel jBot = new JPanel(new BorderLayout());
+        jtfMessage = new JTextField();
+        jBot.add(jtfMessage);
         jbSend = new JButton("Send");
+        jBot.add(jbSend, BorderLayout.EAST);
 
-        jpChat.add(jtaMessages);
-        jpChat.add(jtfMessage);
-        jpChat.add(jbSend);
-
-        Insets insets = jpChat.getInsets();
-        Dimension sizeMessages = jtaMessages.getPreferredSize();
-        jtaMessages.setBounds(5 + insets.left, 5 + insets.top, sizeMessages.width, sizeMessages.height);
-
-        Dimension sizeJtfMessage = jtfMessage.getPreferredSize();
-        jtfMessage.setBounds(5 + insets.left, 500 + insets.top, sizeJtfMessage.width, sizeJtfMessage.height);
-
-        Dimension sizeJbSend = jbSend.getPreferredSize();
-        jbSend.setBounds(320 + insets.left, 500 + insets.top, sizeJbSend.width, sizeJbSend.height);
-
-        jpMatches.add(jpChat);
+        jRight.add(jBot);
+        jpMatches.add(jRight);
 
         return jpMatches;
     }
 
-
-    //public void showClosedChats(ClosedChat[] chats, ActionListener actionListener) {
-    //public void showClosedChats(ClosedChat[] chats) {
-    public JPanel showClosedChats(JPanel jpChat) {
-
-        //jpChat.setLayout(new BoxLayout());
-        //chats.clear();
-        //jpChats.removeAll();
-
-      //  User manel = new User(1234, "Manel", 22, true, "manel@gmail.com", "patata", "fotopolla.jpg","C++", "Salu2");
-
-        for (int i = 0; i < 10; i++){
-            //ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ), actionListener);
-         //   ClosedChat closedChat = new ClosedChat(new Mensaje(1234, "Hola que tal", manel ));
-//            jpChats.add(closedChat);
-            //chats.add(closedChat);
-            System.out.println(i);
-//            jpChats.add(closedChat);
-        }
-
-//        jpChats.validate();
-  //      jpChats.repaint();
-
-        return jpChat;
-    }
 
     public void autenticationController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
@@ -248,6 +221,9 @@ public class View extends JFrame {
 
         jbMatchNo.addActionListener(controller);
         jbMatchNo.setActionCommand("DeclineUser");
+
+        jbSend.addActionListener(controller);
+        jbSend.setActionCommand("SendMessage");
     }
 
     public User getUserLooking() {
@@ -256,5 +232,21 @@ public class View extends JFrame {
 
     public void setUserLooking(User userLooking) {
         this.userLooking = userLooking;
+    }
+
+    public JTextField getJtfMessage() {
+        return jtfMessage;
+    }
+
+    public void setJtfMessage(JTextField jtfMessage) {
+        this.jtfMessage = jtfMessage;
+    }
+
+    public JTextArea getJtaMessages() {
+        return jtaMessages;
+    }
+
+    public void setJtaMessages(JTextArea jtaMessages) {
+        this.jtaMessages = jtaMessages;
     }
 }

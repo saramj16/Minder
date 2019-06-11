@@ -37,20 +37,19 @@ public class ServerNetworkManager {
         server.addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel"));
         server.addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel"));
 
+        this.sClient = sServer.accept();
+        System.out.println("He acceptat");
+        User currentUser, likedUser;
+        diStream = new DataInputStream(sClient.getInputStream());
+        doStream = new DataOutputStream(sClient.getOutputStream());
+        oiStream = new ObjectInputStream(sClient.getInputStream());
+        ooStream = new ObjectOutputStream(sClient.getOutputStream());
+        boolean ok;
+        doStream.writeUTF("Hola!! Sóc el servidor.");
 
+        ooStream.writeObject(server.getAllUsers());
 
         while (true) {
-            this.sClient = sServer.accept();
-            System.out.println("He acceptat");
-            User currentUser, likedUser;
-            diStream = new DataInputStream(sClient.getInputStream());
-            doStream = new DataOutputStream(sClient.getOutputStream());
-            oiStream = new ObjectInputStream(sClient.getInputStream());
-            ooStream = new ObjectOutputStream(sClient.getOutputStream());
-            boolean ok;
-            doStream.writeUTF("Hola!! Sóc el servidor.");
-
-            ooStream.writeObject(server.getAllUsers());
 
            int id = diStream.readInt();
             switch (id){

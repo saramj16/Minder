@@ -76,7 +76,7 @@ public class ServerNetworkManager {
                     doStream.writeBoolean(ok);
                     break;
 
-                case 3:
+                case 3: //user aceptado(liked)
                     currentUser = (User) oiStream.readObject();
                     likedUser = (User) oiStream.readObject();
                     ok = server.acceptUser(currentUser, likedUser);

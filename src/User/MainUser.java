@@ -13,6 +13,10 @@ import java.sql.SQLException;
 public class MainUser {
     public static void main(String[] args) throws IOException, SQLException {
 
+        EditProfile ep = new EditProfile();
+        ep.dadesEditaPrefil("Sara", 20, "sara@minder.com", "sara", "tope guapa", "C", false, "Minder/KOALA.jpg");
+        ep.setVisible(true);
+
         ClientNetworkManager networkManager = new ClientNetworkManager();
         AutenticationView autenticationView = new AutenticationView();
         ControllerClient controller = new ControllerClient(autenticationView, networkManager);

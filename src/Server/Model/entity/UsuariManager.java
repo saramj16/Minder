@@ -55,6 +55,11 @@ public class UsuariManager {
         return  usuariDAO.searchUsuaris(matxDAO.selectMatxedUsers(usuari));
     }
 
+    public ArrayList<Matx> getMatxedUsers(String usuari){
+        return matxDAO.selectMatxes(usuari);
+
+    }
+
     public Usuari getUsuari(String userName) {
         return usuariDAO.getUsuari(userName);
     }

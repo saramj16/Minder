@@ -2,6 +2,7 @@ package Server.Model.database.dao;
 
 
 import Server.Model.database.DBConnector;
+import Server.Model.entity.Matx;
 
 
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class MatxDAO {
@@ -217,6 +219,39 @@ public class MatxDAO {
         return matxedUsers;
     }
 
+
+    /**
+     * Mètode per crear una llista amb tots els Matxes que ha tingut l'Usuari
+     *
+     * @param  usuari    nom de l'Usuari 1
+     * @return ArrayList<Matx> llista dels Matxes de l'Usuari
+     *
+     */
+    public ArrayList<Matx> selectMatxes(String usuari) {
+        ArrayList<Matx> matxedUsers = new ArrayList<>();
+
+        String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = true;";
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                Matx m = new Matx(resultat.getString("user1"),
+                        resultat.getString("user2"),
+                        resultat.getBoolean("matx"),
+                        resultat.getBoolean("accept"),
+                        resultat.getBoolean("vist"),
+                        resultat.getDate("dataMatch"));
+
+                matxedUsers.add(m);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return matxedUsers;
+    }
+
     /**
      * Mètode per eliminar el match entre dos usuaris dins la BBDD de SQL
      *
@@ -230,4 +265,6 @@ public class MatxDAO {
         System.out.println(query);
         dbConnector.updateQuery(query);
     }
+
+
 }

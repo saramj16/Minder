@@ -8,6 +8,11 @@ public class View extends JFrame {
     private final int HEIGHT = 300; //Alçada
     private JTabbedPane tabbedPane;
 
+    private JRadioButton jrbDay;
+    private JRadioButton jrbWeek;
+    private JRadioButton jrbMonth;
+
+
     private JLabel jlTop1;
     private JLabel jlTop2;
     private JLabel jlTop3;
@@ -43,8 +48,21 @@ public class View extends JFrame {
         JPanel jpChart = new JPanel();
         jpChart.setLayout(new BorderLayout());
 
-        JLabel jlEvolucio = new JLabel("Evolució del nombre de matches respecte el temps:");
-        jpChart.add(jlEvolucio, BorderLayout.NORTH);
+        JPanel jpNorth = new JPanel(new GridLayout(2,1));
+        JLabel jlEvolucio = new JLabel("Evolució del nombre de matches:");
+        jpNorth.add(jlEvolucio);
+
+        JPanel jpNorth2 = new JPanel(new GridLayout(1,3));
+        jrbDay = new JRadioButton("Diari");
+        jpNorth2.add(jrbDay);
+        jrbWeek = new JRadioButton("Setmanal");
+        jpNorth2.add(jrbWeek);
+        jrbMonth = new JRadioButton("Mensual");
+        jpNorth2.add(jrbMonth);
+
+        jpNorth.add(jpNorth2);
+        jpChart.add(jpNorth, BorderLayout.NORTH);
+
 
         BarChart chart = new BarChart();
         chart.addBar(Color.red, 100);
@@ -61,7 +79,8 @@ public class View extends JFrame {
     }
 
     public JPanel getJpTop5Users() {
-        JPanel jpTop5Users = new JPanel(new GridLayout(7,2));
+        JPanel jpTop5Users = new JPanel(new GridLayout(6,2, 0,0));
+        //jpTop5Users.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
 
         JLabel jlUsuari = new JLabel("Usuari:");
         jpTop5Users.add(jlUsuari);
@@ -96,6 +115,26 @@ public class View extends JFrame {
         return jpTop5Users;
 
     }
+
+    /*
+    Retorna 1 si diari, 2 si setmanal o 3 si mensual
+     */
+    public int getSelectedEvolution() {
+        if (jrbDay.isSelected()) {
+            return 1;
+        } else {
+            if (jrbWeek.isSelected()){
+                return 2 ;
+            } else {
+                if (jrbMonth.isSelected()) {
+                    return 3;
+                } else {
+                    return 0; //Error
+                }
+            }
+        }
+    }
+
 }
 
 

@@ -59,12 +59,8 @@ public class Server {
         for (User u : userLikeLikedUsers){
             if (u == currentUser){
                 //TODO de Javo -> ver como poner los IDs de los matches
-                /*String id = currentUser.getId() + "-" + userLike.getId();
-                Match match = new Match(currentUser, userLike, id);
-                currentUser.getListaMatch().put(id, match);
-                userLike.getListaMatch().put(id, match);
-                JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
-                //Aqui se añade matx a los dos Usuarios
+
+                //Aqui se añade matx a los dos USuarios
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;
             }
@@ -73,18 +69,16 @@ public class Server {
     }
 
     private ArrayList<User> getLikedUsers(User userLike) throws SQLException {
-        ArrayList<Usuari> likedUsers;
-        likedUsers = usuariManager.getUsuarisAccepted(userLike.getUserName());
+        ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike.getUserName());
 
-        return convertUsuarisToUsers(likedUsers);
+        return convertUsuaristoUsers(likedUsers);
 
     }
 
     private ArrayList<User> getMatchedUsers(User userMatch) throws SQLException {
-        ArrayList<Usuari> usuaris;
-        usuaris = usuariManager.getUsuarisMatxes(userMatch.getUserName());
+        ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch.getUserName());
 
-        return convertUsuarisToUsers(usuaris);
+        return convertUsuaristoUsers(usuaris);
 
     }
 
@@ -93,14 +87,15 @@ public class Server {
     }
 
     public ArrayList<User> getAllUsers(){
+
         ArrayList<Usuari> usuaris;
         usuaris = usuariManager.getAllUsuari();
 
-        return convertUsuarisToUsers(usuaris);
+        return convertUsuaristoUsers(usuaris);
     }
 
 
-    public ArrayList<User> convertUsuarisToUsers(ArrayList<Usuari> usuaris){
+    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris){
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < usuaris.size(); i++){
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),

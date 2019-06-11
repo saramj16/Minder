@@ -64,7 +64,7 @@ public class Server {
                 currentUser.getListaMatch().put(id, match);
                 userLike.getListaMatch().put(id, match);
                 JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
-                //Aqui se añade matx a los dos USuarios
+                //Aqui se añade matx a los dos Usuarios
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;
             }
@@ -73,16 +73,18 @@ public class Server {
     }
 
     private ArrayList<User> getLikedUsers(User userLike) throws SQLException {
-        ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike.getUserName());
+        ArrayList<Usuari> likedUsers;
+        likedUsers = usuariManager.getUsuarisAccepted(userLike.getUserName());
 
-        return convertUsuaristoUsers(likedUsers);
+        return convertUsuarisToUsers(likedUsers);
 
     }
 
     private ArrayList<User> getMatchedUsers(User userMatch) throws SQLException {
-        ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch.getUserName());
+        ArrayList<Usuari> usuaris;
+        usuaris = usuariManager.getUsuarisMatxes(userMatch.getUserName());
 
-        return convertUsuaristoUsers(usuaris);
+        return convertUsuarisToUsers(usuaris);
 
     }
 
@@ -91,15 +93,14 @@ public class Server {
     }
 
     public ArrayList<User> getAllUsers(){
-
         ArrayList<Usuari> usuaris;
         usuaris = usuariManager.getAllUsuari();
 
-        return convertUsuaristoUsers(usuaris);
+        return convertUsuarisToUsers(usuaris);
     }
 
 
-    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris){
+    public ArrayList<User> convertUsuarisToUsers(ArrayList<Usuari> usuaris){
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < usuaris.size(); i++){
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),

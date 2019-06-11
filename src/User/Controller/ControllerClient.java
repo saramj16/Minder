@@ -30,6 +30,7 @@ public class ControllerClient implements ActionListener {
     public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
+
     }
 
     public void start() {

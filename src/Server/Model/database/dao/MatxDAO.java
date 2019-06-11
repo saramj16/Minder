@@ -33,6 +33,7 @@ public class MatxDAO {
      *
      */
     public void addMatx(String user1, String user2) {
+        boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -51,12 +52,19 @@ public class MatxDAO {
                     dbConnector.updateQuery(query1);
                     String query2 = "UPDATE Matx SET matx = '" + true + "' dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + user2 + "', user 2 = '" + user1 + "';";
                     dbConnector.updateQuery(query2);
+                    existeix = true;
                 }
             }
         } catch (SQLException e) {
-            String query2 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "' , '" + true + "' , '" + true + "');";
-            dbConnector.insertQuery(query2);
+
             e.printStackTrace();
+        }
+
+        if(!existeix){
+            String query2 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user1 + "', '" + user2 + "' , " + true + " , " + true + " , " + true + ");";
+            dbConnector.insertQuery(query2);
+            String query3 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user2 + "', '" + user1 + "' , " + true + " , " + true + " , " + true + ");";
+            dbConnector.insertQuery(query3);
         }
     }
 
@@ -69,6 +77,7 @@ public class MatxDAO {
      *
      */
     public void addVist(String user1, String user2) {
+        boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -80,12 +89,16 @@ public class MatxDAO {
                 if(nom1.equals(user1) && nom2.equals(user2)) {
                     String query1 = "UPDATE Matx SET vist = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
                     dbConnector.updateQuery(query1);
+                    existeix = true;
                 }
             }
         } catch (SQLException e) {
-            String query2 = "INSERT INTO Matx(user1, user2, vist) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "');";
-            dbConnector.insertQuery(query2);
+
             e.printStackTrace();
+        }
+        if(!existeix){
+            String query2 = "INSERT INTO Matx(user1, user2, vist) VALUES ('" + user1 + "', '" + user2 + "' , " + true + ");";
+            dbConnector.insertQuery(query2);
         }
 
     }
@@ -100,6 +113,7 @@ public class MatxDAO {
      *
      */
     public void addAcceptedUser(String user1, String user2) {
+        boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -109,14 +123,19 @@ public class MatxDAO {
                 String nom2 = resultat.getString("user2");
 
                 if(nom1.equals(user1) && nom2.equals(user2)) {
-                    String query1 = "UPDATE Matx SET accept = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    String query1 = "UPDATE Matx SET accept = " + true + " WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
                     dbConnector.updateQuery(query1);
+                    existeix = true;
                 }
             }
         } catch (SQLException e) {
-            String query2 = "INSERT INTO Matx(user1, user2, vist, accept) VALUES ('" + user1 + "', '" + user2 + "' , '" + true + "' , '" + true + "');";
-            dbConnector.insertQuery(query2);
+
             e.printStackTrace();
+        }
+        if(!existeix){
+            String query2 = "INSERT INTO Matx(user1, user2, vist, accept) VALUES ('" + user1 + "', '" + user2 + "' , " + true + " , " + true + ");";
+            System.out.println(query2);
+            dbConnector.insertQuery(query2);
         }
     }
 

@@ -66,6 +66,7 @@ public class UsuariManager {
 
     public void addAccepted(String user1, String user2){
         matxDAO.addAcceptedUser(user1,user2);
+        matxDAO.addVist(user1,user2);
     }
 
     public void addMatx (String user1, String user2){

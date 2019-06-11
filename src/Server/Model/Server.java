@@ -84,6 +84,7 @@ public class Server {
 
     private void addLikedUserToCurrentUser(User currentUser, User userLike) {
         usuariManager.addAccepted(currentUser.getUserName(), userLike.getUserName());
+
     }
 
     public ArrayList<User> getAllUsers(){

@@ -59,11 +59,7 @@ public class Server {
         for (User u : userLikeLikedUsers){
             if (u == currentUser){
                 //TODO de Javo -> ver como poner los IDs de los matches
-                /*String id = currentUser.getId() + "-" + userLike.getId();
-                Match match = new Match(currentUser, userLike, id);
-                currentUser.getListaMatch().put(id, match);
-                userLike.getListaMatch().put(id, match);
-                JOptionPane.showMessageDialog(null, "NEW MATCH!");*/
+
                 //Aqui se añade matx a los dos USuarios
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;

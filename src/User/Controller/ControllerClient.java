@@ -24,7 +24,6 @@ public class ControllerClient implements ActionListener {
     private Server server;
     private User currentUser;
     private ArrayList<User> connectedUsers;
-    private int contadorMuestreoUsersConectados = 0;
 
 
     public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
@@ -34,7 +33,6 @@ public class ControllerClient implements ActionListener {
 
     public void start() {
         autenticationView.autenticationController(this);
-
     }
 
     public void actionPerformed(ActionEvent event){
@@ -75,9 +73,7 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        this.mainView = new View(currentUser, connectedUsers.get(0));
-                        mainView.setVisible(true);
-
+                        startMainView(currentUser);
                     }
                 }
                 break;
@@ -99,9 +95,7 @@ public class ControllerClient implements ActionListener {
                             JOptionPane.showMessageDialog(null, "Usuario registrado!");
                             this.currentUser = user;
                             registrationView.setVisible(false);
-                            this.mainView = new View(currentUser, connectedUsers.get(0));
-                            mainView.setVisible(true);
-
+                            startMainView(currentUser);
                         }else{
                             System.out.println("algun tipo de error al registrar usuario");
                         }
@@ -157,6 +151,12 @@ public class ControllerClient implements ActionListener {
                 userLike.getListaMatch().get(match.getId).getChat().add(mensaje);*/
                 break;
         }
+    }
+
+    private void startMainView(User currentUser) {
+        this.mainView = new View(currentUser, connectedUsers.get(0));
+        mainView.autenticationController(this);
+        mainView.setVisible(true);
     }
 
     private User newUserFromRegistration() throws IOException {

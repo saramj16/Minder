@@ -57,7 +57,7 @@ public class Server {
         userLikeLikedUsers = getLikedUsers(userLike);
 
         for (User u : userLikeLikedUsers){
-            if (u == currentUser){
+            if (u.getUserName().equals(currentUser.getUserName())){
                 //TODO de Javo -> ver como poner los IDs de los matches
 
                 //Aqui se añade matx a los dos USuarios

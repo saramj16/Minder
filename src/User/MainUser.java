@@ -4,6 +4,7 @@ import Network.ClientNetworkManager;
 import User.Controller.ControllerClient;
 import User.Model.User;
 import User.View.AutenticationView;
+import User.View.EditProfile;
 import User.View.View;
 
 import java.io.IOException;

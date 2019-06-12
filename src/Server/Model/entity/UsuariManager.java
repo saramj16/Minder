@@ -21,6 +21,14 @@ public class UsuariManager {
         usuariDAO = new UsuariDAO();
     }
 
+    /**
+    * Mètode per afegir un usuari a la bbdd
+    * comprova si no existeix i posteriorment l'afegiex
+    *
+    * @param  u  Usuari
+    * @return void
+    *
+    */
     public void addUsuari(Usuari u) {
         //Si l'usuari no exiteix l'afegim
         if (!searchUsuari(u.getUserName())){
@@ -28,60 +36,171 @@ public class UsuariManager {
         }
     }
 
+    /**
+    * Mètode per modificar l'usuari a la bbdd
+    *
+    * @param  u  Usuari
+    * @return void
+    *
+    */
     public void modificiaUsuari(Usuari u){
         usuariDAO.modificaUsuari(u);
     }
 
-    //Retorna true si l'usuari existeix
+    /**
+    * Mètode per buscar l'usuari a la bbdd
+    *
+    * @param  userName  nom de l'Usuari
+    * @return boolean true en cas que existeixi l'usuari, false en cas contrari
+    *
+    */
     public boolean searchUsuari(String userName) {
         return usuariDAO.searchUsuari(userName);
     }
 
+    /**
+    * Mètode per eliminar un usuari de la bbdd
+    *
+    * @param  nom  nom de l'Usuari a eliminar
+    * @return void
+    *
+    */
     public void deleteUsuari(String nom) {
         usuariDAO.deleteUsuari(nom);
     }
 
+    /**
+    *
+    * Comprova que les dades de l'usuari siguin les correctes
+    *
+    * @param  username  nom de l'usuari
+    * @param  password contrasenya de l'usuari
+    * @return boolean true si les dades son correctes, false en cas contrari
+    *
+    */
     public boolean comprovaLogin(String username, String password) throws SQLException {
        return usuariDAO.comprovaUsuari(username,password);
     }
 
+
+    /**
+    *
+    * Retorna un ArrayList amb tots els Usuaris de la BBDD
+    *
+    * @return ArrayList<Usuari>  llista amb tots els Usuaris
+    *
+    */
     public ArrayList<Usuari> getAllUsuari() {
         return usuariDAO.getAllUsuari();
     }
 
+
+    /**
+    *
+    * Retorna un ArrayList amb tots els Usuaris que ha acceptat l'usuari d'entrada
+    *
+    * @param  usuari  nom de l'usuari
+    * @return ArrayList<Usuari>  llista amb tots els Usuaris acceptats
+    *
+    */
     public ArrayList<Usuari> getUsuarisAccepted(String usuari){
         return  usuariDAO.searchUsuaris(matxDAO.selectAcceptedUsers(usuari));
     }
 
+
+    /**
+    *
+    * Retorna un ArrayList amb tots els Usuaris que ha fet matx amb l'usuari d'entrada
+    *
+    * @param  usuari  nom de l'usuari
+    * @return ArrayList<Usuari>  llista amb tots els Usuaris amb matx
+    *
+    */
     public ArrayList<Usuari> getUsuarisMatxes(String usuari){
         return  usuariDAO.searchUsuaris(matxDAO.selectMatxedUsers(usuari));
     }
 
+    /**
+    *
+    * Retorna un ArrayList amb tots els Matx de l'Usuari
+    *
+    * @param  usuari  nom de l'usuari
+    * @return ArrayList<Matx>  llista Matx amb tots els matx de l'Usuari
+    *
+    */
     public ArrayList<Matx> getMatxedUsers(String usuari){
         return matxDAO.selectMatxes(usuari);
 
     }
 
+    /**
+     *
+     * Retorna l'Usuari que ens demanen a l'entrada
+     *
+     * @param  userName  nom de l'usuari
+     * @return Usuari classe Usuari amb l'usuari que ens demanen
+     *
+     */
     public Usuari getUsuari(String userName) {
         return usuariDAO.getUsuari(userName);
     }
 
+    /**
+     *
+     * Afegiex si un usuari ha sigut acceptat i vist a la bbdd
+     *
+     * @param  user1  nom de l'usuari1
+     * @param  user2  nom de l'usuari2
+     * @return void
+     *
+     */
     public void addAccepted(String user1, String user2){
         matxDAO.addAcceptedUser(user1,user2);
         matxDAO.addVist(user1,user2);
     }
 
+    /**
+     *
+     * Afegiex un matx entre dos usuaris
+     * Comprova si hi ha matx entre els dos, i despres l'afegiex
+     *
+     * @param  user1  nom de l'usuari1
+     * @param  user2  nom de l'usuari2
+     * @return void
+     *
+     */
     public void addMatx (String user1, String user2){
-        System.out.println("Aqui tm entre tet");
         if(matxDAO.comprovaMatx(user1,user2)){
             //Aqui hay matx
             matxDAO.addMatx(user1,user2);
         }
     }
 
+    /**
+     *
+     * Afegiex si un usuari ha sigut vist a la bbdd
+     *
+     * @param  user1  nom de l'usuari1
+     * @param  user2  nom de l'usuari2
+     * @return void
+     *
+     */
+    public void addVist(String user1, String user2) {
+        matxDAO.addVist(user1,user2);
+    }
 
-    //Ordena els missatges i els envia en un array de missatges perq els puguis printar al chat
-    //Esta testejat i els ordena perfect
+
+    /**
+     *
+     * Prepara un ArrayList de la classe Missatge amb tots els missatges entre ambdos
+     * usuaris, ordenats per ordre d'enviat, de manera que es poden anar col·locant a la
+     * vista directament
+     *
+     * @param  usuari1  nom de l'usuari1
+     * @param  usuari2  nom de l'usuari2
+     * @return void
+     *
+     */
     public ArrayList<Missatge> preparaChat (String usuari1, String usuari2){
 
         ArrayList<Missatge> missatges = new ArrayList<>(), missatgesUsuari1, missatgesUsuari2;
@@ -128,8 +247,6 @@ public class UsuariManager {
 
             if (missatgesUsuari2.size() != 0 && missatgesUsuari1.size() != 0){
                 if (t1.before(t2)){
-                    //System.out.println("Num1: " + num1);
-                    // System.out.println(missatgesUsuari1.get(num1).getMissatge());
                     missatges.add(missatgesUsuari1.get(num1));
                     missatgesUsuari1.remove(num1);
 
@@ -159,7 +276,5 @@ public class UsuariManager {
         return missatges;
     }
 
-    public void addVist(String user1, String user2) {
-        matxDAO.addVist(user1,user2);
-    }
+
 }

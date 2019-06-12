@@ -12,6 +12,8 @@ public class View extends JFrame {
     private JRadioButton jrbWeek;
     private JRadioButton jrbMonth;
 
+    private JButton jbVeure;
+
 
     private JLabel jlTop1;
     private JLabel jlTop2;
@@ -52,13 +54,22 @@ public class View extends JFrame {
         JLabel jlEvolucio = new JLabel("Evolució del nombre de matches:");
         jpNorth.add(jlEvolucio);
 
-        JPanel jpNorth2 = new JPanel(new GridLayout(1,3));
+        JPanel jpNorth2 = new JPanel(new GridLayout(1,4));
         jrbDay = new JRadioButton("Diari");
+        jrbDay.setSelected(true);
         jpNorth2.add(jrbDay);
         jrbWeek = new JRadioButton("Setmanal");
         jpNorth2.add(jrbWeek);
         jrbMonth = new JRadioButton("Mensual");
         jpNorth2.add(jrbMonth);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(jrbDay);
+        group.add(jrbWeek);
+        group.add(jrbMonth);
+
+        jbVeure = new JButton("Mostrar");
+        jpNorth2.add(jbVeure);
 
         jpNorth.add(jpNorth2);
         jpChart.add(jpNorth, BorderLayout.NORTH);
@@ -133,6 +144,37 @@ public class View extends JFrame {
                 }
             }
         }
+    }
+
+    public void setDayEvolution() {
+        //TODO: Fer que es mostri l'evolucio del dia
+    }
+
+    public void setWeekEvolution() {
+        //TODO: Fer que es mostri l'evolucio de la setmana
+    }
+
+    public void setMonthEvolution() {
+        //TODO: Fer que es mostri l'evolucio del mes
+    }
+
+
+    public void setTop5(String[] noms, Integer[] acceptacions) {
+        jlTop1.setText(noms[0]);
+        jlTop1NCops.setText((acceptacions[0].toString()));
+
+        jlTop2.setText(noms[1]);
+        jlTop2NCops.setText((acceptacions[1].toString()));
+
+        jlTop3.setText(noms[2]);
+        jlTop3NCops.setText((acceptacions[2].toString()));
+
+        jlTop4.setText(noms[3]);
+        jlTop4NCops.setText((acceptacions[3].toString()));
+
+        jlTop5.setText(noms[4]);
+        jlTop5NCops.setText((acceptacions[4].toString()));
+
     }
 
 }

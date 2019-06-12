@@ -1,25 +1,31 @@
 package User.View;
 
+import User.Model.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class EditProfile extends JFrame {
 
-    JPanel jpSuperior, jpCenter, jpInferior, jpCentreEsquerra,jpCentreDreta ;
-    JButton jbChangeImage, jbSave;
-    Image imatge;
-    JCheckBox jcbPremium;
-    JRadioButton jrbJava, jrbC;
-    JTextField jtfCorreu,jtfPassword, jtfDescription;
-    JSpinner jsEdat;
-    SpinnerModel value;
-    JLabel jlPerfil, jlNom, jlEdat, jlCorreu, jlPassword, jlDescription, jlLanguage, jlPremium, jlImage;
+    private JButton jbChangeImage, jbSave;
+    private ImagePanel ipImatge;
+    private JCheckBox jcbPremium;
+    private JRadioButton jrbJava, jrbC;
+    private JTextField jtfCorreu,jtfPassword, jtfDescription;
+    private JSpinner jsEdat;
+    private JLabel jlNom;
+    private JLabel jlEdat;
+    private JLabel jlCorreu;
+    private JLabel jlPassword;
+    private JLabel jlDescription;
+    private JLabel jlLanguage;
+    private JLabel jlPremium;
 
-    public EditProfile(){
+    public EditProfile(User user){
+
         configuraFinestra();
+        dadesEditaPrefil(user.getUserName(), user.getEdat(), user.getCorreo(), user.getPassword(), user.getDescription(), user.getLenguaje(), user.isPremium(), user.getUrlFoto());
     }
 
 
@@ -32,19 +38,21 @@ public class EditProfile extends JFrame {
 
     }
 
-    public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage) throws IOException, URISyntaxException {
+    public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage){
 
         jlNom = new JLabel(nom);
 
-        imatge = new ImagePanel().ImagePanel(pathImage);
-        jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
+        if (pathImage != null) {
+            ipImatge = new ImagePanel(pathImage);
+        }
+
         jbChangeImage = new JButton("Change Image");
 
         jlEdat = new JLabel("Edat: ");
-        value = new SpinnerNumberModel(edat, //initial value
-                        0, //minimum value
-                        100, //maximum value
-                        1); //step
+        SpinnerModel value = new SpinnerNumberModel(edat, //initial value
+                0, //minimum value
+                100, //maximum value
+                1);
         jsEdat = new JSpinner(value);
         jlCorreu = new JLabel("Correu: ");
         jtfCorreu = new JTextField(correu);
@@ -55,12 +63,17 @@ public class EditProfile extends JFrame {
         jlPremium = new JLabel("Premium: ");
         jcbPremium = new JCheckBox(" ", premium);
         jlLanguage = new JLabel("Llenguatge: ");
-        if (lenguage.equals("C")){
-            jrbC = new JRadioButton("C", true);
-            jrbJava = new JRadioButton("Java", false);
-        } else {
+        if (lenguage != null){
+            if (lenguage.equals("C")){
+                jrbC = new JRadioButton("C", true);
+                jrbJava = new JRadioButton("Java", false);
+            } else {
+                jrbC = new JRadioButton("C", false);
+                jrbJava = new JRadioButton("Java", true);
+            }
+        }else{
             jrbC = new JRadioButton("C", false);
-            jrbJava = new JRadioButton("Java", true);
+            jrbJava = new JRadioButton("Java", false);
         }
 
         jbSave = new JButton("Save");
@@ -71,22 +84,21 @@ public class EditProfile extends JFrame {
     private void configuraElements() {
         this.setLayout(new BorderLayout());
 
-        jpSuperior = new JPanel();
-        jpInferior = new JPanel();
-        jpCentreDreta = new JPanel();
-        jpCentreEsquerra = new JPanel();
-        jpCenter = new JPanel();
+        JPanel jpSuperior = new JPanel();
+        JPanel jpInferior = new JPanel();
+        JPanel jpCentreDreta = new JPanel();
+        JPanel jpCentreEsquerra = new JPanel();
+        JPanel jpCenter = new JPanel();
 
         jpSuperior.setLayout(new FlowLayout());
-        jlPerfil = new JLabel("Perfil / ");
+        JLabel jlPerfil = new JLabel("Perfil / ");
         jpSuperior.add(jlPerfil);
         jpSuperior.add(jlNom);
         this.add(jpSuperior, BorderLayout.PAGE_START);
 
         jpCenter.setLayout(new GridLayout(1,2));
         jpCentreEsquerra.setLayout(new BoxLayout(jpCentreEsquerra,BoxLayout.PAGE_AXIS));
-
-        jpCentreEsquerra.add(jlImage);
+        jpCentreEsquerra.add(ipImatge);
         jpCentreEsquerra.add(jbChangeImage);
         jpCenter.add(jpCentreEsquerra);
 
@@ -116,6 +128,10 @@ public class EditProfile extends JFrame {
 
     }
 
+    public void autenticationController(ActionListener controller){
+        jbSave.addActionListener(controller);
+        jbSave.setActionCommand("SaveProfileChanges");
+    }
 
 
 }

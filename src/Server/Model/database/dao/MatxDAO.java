@@ -19,6 +19,8 @@ public class MatxDAO {
 
     public MatxDAO(){
         dbConnector = DBConnector.getInstance();
+
+        //System.out.println(dbConnector);
     }
 
     /**
@@ -191,7 +193,7 @@ public class MatxDAO {
      * user1 agafant la info de la BBDD de SQL
      *
      * @param  user1    nom de l'Usuari 1
-     * @return ArrayList<String> llista dels noms dels usuaris que han sigut acceptats
+     * @return ArrayList</String> llista dels noms dels usuaris que han sigut acceptats
      *
      */
     public ArrayList<String> selectAcceptedUsers (String user1){

@@ -106,8 +106,8 @@ public class View extends JFrame {
         JPanel jpProfilePic = new JPanel();
         jpProfilePic.setBackground(Color.BLUE);
 
-        //ImagePanel imgPanel = new ImagePanel("/koala.jpg");
-        //jpProfilePic.add(imgPanel);
+        ImagePanel imgPanel = new ImagePanel("/koala.jpg");
+        jpProfilePic.add(imgPanel);
         //imgPanel.paintComponent(new  );
 
         jpProfile.add(jpProfilePic);
@@ -191,7 +191,9 @@ public class View extends JFrame {
             scrollpaneChats.add(new JLabel("Ningún Chat activo!"));
         }else {
             for (Match m : user.getListaMatch()){
-                JLabel jpChat = new JLabel("chat with: " + m.getUser1());
+                JPanel jpChat = new JPanel();
+                JLabel jLabel = new JLabel("chat with: " + m.getUser1());
+                jpChat.add(jLabel);
                 scrollpaneChats.add(jpChat);
             }
         }
@@ -224,6 +226,10 @@ public class View extends JFrame {
 
         jbSend.addActionListener(controller);
         jbSend.setActionCommand("SendMessage");
+
+        jbEditProfile.addActionListener(controller);
+        jbEditProfile.setActionCommand("EditProfile");
+
     }
 
     public User getUserLooking() {

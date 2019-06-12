@@ -6,6 +6,7 @@ import Server.Model.entity.Usuari;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
+import User.View.EditProfile;
 import User.View.RegistrationView;
 import User.View.View;
 
@@ -24,6 +25,7 @@ public class ControllerClient implements ActionListener {
     private Server server;
     private User currentUser;
     private ArrayList<User> connectedUsers;
+    private EditProfile editProfile;
 
 
     public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
@@ -43,7 +45,6 @@ public class ControllerClient implements ActionListener {
 
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
-        ArrayList<User> listaLikedUsers = null;
 
         switch (event.getActionCommand()){
             case "logIn":
@@ -70,12 +71,6 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        try {
-                            listaLikedUsers = ordenaUsuarios(currentUser);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        currentUser.setListaLikedUsers(listaLikedUsers);
                         startMainView(currentUser);
                     }
                 }
@@ -83,11 +78,7 @@ public class ControllerClient implements ActionListener {
 
             case "RegisterFromAutentication":
                 autenticationView.setVisible(false);
-                try {
-                    registrationView = new RegistrationView();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                registrationView = new RegistrationView();
                 registrationView.autenticationController(this);
                 registrationView.setVisible(true);
                 break;
@@ -108,8 +99,6 @@ public class ControllerClient implements ActionListener {
                         }
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -147,8 +136,11 @@ public class ControllerClient implements ActionListener {
                 }
                 break;
 
-            case "EditarPerfil":
-                //llamamos a la vista de editar perfil
+            case "EditProfile":
+                this.editProfile = new EditProfile(currentUser);
+                editProfile.autenticationController(this);
+                mainView.setVisible(false);
+                editProfile.setVisible(true);
                 break;
 
             case "GuardarPerfil":
@@ -170,32 +162,7 @@ public class ControllerClient implements ActionListener {
         mainView.setVisible(true);
     }
 
-    private ArrayList<User> ordenaUsuarios(User user) throws SQLException {
-        ArrayList<User> allUsers = connectedUsers;
-        ArrayList<User> usuarios = new ArrayList<>();
-        for (int i = 0; i < allUsers.size(); i++) {
-            System.out.println("allUsers = " + allUsers.get(i).getUserName());
-            if (user.isPremium()) {
-                for (int j = 0; j < user.getListaLikedUsers().size(); j++) {
-                    System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
-                    if ((allUsers.get(i).getUserName().equals(user.getListaLikedUsers().get(j).getUserName()))
-                            && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
-                        usuarios.add(allUsers.get(i));
-                    }
-                }
-            }
-            System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
-            if ((allUsers.get(i).getLenguaje().equals(user.getLenguaje())) && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
-                usuarios.add(allUsers.get(i));
-            }
-        }
-        for (int j = 0; j < usuarios.size(); j++){
-            System.out.println("CACA" + usuarios.get(j).getUserName());
-        }
-        return usuarios;
-    }
-
-    private User newUserFromRegistration() throws IOException, SQLException {
+    private User newUserFromRegistration() throws IOException {
         String username;
         String password;
         int edat;
@@ -204,7 +171,6 @@ public class ControllerClient implements ActionListener {
         String urlFoto;
         String lenguaje;
         String descripción;
-        ArrayList<User> likedUsers;
 
         username = getRegistrationView().getUserName().getText();
         password = getRegistrationView().getContraseña().getText();
@@ -214,14 +180,10 @@ public class ControllerClient implements ActionListener {
         urlFoto = getRegistrationView().getUrlFoto().getText();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
-        likedUsers = ordenaUsuarios(currentUser);
-
-
         //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
            User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
-           user.setListaLikedUsers(likedUsers);
            return user;
 
         }else{

@@ -52,4 +52,5 @@ public class User implements Serializable {
     public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
     public ArrayList<Match> getListaMatch() { return listaMatch; }
     public void setListaMatch(ArrayList<Match> listaMatch) { this.listaMatch = listaMatch; }
+
 }

@@ -38,7 +38,7 @@ public class MissatgeDAO {
 
     public ArrayList<Missatge> llistaMissatges (String userSend, String userRecive){
 
-        String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userRecive = '" + userRecive + "';";
+        String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userReceive = '" + userRecive + "';";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -48,11 +48,11 @@ public class MissatgeDAO {
                 Missatge missatges = new Missatge(
                         resultat.getString("missatge"),
                         resultat.getString("userSend"),
-                        resultat.getString("userRecive"),
-                        resultat.getDate("dataMessage")
+                        resultat.getString("userReceive"),
+                        resultat.getTimestamp("dataMessage")
                          );
                 messageList.add(missatges);
-                System.out.println(missatges.getMissatge());
+                //System.out.println(missatges.getDataMessage());
             }
 
         } catch (SQLException e) {

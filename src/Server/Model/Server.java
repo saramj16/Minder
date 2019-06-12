@@ -1,5 +1,6 @@
 package Server.Model;
 
+import Server.Model.entity.Missatge;
 import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
 import User.Model.Match;
@@ -119,5 +120,13 @@ public class Server {
 
     public void declineUser(User currentUser, User declinedUser) {
         usuariManager.addVist(currentUser.getUserName(),declinedUser.getUserName());
+    }
+
+    public void ordenaMissatges (String user1, String user2){
+        ArrayList<Missatge> m = usuariManager.preparaChat(user1,user2);
+
+        for (int i = 0; i < m.size(); i++){
+            System.out.println("From: " + m.get(i).getUserSend() + "--> " + m.get(i).getMissatge());
+        }
     }
 }

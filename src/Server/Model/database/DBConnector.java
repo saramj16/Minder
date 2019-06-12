@@ -63,6 +63,7 @@ public class DBConnector {
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Modificar --> " + ex.getSQLState());
+                System.out.println("La query que no modifica és: " +query);
             }
         }
 

@@ -60,7 +60,8 @@ public class Server {
             if (u.getUserName().equals(currentUser.getUserName())){
                 //TODO de Javo -> ver como poner los IDs de los matches
 
-                //Aqui se añade matx a los dos USuarios
+                //Aqui se añade matx a los dos Usuarios
+
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;
             }
@@ -103,7 +104,7 @@ public class Server {
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
                     usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
         }
-        System.out.println("Usuaris affegits" + users.size());
+
         return users;
     }
 
@@ -116,4 +117,7 @@ public class Server {
        return user;
     }
 
+    public void declineUser(User currentUser, User declinedUser) {
+        usuariManager.addVist(currentUser.getUserName(),declinedUser.getUserName());
+    }
 }

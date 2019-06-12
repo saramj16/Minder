@@ -22,13 +22,13 @@ public class UsuariDAO {
     public void addUsuari(Usuari usuari) {
         String query = "INSERT INTO Usuari(userName, edat, premium, correo, password) VALUES ('"+usuari.getUserName()+"', '"
                 +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+"', '"+usuari.getPassword()+"');";
-        System.out.println(query);
+        //System.out.println(query);
         dbConnector.insertQuery(query);
     }
 
     public void deleteUsuari (String userName){
         String query = "DELETE FROM Usuari WHERE userName = '"+userName+"';";
-        System.out.println(query);
+        //System.out.println(query);
         dbConnector.deleteQuery(query);
     }
 
@@ -37,7 +37,7 @@ public class UsuariDAO {
 
         for (int i = 0; i < usuaris.size(); i++){
             String query = "SELECT * FROM Usuari WHERE userName = '"+usuaris.get(i)+"';";
-            System.out.println(query);
+            //System.out.println(query);
             ResultSet resultat = dbConnector.selectQuery(query);
 
             try{
@@ -63,7 +63,7 @@ public class UsuariDAO {
     public boolean searchUsuari(String userName) {
 
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
 
         try{
@@ -114,9 +114,9 @@ public class UsuariDAO {
     public ArrayList<Usuari> getAllUsuari() {
 
         String query = "SELECT * FROM Usuari;";
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
-        System.out.println(resultat);
+        //System.out.println(resultat);
 
         ArrayList<Usuari> usuariList = new ArrayList<>();
         try{
@@ -143,7 +143,7 @@ public class UsuariDAO {
     public Usuari getUsuari(String userName) {
 
         String query = "SELECT * FROM Usuari WHERE userName = '"+userName+"';";
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
 
         try{

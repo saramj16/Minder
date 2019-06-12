@@ -1,8 +1,12 @@
 package User.View;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 public class AutenticationView extends JFrame {
     private JPanel mainPanel;
@@ -11,7 +15,7 @@ public class AutenticationView extends JFrame {
     private JButton registerLabel;
     private JButton logInButton;
 
-    public AutenticationView(){
+    public AutenticationView() throws IOException {
         configuraVentana();
         configuraCentro();
     }
@@ -24,7 +28,7 @@ public class AutenticationView extends JFrame {
     }
 
     private void configuraCentro(){
-        mainPanel = new JPanel(new GridLayout(7, 1));
+        mainPanel = new JPanel(new GridLayout(8, 1));
         usernameTextField = new TextField();
         passwordTextField = new TextField();
         registerLabel = new JButton("¿Aún no tienes cuenta? REGISTRATE!");
@@ -40,6 +44,7 @@ public class AutenticationView extends JFrame {
 
         mainPanel.setVisible(true);
         this.add(mainPanel);
+
     }
 
     public void autenticationController(ActionListener controller){

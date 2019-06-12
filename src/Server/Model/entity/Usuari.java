@@ -17,12 +17,13 @@ public class Usuari {
     private String lenguaje;
     private String description;
 
-    public Usuari(String userName, int edat, boolean premium, String correo, String password) {
+    public Usuari(String userName, int edat, boolean premium, String correo, String password, String lenguaje) {
         this.userName = userName;
         this.edat = edat;
         this.premium = premium;
         this.correo = correo;
         this.password = password;
+        this.lenguaje = lenguaje;
     }
 
     public Usuari(String userName, int edat, boolean premium, String correo, String password, String urlFoto, String lenguaje, String description) {

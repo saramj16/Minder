@@ -3,18 +3,20 @@ package User.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class EditProfile extends JFrame {
 
     JPanel jpSuperior, jpCenter, jpInferior, jpCentreEsquerra,jpCentreDreta ;
     JButton jbChangeImage, jbSave;
-    ImagePanel ipImatge;
+    Image imatge;
     JCheckBox jcbPremium;
     JRadioButton jrbJava, jrbC;
     JTextField jtfCorreu,jtfPassword, jtfDescription;
     JSpinner jsEdat;
     SpinnerModel value;
-    JLabel jlPerfil, jlNom, jlEdat, jlCorreu, jlPassword, jlDescription, jlLanguage, jlPremium;
+    JLabel jlPerfil, jlNom, jlEdat, jlCorreu, jlPassword, jlDescription, jlLanguage, jlPremium, jlImage;
 
     public EditProfile(){
         configuraFinestra();
@@ -30,11 +32,12 @@ public class EditProfile extends JFrame {
 
     }
 
-    public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage){
+    public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage) throws IOException, URISyntaxException {
 
         jlNom = new JLabel(nom);
 
-        ipImatge = new ImagePanel(pathImage);
+        imatge = new ImagePanel().ImagePanel(pathImage);
+        jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jbChangeImage = new JButton("Change Image");
 
         jlEdat = new JLabel("Edat: ");
@@ -82,7 +85,8 @@ public class EditProfile extends JFrame {
 
         jpCenter.setLayout(new GridLayout(1,2));
         jpCentreEsquerra.setLayout(new BoxLayout(jpCentreEsquerra,BoxLayout.PAGE_AXIS));
-        jpCentreEsquerra.add(ipImatge);
+
+        jpCentreEsquerra.add(jlImage);
         jpCentreEsquerra.add(jbChangeImage);
         jpCenter.add(jpCentreEsquerra);
 

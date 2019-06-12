@@ -1,8 +1,14 @@
 package User.View;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class RegistrationView extends JFrame{
 
@@ -18,8 +24,7 @@ public class RegistrationView extends JFrame{
     private TextField descripción;
     private JButton register;
 
-
-    public RegistrationView(){
+    public RegistrationView() throws IOException {
         configuraVentana();
         configuraCentro();
     }
@@ -60,8 +65,8 @@ public class RegistrationView extends JFrame{
         mainpanel.add(new JLabel("Descripción: "));
         mainpanel.add(descripción);
         mainpanel.add(register);
-
         mainpanel.setVisible(true);
+
         this.add(mainpanel);
     }
 

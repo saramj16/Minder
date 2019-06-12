@@ -44,7 +44,7 @@ public class Server {
 
     public boolean comprobarRegistro(User user){
         if (!usuariManager.searchUsuari(user.getUserName())){
-            usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword()));
+            usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword(), user.getLenguaje()));
             return true;
         }
         return false;
@@ -105,7 +105,7 @@ public class Server {
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
                     usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
         }
-
+        System.out.println("Usuaris afegits " + users.size());
         return users;
     }
 

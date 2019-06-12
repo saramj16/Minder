@@ -20,7 +20,7 @@ public class MatxDAO {
     public MatxDAO(){
         dbConnector = DBConnector.getInstance();
 
-        System.out.println(dbConnector);
+        //System.out.println(dbConnector);
     }
 
     /**
@@ -34,7 +34,7 @@ public class MatxDAO {
      */
     public void addMatx(String user1, String user2) {
         boolean existeix = false;
-        String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
+        String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+ user1 +"' AND user2 = '"+ user2 +"';";
         ResultSet resultat = dbConnector.selectQuery(query);
 
         //Agafem la data en la que s'ha fet el Matx per tal de guardar-la al MySQL
@@ -45,12 +45,13 @@ public class MatxDAO {
             while(resultat.next()){
                 String nom1 = resultat.getString("user1");
                 String nom2 = resultat.getString("user2");
+                System.out.println("Nom 1: " + nom1 + " // Nom 2: " + nom2);
 
                 if(nom1.equals(user1) && nom2.equals(user2)) {
                     //Hem d'afegir el matx en l'Usuari1 i l'Usuari2 per separat
-                    String query1 = "UPDATE Matx SET matx = '" + true + "' dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    String query1 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + nom1 + "' AND user2 = '" + nom2 + "';";
                     dbConnector.updateQuery(query1);
-                    String query2 = "UPDATE Matx SET matx = '" + true + "' dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + user2 + "', user 2 = '" + user1 + "';";
+                    String query2 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + nom2 + "' AND user2 = '" + nom1 + "';";
                     dbConnector.updateQuery(query2);
                     existeix = true;
                 }
@@ -87,7 +88,7 @@ public class MatxDAO {
                 String nom2 = resultat.getString("user2");
 
                 if(nom1.equals(user1) && nom2.equals(user2)) {
-                    String query1 = "UPDATE Matx SET vist = '" + true + "' WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    String query1 = "UPDATE Matx SET vist = " + true + " WHERE user1 = '" + user1 + "' AND user2 = '" + user2 + "';";
                     dbConnector.updateQuery(query1);
                     existeix = true;
                 }
@@ -123,7 +124,7 @@ public class MatxDAO {
                 String nom2 = resultat.getString("user2");
 
                 if(nom1.equals(user1) && nom2.equals(user2)) {
-                    String query1 = "UPDATE Matx SET accept = " + true + " WHERE user1 = '" + user1 + "', user 2 = '" + user2 + "';";
+                    String query1 = "UPDATE Matx SET accept = " + true + " WHERE user1 = '" + user1 + "' AND user2 = '" + user2 + "';";
                     dbConnector.updateQuery(query1);
                     existeix = true;
                 }
@@ -134,7 +135,7 @@ public class MatxDAO {
         }
         if(!existeix){
             String query2 = "INSERT INTO Matx(user1, user2, vist, accept) VALUES ('" + user1 + "', '" + user2 + "' , " + true + " , " + true + ");";
-            System.out.println(query2);
+            //System.out.println(query2);
             dbConnector.insertQuery(query2);
         }
     }
@@ -152,29 +153,35 @@ public class MatxDAO {
 
         boolean accept = false, accept1 = false;
 
-        String query = "SELECT accept FROM Matx WHERE user1 = '"+user1+"';";
+        System.out.println("Entra al comprova Match");
 
-        String query1 = "SELECT accept FROM Matx WHERE user1 = '"+user2+"';";
+        String query = "SELECT accept FROM Matx WHERE user1 = '" + user1 + "' AND user2 = '" + user2 + "';";
 
         ResultSet resultat = dbConnector.selectQuery(query);
         try{
             while(resultat.next()){
                 accept = resultat.getBoolean("accept");
+                System.out.println("El primer usuari:" + accept);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        String query1 = "SELECT accept FROM Matx WHERE user1 = '" + user2 + "' AND user2 = '" + user1 + "';";
 
         ResultSet resultat1 = dbConnector.selectQuery(query1);
         try{
             while(resultat1.next()){
                 accept1 = resultat1.getBoolean("accept");
+                System.out.println("El segon usuari:" + accept1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+
         if (accept && accept1){
+            System.out.println("Final feliz, els dos Usuaris han acceptat");
             return true;
         }
         return false;
@@ -193,10 +200,10 @@ public class MatxDAO {
         ArrayList<String> acceptedUsers = new ArrayList<>();
 
         String query = "SELECT user2 FROM Matx WHERE user1 = '"+user1+"' AND accept = true;";
-        System.out.println(query);
+        //System.out.println(query);
 
         ResultSet resultat = dbConnector.selectQuery(query);
-        System.out.println(resultat);
+        //System.out.println(resultat);
 
         try{
             while(resultat.next()){
@@ -280,7 +287,7 @@ public class MatxDAO {
      *
      */
     public void deleteMatx(String user1, String user2) {
-        String query = "UPDATE Matx SET matx = '" + false + "' AND accept = '" + false + "' WHERE user1 = '"+user1+"' AND user2 = '" + user2 + "';";
+        String query = "UPDATE Matx SET matx = " + false + " AND accept = " + false + " WHERE user1 = '"+user1+"' AND user2 = '" + user2 + "';";
         System.out.println(query);
         dbConnector.updateQuery(query);
     }

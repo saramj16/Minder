@@ -155,7 +155,7 @@ public class View extends JFrame {
     }
 
     public void setMonthEvolution() {
-        //TODO: Fer que es mostri l'evolucio del mes
+        //TODO: Fer que es mostri l'evolucio del mes.
     }
 
 

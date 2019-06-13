@@ -8,6 +8,7 @@ import User.Model.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class View extends JFrame {
@@ -72,7 +73,7 @@ public class View extends JFrame {
 
 
 
-    public View(User currentUser, User firstUser) {
+    public View(User currentUser, User firstUser) throws IOException {
 
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
@@ -98,15 +99,15 @@ public class View extends JFrame {
         //this.setVisible(true);
     }
 
-    public JPanel getJpProfile(User user) {
+    public JPanel getJpProfile(User user) throws IOException {
         jpProfile = new JPanel();
         jpProfile.setLayout(new GridLayout(1,2));
 
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         jpProfilePic.setBackground(Color.BLUE);
-
-        ImagePanel imgPanel = new ImagePanel("/koala.jpg");
+        Image image = new ImagePanel().ImagePanel("/koala.jpg");
+        JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jpProfilePic.add(imgPanel);
         //imgPanel.paintComponent(new  );
 

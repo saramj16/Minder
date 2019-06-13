@@ -1,6 +1,7 @@
 package Server;
 
 import Network.ServerNetworkManager;
+import Server.Model.Controller;
 import Server.Model.Server;
 import Server.Model.entity.UsuariManager;
 import Server.View.View;
@@ -21,8 +22,10 @@ public class MainServer {
         Server server;
         ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
-        View v = new View();
 
+        View v = new View();
+        Controller c = new Controller(v);
+        v.registerController(c);
 
        try {
             server = new Server(model);

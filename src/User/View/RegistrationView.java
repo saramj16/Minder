@@ -11,8 +11,8 @@ public class RegistrationView extends JFrame{
     private TextField edat;
     private boolean premium;
     private TextField correo;
-    private TextField contraseña;
-    private TextField repetirContraseña;
+    private JPasswordField contraseña;
+    private JPasswordField repetirContraseña;
     private TextField urlFoto;
     private TextField lenguaje;
     private TextField descripción;
@@ -36,8 +36,8 @@ public class RegistrationView extends JFrame{
         userName = new TextField();
         edat = new TextField();
         correo = new TextField();
-        contraseña = new TextField();
-        repetirContraseña = new TextField();
+        contraseña = new JPasswordField();
+        repetirContraseña = new JPasswordField();
         urlFoto = new TextField();
         lenguaje = new TextField();
         descripción = new TextField();
@@ -83,10 +83,10 @@ public class RegistrationView extends JFrame{
     public void setPremium(boolean premium) { this.premium = premium; }
     public TextField getCorreo() { return correo; }
     public void setCorreo(TextField correo) { this.correo = correo; }
-    public TextField getContraseña() { return contraseña; }
-    public void setContraseña(TextField contraseña) { this.contraseña = contraseña; }
-    public TextField getRepetirContraseña() { return repetirContraseña; }
-    public void setRepetirContraseña(TextField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
+    public JPasswordField getContraseña() { return contraseña; }
+    public void setContraseña(JPasswordField contraseña) { this.contraseña = contraseña; }
+    public JPasswordField getRepetirContraseña() { return repetirContraseña; }
+    public void setRepetirContraseña(JPasswordField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
     public TextField getUrlFoto() { return urlFoto; }
     public void setUrlFoto(TextField urlFoto) { this.urlFoto = urlFoto; }
     public TextField getLenguaje() { return lenguaje; }

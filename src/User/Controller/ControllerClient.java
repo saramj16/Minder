@@ -70,12 +70,12 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        try {
+                      /*  try {
                             listaLikedUsers = ordenaUsuarios(currentUser);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                        currentUser.setListaLikedUsers(listaLikedUsers);
+                        currentUser.setListaLikedUsers(listaLikedUsers);*/
                         try {
                             startMainView(currentUser);
                         } catch (IOException e) {

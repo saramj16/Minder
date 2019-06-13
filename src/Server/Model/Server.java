@@ -47,6 +47,8 @@ public class Server {
     public boolean comprobarRegistro(User user){
         if (!usuariManager.searchUsuari(user.getUserName())){
             usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword()));
+
+            // ****
             return true;
         }
         return false;

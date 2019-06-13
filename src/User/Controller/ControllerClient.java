@@ -154,7 +154,25 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "SaveEditProfile":
-
+                System.out.println("Actualizando perfil...!!");
+                try {
+                    User user = editUserFromEditProfile();
+                    if (user != null) {
+                        ok = networkManager.functionalities(2, user, null);
+                        if (ok){
+                            JOptionPane.showMessageDialog(null, "Cambios guardados correctamente!");
+                            this.currentUser = user;
+                            registrationView.setVisible(false);
+                            //startMainView(editProfile);
+                        }else{
+                            System.out.println("algun tipo de error al guardar los cambios ");
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "SendMessage":
@@ -230,6 +248,42 @@ public class ControllerClient implements ActionListener {
 
     }
 
+
+    private User editUserFromEditProfile() throws IOException, SQLException {
+        String username;
+        String password;
+        int edat;
+        boolean isPremium;
+        String correo;
+        String urlFoto;
+        String lenguaje;
+        String descripción;
+        ArrayList<User> likedUsers;
+
+        //username = getRegistrationView().getUserName().getText();
+        password = getEditProfileView().getPasswordTextField().getText();
+        //edat = getEditProfileView().getJsEdat().get();
+        correo = getEditProfileView().getJtfCorreu().getText();
+        //urlFoto = getEditProfileView().getUrlFoto().getText();
+        //lenguaje = getEditProfileView().getLenguaje().getText();
+        descripción = getEditProfileView().getJtfDescription().getText();
+        //isPremium = getEditProfileView().getJcbPremium().ge();
+        // likedUsers = ordenaUsuarios(currentUser);
+
+        //if (username.equals(username)){
+            //User user = User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+
+        User user = new User( "",0,false,correo, password, "", "", descripción);
+            // user.setListaLikedUsers(likedUsers);
+            return user;
+
+        //}else{
+            //JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
+           // return null;
+        //}
+
+    }
+
     private Mensaje getMensaje(){
         Mensaje mensaje = null;
 
@@ -242,4 +296,7 @@ public class ControllerClient implements ActionListener {
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
     public Server getServer() { return server; }
     public void setServer(Server server) { this.server = server; }
+
+    public EditProfile getEditProfileView() { return editProfile; }
+    public void setEditProfileView(EditProfile editProfile) { this.editProfile = editProfile; }
 }

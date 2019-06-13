@@ -131,6 +131,29 @@ public class EditProfile extends JFrame {
         jbSave.setActionCommand("SaveEditProfile");
     }
 
+    //public JPanel getMainPanel() { return mainPanel; }
+    //public void setMainPanel(JPanel mainPanel) { this.mainPanel = mainPanel; }
+
+    //public TextField getUsernameTextField() { return usernameTextField; }
+    //public void setUsernameTextField(TextField usernameTextField) { this.usernameTextField = usernameTextField; }
+
+    public JSpinner getJsEdat() { return jsEdat; }
+    public void setPasswordTextField(JSpinner jsEdat) { this.jsEdat = jsEdat; }
+
+    public JTextField getJtfCorreu() { return jtfCorreu; }
+    public void setJtfCorreu(JTextField jtfPassword) { this.jtfCorreu = jtfCorreu; }
+
+    public JTextField getPasswordTextField() { return jtfPassword; }
+    public void setPasswordTextField(JTextField jtfPassword) { this.jtfPassword = jtfPassword; }
+
+    public JTextField getJtfDescription() { return jtfDescription; }
+    public void setJtfDescription(JTextField jtfDescription) { this.jtfDescription = jtfDescription; }
+
+    public JCheckBox getJcbPremium() { return jcbPremium; }
+    public void setJcbPremium(JCheckBox jcbPremium) { this.jcbPremium = jcbPremium; }
+
+    public JButton getJbSave() { return jbSave; }
+    public void setJbSave(JButton jbSave) { this.jbSave = jbSave; }
 
 
 }

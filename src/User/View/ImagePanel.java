@@ -4,18 +4,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class ImagePanel extends JPanel{
-    private  BufferedImage image;
+class ImagePanel extends JPanel{
 
-    public Image ImagePanel(String imgPath) throws IOException {
-        if (imgPath.equals(" ")){
-            image = ImageIO.read(new File("./imatges/default.jpeg"));
+    Image ImagePanel(String imgPath) throws IOException {
+        BufferedImage image;
+        if (imgPath == null || imgPath.equals("")){
+            image = ImageIO.read(new File("C:\\Users\\javog\\OneDrive\\Escritorio\\universidad\\Asignaturas\\18-19\\DPOO\\proyectoMinder\\src\\Imatges\\default.jpeg"));
         } else {
             image = ImageIO.read(new File(imgPath));
         }

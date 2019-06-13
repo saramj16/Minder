@@ -7,6 +7,8 @@ import Server.Model.entity.Matx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -270,6 +272,13 @@ public class MatxDAO {
                         resultat.getDate("dataMatch"));
 
                 matxedUsers.add(m);
+                System.out.println("User1 " + resultat.getString("user1"));
+                System.out.println("User2 " + resultat.getString("user2"));
+                System.out.println("Matx " + resultat.getBoolean("matx"));
+                System.out.println("Accept " + resultat.getBoolean("accept"));
+                System.out.println("Vist " + resultat.getBoolean("vist"));
+                System.out.println("Matx " + resultat.getDate("dataMatch"));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,6 +299,23 @@ public class MatxDAO {
         String query = "UPDATE Matx SET matx = " + false + " AND accept = " + false + " WHERE user1 = '"+user1+"' AND user2 = '" + user2 + "';";
         System.out.println(query);
         dbConnector.updateQuery(query);
+    }
+
+
+    /**
+     * Mètode per eliminar el match entre dos usuaris dins la BBDD de SQL
+     *
+     * @return void
+     *
+     */
+    public int numMatchHora(Date hora) {
+        Date nextHora = new Date();
+        nextHora = hora;
+
+        String query = "SELECT COUNT(matx)/2 FROM Matx WHERE dataMatch BETWEEN '" + hora +"' AND '" + "2019-06-12 14:00:00" + "';";
+        dbConnector.selectQuery(query);
+
+        return 0;
     }
 
 

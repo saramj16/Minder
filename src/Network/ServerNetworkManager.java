@@ -33,7 +33,7 @@ public class ServerNetworkManager {
         System.out.println("The date server is running...");
         server.addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre"));
         server.addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara"));
-        server.addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo"));
+        server.addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "https://www.google.com/search?q=diego&rlz=1C1CHBF_esES819ES819&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjWnca65uPiAhUSxoUKHdxwBAwQ_AUIECgB&biw=1280&bih=578#imgrc=XjoAVD53O1BaSM:", "Java", "fucking bosssss"));
         server.addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel"));
         server.addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel"));
 

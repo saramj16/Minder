@@ -30,7 +30,7 @@ public class MainServer {
        try {
             server = new Server(model);
             networkManager = new ServerNetworkManager(server);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 

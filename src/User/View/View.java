@@ -79,7 +79,7 @@ public class View extends JFrame {
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Matches",getJpMatches(firstUser));
-        tabbedPane.add("Profile",getJpProfile(currentUser));
+        //tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();

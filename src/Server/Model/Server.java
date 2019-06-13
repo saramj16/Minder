@@ -75,6 +75,13 @@ public class Server {
 
     }
 
+    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+        ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
+
+        return convertMatxToMach(matches);
+
+    }
+
     private ArrayList<User> getMatchedUsers(String userMatch) throws SQLException {
         ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch);
 

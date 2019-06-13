@@ -1,19 +1,24 @@
 package Server.View;
 
+import Server.Model.Controller;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Calendar;
+import java.util.Date;
 
 public class View extends JFrame {
     private final int WIDTH = 400;  //Amplada
     private final int HEIGHT = 300; //Alçada
     private JTabbedPane tabbedPane;
 
-    private BarChart chart;
+    private GraficaBarres chart;
     private JRadioButton jrbDay;
     private JRadioButton jrbWeek;
     private JRadioButton jrbMonth;
 
     private JButton jbVeure;
+    private JLabel jlInfo;
 
 
     private JLabel jlTop1;
@@ -76,11 +81,15 @@ public class View extends JFrame {
         jpChart.add(jpNorth, BorderLayout.NORTH);
 
 
-        chart = new BarChart();
 
-        int[] horesMatchesDia = {1,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,1};   //Exemple
-        setDayEvolution(horesMatchesDia);
+        int[] horesMatches = {1,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,1};   //Exemple
+        chart = new GraficaBarres();
         jpChart.add(chart, BorderLayout.CENTER);
+
+        jlInfo = new JLabel("");
+        jpChart.add(jlInfo, BorderLayout.SOUTH);
+
+        setDayEvolution(horesMatches);
 
         return jpChart;
     }
@@ -94,28 +103,28 @@ public class View extends JFrame {
         JLabel jlNCopsAcceptat = new JLabel(("Nombre de cops acceptat"));
         jpTop5Users.add(jlNCopsAcceptat);
 
-        jlTop1 = new JLabel("Top1");
-        jlTop1NCops = new JLabel("100");
+        jlTop1 = new JLabel("");
+        jlTop1NCops = new JLabel("");
         jpTop5Users.add(jlTop1);
         jpTop5Users.add(jlTop1NCops);
 
-        jlTop2 = new JLabel("Top 2");
-        jlTop2NCops = new JLabel("80");
+        jlTop2 = new JLabel("");
+        jlTop2NCops = new JLabel("");
         jpTop5Users.add(jlTop2);
         jpTop5Users.add(jlTop2NCops);
 
-        jlTop3 = new JLabel("Top 3");
-        jlTop3NCops = new JLabel("60");
+        jlTop3 = new JLabel("");
+        jlTop3NCops = new JLabel("");
         jpTop5Users.add(jlTop3);
         jpTop5Users.add(jlTop3NCops);
 
-        jlTop4 = new JLabel("Top 4");
-        jlTop4NCops = new JLabel("40");
+        jlTop4 = new JLabel("");
+        jlTop4NCops = new JLabel("");
         jpTop5Users.add(jlTop4);
         jpTop5Users.add(jlTop4NCops);
 
-        jlTop5 = new JLabel("Top 5");
-        jlTop5NCops = new JLabel("20");
+        jlTop5 = new JLabel("");
+        jlTop5NCops = new JLabel("");
         jpTop5Users.add(jlTop5);
         jpTop5Users.add(jlTop5NCops);
 
@@ -151,9 +160,13 @@ public class View extends JFrame {
     hores del dia amb els seus corresponents matches realitzats.
      */
     public void setDayEvolution(int horesMatches[]) {
-        for (int i = 0; i < 24; i++) {
-            chart.addBar(new Color(110,110,230+i), horesMatches[i]);
+        chart.reset();
+        repaint();
+        Calendar now = Calendar.getInstance();
+        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
+            chart.addBar(new Color(51,153,230+i), horesMatches[i]);
         }
+        jlInfo.setText("Nombre de matches realitzats a les "+now.get(Calendar.HOUR_OF_DAY)+" hores d'avui.");
     }
 
     /**
@@ -161,9 +174,12 @@ public class View extends JFrame {
      dies de la setmana amb els seus corresponents matches realitzats.
      */
     public void setWeekEvolution(int diesMatchesSetmana[]) {
+        chart.reset();
+        repaint();
         for (int i = 0; i < 7; i++) {
             chart.addBar(new Color(110,110,230+i), diesMatchesSetmana[i]);
         }
+        jlInfo.setText("Nombre de matches realitzats en els últims 7 dies.");
     }
 
     /**
@@ -171,9 +187,13 @@ public class View extends JFrame {
      dies del mes amb els seus corresponents matches realitzats.
      */
     public void setMonthEvolution(int[] diesMatchesMes) {
-        for (int i = 0; i < 31; i++) {
-            chart.addBar(new Color(110,110,230+i), diesMatchesMes[i]);
+        chart.reset();
+        repaint();
+        Calendar now = Calendar.getInstance();
+        for (int i = 0; i < now.get(Calendar.DAY_OF_MONTH); i++) {
+            chart.addBar(new Color(220+i,0,220+i), diesMatchesMes[i]);
         }
+        jlInfo.setText("Nombre de matches realitzats en el darrer mes.");
     }
 
     /**
@@ -182,23 +202,27 @@ public class View extends JFrame {
      * @param acceptacions: Array de Integers amb els corresponents matches del top 1 al 5
      */
     public void setTop5(String[] noms, Integer[] acceptacions) {
-        jlTop1.setText(noms[0]);
-        jlTop1NCops.setText((acceptacions[0].toString()));
+        jlTop1.setText("   1.- "+noms[0]);
+        jlTop1NCops.setText(("     "+acceptacions[0].toString()));
 
-        jlTop2.setText(noms[1]);
-        jlTop2NCops.setText((acceptacions[1].toString()));
+        jlTop2.setText("   2.- "+noms[1]);
+        jlTop2NCops.setText(("     "+acceptacions[1].toString()));
 
-        jlTop3.setText(noms[2]);
-        jlTop3NCops.setText((acceptacions[2].toString()));
+        jlTop3.setText("   3.- "+noms[2]);
+        jlTop3NCops.setText(("     "+acceptacions[2].toString()));
 
-        jlTop4.setText(noms[3]);
-        jlTop4NCops.setText((acceptacions[3].toString()));
+        jlTop4.setText("   4.- "+noms[3]);
+        jlTop4NCops.setText(("     "+acceptacions[3].toString()));
 
-        jlTop5.setText(noms[4]);
-        jlTop5NCops.setText((acceptacions[4].toString()));
+        jlTop5.setText("   5.- "+noms[4]);
+        jlTop5NCops.setText(("     "+acceptacions[4].toString()));
 
     }
 
+    public void registerController (Controller c) {
+        jbVeure.setActionCommand("VEURE");
+        jbVeure.addActionListener(c);
+    }
 }
 
 

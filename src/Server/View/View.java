@@ -184,7 +184,7 @@ public class View extends JFrame {
 
     /**
      Fa set de les barres de la gràfica de matches mensual, rebent com a parametre un array d'integers que son els 31
-     dies del mes amb els seus corresponents matches realitzats.
+     dies del mes amb els seus corresponents matches realitzats..
      */
     public void setMonthEvolution(int[] diesMatchesMes) {
         chart.reset();

@@ -166,7 +166,7 @@ public class View extends JFrame {
         for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
             chart.addBar(new Color(51,153,230+i), horesMatches[i]);
         }
-        jlInfo.setText("Nombre de matches realitzats a les "+now.get(Calendar.HOUR_OF_DAY)+" hores d'avui.");
+        jlInfo.setText("Nombre de matches realitzats les "+now.get(Calendar.HOUR_OF_DAY)+" hores d'avui.");
     }
 
     /**
@@ -176,15 +176,16 @@ public class View extends JFrame {
     public void setWeekEvolution(int diesMatchesSetmana[]) {
         chart.reset();
         repaint();
-        for (int i = 0; i < 7; i++) {
+        Calendar now = Calendar.getInstance();
+        for (int i = 0; i < now.get(Calendar.DAY_OF_WEEK); i++) {
             chart.addBar(new Color(110,110,230+i), diesMatchesSetmana[i]);
         }
-        jlInfo.setText("Nombre de matches realitzats en els últims 7 dies.");
+        jlInfo.setText("Nombre de matches realitzats els "+now.get(Calendar.DAY_OF_WEEK)+" dies d'aquesta setmana.");
     }
 
     /**
      Fa set de les barres de la gràfica de matches mensual, rebent com a parametre un array d'integers que son els 31
-     dies del mes amb els seus corresponents matches realitzats..
+     dies del mes amb els seus corresponents matches realitzats.
      */
     public void setMonthEvolution(int[] diesMatchesMes) {
         chart.reset();
@@ -193,7 +194,7 @@ public class View extends JFrame {
         for (int i = 0; i < now.get(Calendar.DAY_OF_MONTH); i++) {
             chart.addBar(new Color(220+i,0,220+i), diesMatchesMes[i]);
         }
-        jlInfo.setText("Nombre de matches realitzats en el darrer mes.");
+        jlInfo.setText("Nombre de matches realitzats els "+now.get(Calendar.DAY_OF_MONTH)+" dies d'aquest mes.");
     }
 
     /**

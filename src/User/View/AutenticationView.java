@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class AutenticationView extends JFrame {
     private JPanel mainPanel;
     private TextField usernameTextField;
-    private TextField passwordTextField;
+    private JPasswordField passwordTextField;
     private JButton registerLabel;
     private JButton logInButton;
 
@@ -26,7 +26,7 @@ public class AutenticationView extends JFrame {
     private void configuraCentro(){
         mainPanel = new JPanel(new GridLayout(7, 1));
         usernameTextField = new TextField();
-        passwordTextField = new TextField();
+        passwordTextField = new JPasswordField();
         registerLabel = new JButton("¿Aún no tienes cuenta? REGISTRATE!");
         logInButton = new JButton("Log in");
 
@@ -55,8 +55,8 @@ public class AutenticationView extends JFrame {
     public void setMainPanel(JPanel mainPanel) { this.mainPanel = mainPanel; }
     public TextField getUsernameTextField() { return usernameTextField; }
     public void setUsernameTextField(TextField usernameTextField) { this.usernameTextField = usernameTextField; }
-    public TextField getPasswordTextField() { return passwordTextField; }
-    public void setPasswordTextField(TextField passwordTextField) { this.passwordTextField = passwordTextField; }
+    public JPasswordField getPasswordTextField() { return passwordTextField; }
+    public void setPasswordTextField(JPasswordField passwordTextField) { this.passwordTextField = passwordTextField; }
     public JButton getLogInButton() { return logInButton; }
     public void setLogInButton(JButton logInButton) { this.logInButton = logInButton; }
 }

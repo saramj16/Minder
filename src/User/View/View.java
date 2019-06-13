@@ -226,8 +226,8 @@ public class View extends JFrame {
         jbSend.addActionListener(controller);
         jbSend.setActionCommand("SendMessage");
 
-        jbEditProfile.addActionListener(controller);
-        jbEditProfile.setActionCommand("EditProfile");
+        //jbEditProfile.addActionListener(controller);
+        //jbEditProfile.setActionCommand("EditProfile");
 
     }
 

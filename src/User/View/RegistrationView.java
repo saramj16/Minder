@@ -32,7 +32,8 @@ public class RegistrationView extends JFrame{
     }
 
     private void configuraCentro(){
-        mainpanel = new JPanel(new GridLayout(14,1));
+        //mainpanel = new JPanel(new GridLayout(14,1));
+        mainpanel = new JPanel(new BorderLayout());
         userName = new TextField();
         edat = new TextField();
         correo = new TextField();
@@ -43,23 +44,29 @@ public class RegistrationView extends JFrame{
         descripción = new TextField();
         register = new JButton("Registrate!");
 
-        mainpanel.add(new JLabel("Username: "));
-        mainpanel.add(userName);
-        mainpanel.add(new JLabel("Edad: "));
-        mainpanel.add(edat);
-        mainpanel.add(new JLabel("Correo: "));
-        mainpanel.add(correo);
-        mainpanel.add(new JLabel("Contraseña: "));
-        mainpanel.add(contraseña);
-        mainpanel.add(new JLabel("Repite tu contraseña: "));
-        mainpanel.add(repetirContraseña);
-        mainpanel.add(new JLabel("URL de tu fotografía: "));
-        mainpanel.add(urlFoto);
-        mainpanel.add(new JLabel("Lenguaje: "));
-        mainpanel.add(lenguaje);
-        mainpanel.add(new JLabel("Descripción: "));
-        mainpanel.add(descripción);
-        mainpanel.add(register);
+        JPanel jpMid= new JPanel(new GridLayout(9,1));
+        jpMid.add(new JLabel("          Username: "));
+        jpMid.add(userName);
+        jpMid.add(new JLabel("          Edad: "));
+        jpMid.add(edat);
+        jpMid.add(new JLabel("          Correo: "));
+        jpMid.add(correo);
+        jpMid.add(new JLabel("          Contraseña: "));
+        jpMid.add(contraseña);
+        jpMid.add(new JLabel("          Repite tu contraseña: "));
+        jpMid.add(repetirContraseña);
+        jpMid.add(new JLabel("          URL de tu fotografía: "));
+        jpMid.add(urlFoto);
+        jpMid.add(new JLabel("          Lenguaje: "));
+        jpMid.add(lenguaje);
+        jpMid.add(new JLabel("          Descripción: "));
+        jpMid.add(descripción);
+
+        JLabel jlTitol = new JLabel("   Registro");
+        jlTitol.setFont (jlTitol.getFont ().deriveFont (30.0f));
+        mainpanel.add(jlTitol, BorderLayout.NORTH);
+        mainpanel.add(jpMid, BorderLayout.CENTER);
+        mainpanel.add(register,BorderLayout.SOUTH);
 
         mainpanel.setVisible(true);
         this.add(mainpanel);

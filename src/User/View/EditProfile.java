@@ -23,7 +23,6 @@ public class EditProfile extends JFrame {
     private JLabel jlPremium;
 
     public EditProfile(User user){
-
         configuraFinestra();
         dadesEditaPrefil(user.getUserName(), user.getEdat(), user.getCorreo(), user.getPassword(), user.getDescription(), user.getLenguaje(), user.isPremium(), user.getUrlFoto());
     }
@@ -98,8 +97,8 @@ public class EditProfile extends JFrame {
 
         jpCenter.setLayout(new GridLayout(1,2));
         jpCentreEsquerra.setLayout(new BoxLayout(jpCentreEsquerra,BoxLayout.PAGE_AXIS));
-        jpCentreEsquerra.add(ipImatge);
-        jpCentreEsquerra.add(jbChangeImage);
+        //jpCentreEsquerra.add(ipImatge);
+        //jpCentreEsquerra.add(jbChangeImage);
         jpCenter.add(jpCentreEsquerra);
 
         jpCentreDreta.setLayout(new GridLayout(6,2));
@@ -130,7 +129,7 @@ public class EditProfile extends JFrame {
 
     public void autenticationController(ActionListener controller){
         jbSave.addActionListener(controller);
-        jbSave.setActionCommand("SaveProfileChanges");
+        jbSave.setActionCommand("GuardarPerfil");
     }
 
 

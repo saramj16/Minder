@@ -20,6 +20,14 @@ public class MissatgeDAO {
         System.out.println(dbConnector);
     }
 
+    /**
+     *
+     * Mètode per afegir un Missatge a la BBDD de SQL
+     *
+     * @param  missatge   Classe Missatge
+     * @return void
+     *
+     */
     public void addMissatge(Missatge missatge) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -30,15 +38,19 @@ public class MissatgeDAO {
         DBConnector.getInstance().insertQuery(query);
     }
 
-    public void deleteMissatge(int id) {
-        String query = "DELETE FROM Missatge WHERE id = '"+id+"';";
-        System.out.println(query);
-        DBConnector.getInstance().deleteQuery(query);
-    }
 
+    /**
+     *
+     * Mètode per retornar una llista de missatges que hi ha hagut entre dos Usuaris
+     *
+     * @param  userSend   Nom de l'Usuari que ha enviat els missatges
+     * @param  userRecive Nom de l'Usuari que ha rebut els missatges
+     * @return ArrayList<Missatge> llista amb tots els missatges que ha enviat userSend a userRecive
+     *
+     */
     public ArrayList<Missatge> llistaMissatges (String userSend, String userRecive){
 
-        String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userRecive = '" + userRecive + "';";
+        String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userReceive = '" + userRecive + "';";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -48,11 +60,11 @@ public class MissatgeDAO {
                 Missatge missatges = new Missatge(
                         resultat.getString("missatge"),
                         resultat.getString("userSend"),
-                        resultat.getString("userRecive"),
-                        resultat.getDate("dataMessage")
+                        resultat.getString("userReceive"),
+                        resultat.getTimestamp("dataMessage")
                          );
                 messageList.add(missatges);
-                System.out.println(missatges.getMissatge());
+                //System.out.println(missatges.getDataMessage());
             }
 
         } catch (SQLException e) {

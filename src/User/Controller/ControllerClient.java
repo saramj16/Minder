@@ -144,7 +144,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "GuardarPerfil":
-                //nos guardamos toda la info y volvemos a pantalla principal
+                //TODO: nos guardamos toda la info y volvemos a pantalla principal
                 break;
 
             case "SendMessage":

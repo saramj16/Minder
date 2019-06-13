@@ -3,20 +3,17 @@ package User.Model;
 
 
 public class Mensaje {
-    private int id; //num de linea
     private String mensaje;
     private User userSend;
+    private User userReceive;
 
-    public Mensaje(int id, String mensaje, User userSend) {
-        this.id = id;
+    public Mensaje(String mensaje, User userSend, User userReceive) {
         this.mensaje = mensaje;
         this.userSend = userSend;
+        this.userReceive = userReceive;
     }
 
 
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
     public String getMensaje() { return mensaje; }
     public void setMensaje(String mensaje) { this.mensaje = mensaje; }
     public User getUserSend() { return userSend; }

@@ -79,7 +79,7 @@ public class View extends JFrame {
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Matches",getJpMatches(firstUser));
-        tabbedPane.add("Profile",getJpProfile(currentUser));
+        //tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
@@ -95,8 +95,6 @@ public class View extends JFrame {
         this.add(tabbedPane);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
-        //this.setLayout(null);
-        //this.setVisible(true);
     }
 
     public JPanel getJpProfile(User user) throws IOException {
@@ -106,7 +104,7 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         jpProfilePic.setBackground(Color.BLUE);
-        Image image = new ImagePanel().ImagePanel("default.jpeg");
+        Image image = new ImagePanel().ImagePanel(user.getUrlFoto());
         JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jpProfilePic.add(imgPanel);
         //imgPanel.paintComponent(new  );

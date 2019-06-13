@@ -61,10 +61,6 @@ public class Server {
 
         for (User u : userLikeLikedUsers){
             if (u.getUserName().equals(currentUser.getUserName())){
-                //TODO de Javo -> ver como poner los IDs de los matches
-
-                //Aqui se añade matx a los dos Usuarios
-
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;
             }
@@ -76,6 +72,13 @@ public class Server {
         ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike);
 
         return convertUsuaristoUsers(likedUsers);
+
+    }
+
+    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+        ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
+
+        return convertMatxToMach(matches);
 
     }
 

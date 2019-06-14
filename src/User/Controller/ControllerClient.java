@@ -139,6 +139,8 @@ public class ControllerClient implements ActionListener {
                     User userRemoved = connectedUsers.remove(0);
                     connectedUsers.add(userRemoved);
                     mainView.setUserLooking(connectedUsers.get(0));
+                    mainView.setVisible(false);
+                    startMainView(currentUser);
 
                 } catch (IOException e) {
                     e.printStackTrace();

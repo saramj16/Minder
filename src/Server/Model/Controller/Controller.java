@@ -1,5 +1,6 @@
-package Server.Model;
+package Server.Model.Controller;
 
+import Server.Model.Server;
 import Server.Model.entity.UsuariManager;
 import Server.View.View;
 
@@ -16,6 +17,7 @@ public class Controller implements ActionListener {
         this.v = v;
         this.um = um;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {

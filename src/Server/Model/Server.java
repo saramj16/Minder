@@ -4,23 +4,31 @@ import Server.Model.entity.Matx;
 import Server.Model.entity.Missatge;
 import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
+import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 
-import javax.swing.*;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Server {
+public class Server extends Thread{
     private int serverPort;
     private UsuariManager usuariManager;
     private ArrayList<User> users;
+    private boolean running;
+    private ArrayList<DedicatedServer> dedicatedServerList;
+    private static final int PORT = 9999;
 
 
     public Server(UsuariManager usuariManager) throws SQLException {
         this.usuariManager = usuariManager;
         this.users = getAllUsers();
+        running = true;
+        dedicatedServerList = new ArrayList<>();
     }
 
     public int getServerPort() { return serverPort; }
@@ -30,7 +38,38 @@ public class Server {
 
     //---------------------------------------------------------------------------------------//
 
-    public void addUsuari(Usuari u){
+
+    public void run() {
+
+        try {
+            ServerSocket sServer = new ServerSocket(PORT);
+
+            addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre"));
+            addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara"));
+            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "https://www.google.com/search?q=diego&rlz=1C1CHBF_esES819ES819&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjWnca65uPiAhUSxoUKHdxwBAwQ_AUIECgB&biw=1280&bih=578#imgrc=XjoAVD53O1BaSM:", "Java", "fucking bosssss"));
+            addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel"));
+            addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel"));
+
+            while (running) {
+                Socket sClient = sServer.accept();
+                DedicatedServer ds = new DedicatedServer(sClient, this);
+                dedicatedServerList.add(ds);
+            }
+            sServer.close();
+            for (DedicatedServer ds : dedicatedServerList) {
+                ds.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void removeFromDedicatedList(DedicatedServer dedicatedServer) {
+        dedicatedServerList.remove(dedicatedServer);
+    }
+
+   public void addUsuari(Usuari u){
         usuariManager.addUsuari(u);
     }
 

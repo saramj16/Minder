@@ -1,10 +1,9 @@
 package User.Controller;
 
-import Network.ClientNetworkManager;
 import Server.Model.Server;
-import Server.Model.entity.Usuari;
 import User.Model.Mensaje;
 import User.Model.User;
+import User.Network.ServerComunication;
 import User.View.AutenticationView;
 import User.View.EditProfile;
 import User.View.RegistrationView;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
-    private ClientNetworkManager networkManager;
+    private ServerComunication networkManager;
     private View mainView;
     private Server server;
     private User currentUser;
@@ -28,7 +27,7 @@ public class ControllerClient implements ActionListener {
     private EditProfile editProfile;
 
 
-    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
+    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
 

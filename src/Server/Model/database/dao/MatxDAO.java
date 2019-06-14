@@ -201,7 +201,7 @@ public class MatxDAO {
     public ArrayList<String> selectAcceptedUsers (String user1){
         ArrayList<String> acceptedUsers = new ArrayList<>();
 
-        String query = "SELECT user2 FROM Matx WHERE user1 = '"+user1+"' AND accept = true;";
+        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND accept = 1;";
         //System.out.println(query);
 
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -231,7 +231,7 @@ public class MatxDAO {
     public ArrayList<String> selectMatxedUsers(String user1) {
         ArrayList<String> matxedUsers = new ArrayList<>();
 
-        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND matx = true;";
+        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND matx = " + true + ";";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -258,7 +258,7 @@ public class MatxDAO {
     public ArrayList<Matx> selectMatxes(String usuari) {
         ArrayList<Matx> matxedUsers = new ArrayList<>();
 
-        String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = true;";
+        String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = " + true + ";";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -272,12 +272,7 @@ public class MatxDAO {
                         resultat.getDate("dataMatch"));
 
                 matxedUsers.add(m);
-                System.out.println("User1 " + resultat.getString("user1"));
-                System.out.println("User2 " + resultat.getString("user2"));
-                System.out.println("Matx " + resultat.getBoolean("matx"));
-                System.out.println("Accept " + resultat.getBoolean("accept"));
-                System.out.println("Vist " + resultat.getBoolean("vist"));
-                System.out.println("Matx " + resultat.getDate("dataMatch"));
+
 
             }
         } catch (SQLException e) {

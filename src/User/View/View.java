@@ -237,7 +237,7 @@ public class View extends JFrame {
         return jpMatches;
     }
 
-    //Test4
+    //Test5
     public void autenticationController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
         jbMatchYes.setActionCommand("AcceptUser");

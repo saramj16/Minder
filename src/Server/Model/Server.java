@@ -55,7 +55,7 @@ public class Server {
     }
 
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
-        ArrayList<User> currentUserlikedUsers = new ArrayList<>();
+
         ArrayList<User> userLikeLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
@@ -74,6 +74,13 @@ public class Server {
         ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike);
 
         return convertUsuaristoUsers(likedUsers);
+
+    }
+
+    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+        ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
+
+        return convertMatxToMach(matches);
 
     }
 
@@ -111,10 +118,10 @@ public class Server {
 
         for (int i = 0; i < usuaris.size(); i++){
             ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
-            ArrayList<User> listaLikedUsers = convertUsuaristoUsers(usuariManager.getUsuarisAccepted(usuaris.get(i).getUserName()));
+
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
-                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription(),listaMatch,listaLikedUsers));
+                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription(),listaMatch));
         }
 
         return users;

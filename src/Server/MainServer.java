@@ -24,7 +24,7 @@ public class MainServer {
         UsuariManager model = new UsuariManager();
 
         View v = new View();
-        Controller c = new Controller(v);
+        Controller c = new Controller(v,model);
         v.registerController(c);
 
        try {

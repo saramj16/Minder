@@ -209,7 +209,7 @@ public class UsuariDAO {
      */
     public Usuari getUsuari(String userName) {
 
-        String query = "SELECT * FROM Usuari WHERE userName = '"+userName+"';";
+        String query = "SELECT * FROM Usuari WHERE userName = '" + userName + "';";
         //System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
 

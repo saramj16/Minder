@@ -56,8 +56,8 @@ public class ServerNetworkManager {
                 case 1:
                     String username = diStream.readUTF();
                     String password = diStream.readUTF();
-                  //  System.out.println("username = " + username);
-                  //  System.out.println("password = " + password);
+                    System.out.println("username = " + username);
+                    System.out.println("password = " + password);
                     ok = server.comprobarLogIn(username, password);
                     System.out.println("OK = " + ok);
                     doStream.writeBoolean(ok);

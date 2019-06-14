@@ -70,9 +70,7 @@ public class UsuariManager {
     }
 
     public void addMatx (String user1, String user2){
-        System.out.println("Aqui tm entre tet");
         if(matxDAO.comprovaMatx(user1,user2)){
-            //Aqui hay matx
             matxDAO.addMatx(user1,user2);
         }
     }

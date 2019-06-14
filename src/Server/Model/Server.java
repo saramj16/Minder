@@ -117,11 +117,11 @@ public class Server {
         ArrayList<User> users = new ArrayList<>();
 
         for (int i = 0; i < usuaris.size(); i++){
-            ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
+            //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
 
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
-                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription(),listaMatch));
+                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
         }
 
         return users;
@@ -153,11 +153,11 @@ public class Server {
 
        Usuari u = usuariManager.getUsuari(username);
 
-       ArrayList<User> listaLikedUsers = getLikedUsers(username);
-       ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(username));
+       //ArrayList<User> listaLikedUsers = getLikedUsers(username);
+       //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(username));
 
 
-       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription(),listaMatch,listaLikedUsers);
+       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());
 
        return user;
     }

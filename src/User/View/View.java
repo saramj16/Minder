@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class View extends JFrame {
-    private final int WIDTH = 800;  //Amplada
-    private final int HEIGHT = 600; //Alçada
+    private final int WIDTH = 400;  //Amplada
+    private final int HEIGHT = 300; //Alçada
     private JTabbedPane tabbedPane;
     private User userLooking;
 
@@ -75,11 +75,12 @@ public class View extends JFrame {
 
     public View(User currentUser, User firstUser) throws IOException {
 
+        this.setTitle(" M I N D E R ");
         System.out.println("Entra a User");
         tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
         tabbedPane.add("Matches",getJpMatches(firstUser));
-        //tabbedPane.add("Profile",getJpProfile(currentUser));
+        tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
         //chats = new ArrayList<>();
@@ -104,14 +105,15 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         jpProfilePic.setBackground(Color.BLUE);
-        Image image = new ImagePanel().ImagePanel(user.getUrlFoto());
-        JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
-        jpProfilePic.add(imgPanel);
+        //Image image = new ImagePanel().ImagePanel(user.getUrlFoto());
+        //JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
+        //jpProfilePic.add(imgPanel);
         //imgPanel.paintComponent(new  );
 
         jpProfile.add(jpProfilePic);
 
         //Panel Info
+        /*
         JPanel jpInfoProfile = new JPanel();
         jpInfoProfile.setLayout(new GridLayout(5,1));
         jlName = new JLabel(user.getUserName());
@@ -129,6 +131,33 @@ public class View extends JFrame {
         jbEditProfile = new JButton("Editar Perfil");
         jbEditProfile.setFont(new Font("Arial", Font.PLAIN, 50));
         jpInfoProfile.add(jbEditProfile);
+
+*/
+        JPanel jpInfoProfile = new JPanel();
+        jpInfoProfile.setLayout(new BorderLayout());
+
+        JPanel jpGrid = new JPanel(new GridLayout(3,2));
+        jlName = new JLabel(user.getUserName());
+        jlAge = new JLabel(String.valueOf(user.getEdat())+" anys");
+        JLabel jlLlenguatgePref = new JLabel("Llenguatge:");
+        jlLanguage = new JLabel(user.getLenguaje());
+        JLabel jlDescTitle = new JLabel("Descripció:");
+        jpGrid.add(jlName);
+        jpGrid.add(jlAge);
+        jpGrid.add(jlLlenguatgePref);
+        jpGrid.add(jlLanguage);
+        jpGrid.add(jlDescTitle);
+
+        jtaDescription = new JTextArea(/*user.getDescription()*/"Em menjo els mocs");
+        jtaDescription.setEditable(false);
+        /*JScrollPane scDescription = new JScrollPane();
+        scDescription.add(jtaDescription);*/
+
+        jbEditProfile = new JButton("Editar Perfil");
+
+        jpInfoProfile.add(jpGrid, BorderLayout.NORTH);
+        jpInfoProfile.add(jtaDescription, BorderLayout.CENTER);
+        jpInfoProfile.add(jbEditProfile, BorderLayout.SOUTH);
 
         jpProfile.add(jpInfoProfile);
 

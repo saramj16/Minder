@@ -113,26 +113,6 @@ public class View extends JFrame {
         jpProfile.add(jpProfilePic);
 
         //Panel Info
-        /*
-        JPanel jpInfoProfile = new JPanel();
-        jpInfoProfile.setLayout(new GridLayout(5,1));
-        jlName = new JLabel(user.getUserName());
-        jlName.setFont(new Font("Arial", Font.PLAIN, 50));
-        jpInfoProfile.add(jlName);
-        jlAge = new JLabel(String.valueOf(user.getEdat()));
-        jlAge.setFont(new Font("Arial", Font.PLAIN, 40));
-        jpInfoProfile.add(jlAge);
-        jlLanguage = new JLabel(user.getLenguaje());
-        jlLanguage.setFont(new Font("Arial", Font.PLAIN, 40));
-        jpInfoProfile.add(jlLanguage);
-        jtaDescription = new JTextArea(user.getDescription());
-        jtaDescription.setFont(new Font("Arial", Font.PLAIN, 20));
-        jpInfoProfile.add(jtaDescription);
-        jbEditProfile = new JButton("Editar Perfil");
-        jbEditProfile.setFont(new Font("Arial", Font.PLAIN, 50));
-        jpInfoProfile.add(jbEditProfile);
-
-*/
         JPanel jpInfoProfile = new JPanel();
         jpInfoProfile.setLayout(new BorderLayout());
 
@@ -150,8 +130,6 @@ public class View extends JFrame {
 
         jtaDescription = new JTextArea(/*user.getDescription()*/"Em menjo els mocs");
         jtaDescription.setEditable(false);
-        /*JScrollPane scDescription = new JScrollPane();
-        scDescription.add(jtaDescription);*/
 
         jbEditProfile = new JButton("Editar Perfil");
 
@@ -181,33 +159,48 @@ public class View extends JFrame {
         //Panel Info
         JPanel jpInfoMatch = new JPanel();
 
-        jpInfoMatch.setLayout(new GridLayout(5, 1));
+        jpInfoMatch.setLayout(new BorderLayout());
+        JPanel jpNorth = new JPanel(new GridLayout(3,2));
         jlName = new JLabel(user.getUserName());
-        jlName.setFont(new Font("Arial", Font.PLAIN, 50));
-        jpInfoMatch.add(jlName);
-        jlAge = new JLabel(String.valueOf(user.getEdat()));
-        jlAge.setFont(new Font("Arial", Font.PLAIN, 40));
-        jpInfoMatch.add(jlAge);
+        jpNorth.add(jlName);
+        jlAge = new JLabel(String.valueOf(user.getEdat()) + " anys");
+        jpNorth.add(jlAge);
+        JLabel jlLlenguatge = new JLabel("Llenguatge: ");
+        jpNorth.add(jlLlenguatge);
         jlLanguage = new JLabel(user.getLenguaje());
-        jlLanguage.setFont(new Font("Arial", Font.PLAIN, 40));
-        jpInfoMatch.add(jlLanguage);
-        jtaDescription = new JTextArea(user.getDescription());
-        jtaDescription.setFont(new Font("Arial", Font.PLAIN, 20));
-        jpInfoMatch.add(jtaDescription);
+        jpNorth.add(jlLanguage);
+        JLabel jlDescTitle = new JLabel("Descripció: ");
+        jpNorth.add(jlDescTitle);
+
+        jpInfoMatch.add(jpNorth, BorderLayout.NORTH);
+
+        jtaDescription = new JTextArea(/*user.getDescription()*/"Em menjo els mocs");
+        jtaDescription.setEditable(false);
+        jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
 
         JPanel jpBotons = new JPanel(new GridLayout(1, 2));
         jbMatchYes = new JButton("Yes!");
-        jbMatchYes.setFont(new Font("Arial", Font.PLAIN, 50));
         jpBotons.add(jbMatchYes);
-        jbMatchNo = new JButton(("No"));
-        jbMatchNo.setFont(new Font("Arial", Font.PLAIN, 50));
+        jbMatchNo = new JButton(("Nope"));
         jpBotons.add(jbMatchNo);
 
-        jpInfoMatch.add(jpBotons);
+        //jpInfoMatch.add(jpBotons, BorderLayout.SOUTH);
+        jpInfoMatch.add(jpBotons, BorderLayout.SOUTH);
+
+
+        //jpInfoMatch.add(jpBotons);
 
         jpMatches.add(jpInfoMatch);
 
-        return jpMatches;
+        JPanel jpTitledMatches = new JPanel(new BorderLayout());
+        JLabel jlTitleMatches = new JLabel(" Tens un possible match!");
+        JPanel jpTensUnMatch = new JPanel(new FlowLayout());
+        jpTensUnMatch.add(jlTitleMatches);
+
+        jpTitledMatches.add(jpTensUnMatch, BorderLayout.NORTH);
+        jpTitledMatches.add(jpMatches, BorderLayout.CENTER);
+
+        return jpTitledMatches;
     }
 
     public JPanel getJpChats(User user) {
@@ -226,7 +219,7 @@ public class View extends JFrame {
             }
         }
 
-        JPanel jRight = new JPanel(new GridLayout(2,1));
+        JPanel jRight = new JPanel(new BorderLayout());
         jpMatches.add(scrollpaneChats);
 
         jtaMessages = new JTextArea();
@@ -234,11 +227,11 @@ public class View extends JFrame {
 
         JPanel jBot = new JPanel(new BorderLayout());
         jtfMessage = new JTextField();
-        jBot.add(jtfMessage);
+        jBot.add(jtfMessage, BorderLayout.CENTER);
         jbSend = new JButton("Send");
         jBot.add(jbSend, BorderLayout.EAST);
 
-        jRight.add(jBot);
+        jRight.add(jBot, BorderLayout.SOUTH);
         jpMatches.add(jRight);
 
         return jpMatches;

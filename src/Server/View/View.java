@@ -82,14 +82,17 @@ public class View extends JFrame {
 
 
 
-        int[] horesMatches = {1,2,3,4,5,6,7,8,9,10,11,12,12,11,10,9,8,7,6,5,4,3,2,1};   //Exemple
+        int[] horesMatches = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};   //Exemple
         chart = new GraficaBarres();
         jpChart.add(chart, BorderLayout.CENTER);
 
+
+
         jlInfo = new JLabel("");
+
         jpChart.add(jlInfo, BorderLayout.SOUTH);
 
-        setDayEvolution(horesMatches);
+        setStart(horesMatches);
 
         return jpChart;
     }
@@ -153,6 +156,17 @@ public class View extends JFrame {
                 }
             }
         }
+    }
+
+
+    public void setStart(int horesMatches[]) {
+        chart.reset();
+        repaint();
+        Calendar now = Calendar.getInstance();
+        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
+            chart.addBar(new Color(51,153,230+i), horesMatches[i]);
+        }
+        jlInfo.setText("Seleccioni una opció per veure el seu gràfic corresponent.");
     }
 
     /**

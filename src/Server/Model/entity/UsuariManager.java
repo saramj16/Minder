@@ -135,4 +135,12 @@ public class UsuariManager {
 
         return numMatches;
     }
+
+    public ArrayList<String> top5UsuarisAcceptats(){
+        return matxDAO.top5UsuarisMesAcceptats();
+    }
+
+    public ArrayList<Integer> top5NumAcceptacions(){
+        return matxDAO.top5NAcceptacions();
+    }
 }

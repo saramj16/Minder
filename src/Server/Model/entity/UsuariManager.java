@@ -6,6 +6,7 @@ import Server.Model.database.dao.UsuariDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class UsuariManager {
@@ -99,5 +100,39 @@ public class UsuariManager {
 
     public void addVist(String user1, String user2) {
         matxDAO.addVist(user1,user2);
+    }
+
+
+    public int[] llistaMatchesDiaria(){
+        Calendar now = Calendar.getInstance();
+        int numMatches[] = new int[now.get(Calendar.HOUR_OF_DAY)];
+
+        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
+            numMatches[i] = matxDAO.getNumeroMatxesHora(i);
+        }
+
+        return numMatches;
+    }
+
+    public int[] llistaMatchesSetmanal(){
+        Calendar now = Calendar.getInstance();
+        int numMatches[] = new int[now.get(Calendar.DAY_OF_WEEK)];
+
+        for (int i = 0; i < now.get(Calendar.DAY_OF_WEEK); i++) {
+            numMatches[i] = matxDAO.getNumeroMatxesDiaSetmana(i);
+        }
+
+        return numMatches;
+    }
+
+    public int[] llistaMatchesMensual(){
+        Calendar now = Calendar.getInstance();
+        int numMatches[] = new int[now.get(Calendar.DAY_OF_MONTH)];
+
+        for (int i = 0; i < now.get(Calendar.DAY_OF_MONTH); i++) {
+            numMatches[i] = matxDAO.getNumeroMatxesDiaMes(i);
+        }
+
+        return numMatches;
     }
 }

@@ -23,13 +23,13 @@ public class Controller implements ActionListener {
         switch (e.getActionCommand()) {
             case "VEURE" :
                 if( v.getSelectedEvolution() == 1) { //Dia
-                    v.setDayEvolution(horesMatches);
+                    v.setDayEvolution(um.llistaMatchesDiaria());
                 }
                 if (v.getSelectedEvolution() == 2) {
-                    v.setWeekEvolution(diesMatchesWeek);
+                    v.setWeekEvolution(um.llistaMatchesSetmanal());
                 }
                 if (v.getSelectedEvolution() == 3) {
-                    v.setMonthEvolution(diesMatchesMonth);
+                    v.setMonthEvolution(um.llistaMatchesMensual());
                 }
                 break;
             default:

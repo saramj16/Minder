@@ -32,8 +32,10 @@ public class AutenticationView extends JFrame {
         registerLabel = new JButton("Registra't!");
         logInButton = new JButton("Log in");
 
-        JLabel jlLogin = new JLabel(" M I N D E R");
+        JLabel jlLogin = new JLabel("M I N D E R");
         jlLogin.setFont (jlLogin.getFont ().deriveFont (30.0f));
+        JPanel jpTitol = new JPanel(new FlowLayout());
+        jpTitol.add(jlLogin);
 
 
         mainPanel.add(new JLabel("  Username: "), CENTER_ALIGNMENT);
@@ -46,7 +48,7 @@ public class AutenticationView extends JFrame {
 
         mainPanel.setVisible(true);
 
-        jpAuthenticate.add(jlLogin, BorderLayout.NORTH);
+        jpAuthenticate.add(jpTitol, BorderLayout.NORTH);
         jpAuthenticate.add(mainPanel, BorderLayout.CENTER);
         this.add(jpAuthenticate);
     }

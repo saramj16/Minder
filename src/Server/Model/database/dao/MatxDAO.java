@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -312,6 +313,91 @@ public class MatxDAO {
 
         return 0;
     }
+
+
+    public int getNumeroMatxesHora(int hora) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + now.get(Calendar.DAY_OF_MONTH) + " ";
+
+        String h = data + hora + ":00:00" ;
+        String h1 = data + (hora + 1) + ":00:00";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + h +"' AND '" + h1 + "';";
+        System.out.println(query);
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+                System.out.println("Numero de matxes " + num);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
+    }
+
+    public int getNumeroMatxesDiaSetmana(int i) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        int dia = now.get(Calendar.DAY_OF_MONTH) + i - now.get(Calendar.DAY_OF_WEEK) +1;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 00:00:00";
+        String data1 = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 23:59:59";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + data +"' AND '" + data1 + "';";
+        System.out.println(query);
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+                System.out.println("Numero de matxes " + num);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
+    }
+
+    public int getNumeroMatxesDiaMes(int i) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        int dia = i+1;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 00:00:00";
+        String data1 = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 23:59:59";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + data +"' AND '" + data1 + "';";
+        System.out.println(query);
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+                System.out.println("Numero de matxes " + num);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
+    }
+
+
 
 
 }

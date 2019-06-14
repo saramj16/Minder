@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Usuari {
 
-
     private String userName;
     private int edat;
     private boolean premium;

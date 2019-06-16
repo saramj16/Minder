@@ -44,11 +44,11 @@ public class Server extends Thread{
         try {
             ServerSocket sServer = new ServerSocket(PORT);
 
-            addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre"));
-            addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara"));
-            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "https://www.google.com/search?q=diego&rlz=1C1CHBF_esES819ES819&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjWnca65uPiAhUSxoUKHdxwBAwQ_AUIECgB&biw=1280&bih=578#imgrc=XjoAVD53O1BaSM:", "Java", "fucking bosssss"));
-            addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel"));
-            addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel"));
+            addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "C", "pene"));
+            addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));
+            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "", "Java", "fucking bosssss"));
+            addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel", "", "C", "pene"));
+            addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel", "", "C", "pene"));
 
             while (running) {
                 Socket sClient = sServer.accept();
@@ -69,7 +69,7 @@ public class Server extends Thread{
         dedicatedServerList.remove(dedicatedServer);
     }
 
-   public void addUsuari(Usuari u){
+    public void addUsuari(Usuari u){
         usuariManager.addUsuari(u);
     }
 
@@ -81,6 +81,19 @@ public class Server extends Thread{
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean actualizaUser(User user) throws SQLException {
+        User user1 = getUser(user.getUserName());
+        if (user1 != null){
+            updateUser(user1, user);
+            return true;
+        }
+        return false;
+    }
+
+    private void updateUser(User user2modificate, User userModificated) {
+        //TODO: 4 u Saraaaaaaaaaaaaaaaaaaaaaaaa
     }
 
     public boolean comprobarRegistro(User user){

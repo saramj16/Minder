@@ -85,6 +85,11 @@ public class DedicatedServer extends Thread{
                         server.declineUser(currentUser, likedUser);
                         break;
 
+                    case 5:
+                        user = (User) oiStream.readObject();
+                        ok = server.actualizaUser(user);
+                        doStream.writeBoolean(ok);
+                        break;
                     default:
                         System.out.println("DEFAULT!!!");
                         break;

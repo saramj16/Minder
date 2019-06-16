@@ -57,16 +57,15 @@ public class ServerComunication extends Thread{
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;
+
+            case 5://registrar usuario --> object1 = user modificado, object2= null
+                ooStream.writeObject(object1);
+                ok = diStream.readBoolean();
+                break;
         }
 
         return ok;
     }
-
-    public void connectClient() throws IOException {
-        String respostaServer = diStream.readUTF();
-        System.out.println("el server dice: " + respostaServer);
-    }
-
 
     public User getCurrentUser() throws IOException, ClassNotFoundException {
 

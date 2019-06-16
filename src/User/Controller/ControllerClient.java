@@ -108,9 +108,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al registrar usuario");
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -148,7 +146,7 @@ public class ControllerClient implements ActionListener {
                 }
                 break;
 
-            case "EditarPerfil":
+            case "EditProfile":
                 try {
                     this.editProfile = new EditProfile(currentUser);
                     editProfile.autenticationController(this);
@@ -160,26 +158,22 @@ public class ControllerClient implements ActionListener {
                 break;
 
 
-            case "GuardarPerfil":
-                //TODO: nos guardamos toda la info y volvemos a pantalla principal
             case "SaveEditProfile":
                 System.out.println("Actualizando perfil...!!");
                 try {
                     User user = editUserFromEditProfile();
                     if (user != null) {
-                        ok = networkManager.functionalities(2, user, null);
+                        ok = networkManager.functionalities(5, user, null);
                         if (ok){
                             JOptionPane.showMessageDialog(null, "Cambios guardados correctamente!");
                             this.currentUser = user;
-                            registrationView.setVisible(false);
-                            //startMainView(editProfile);
+                            editProfile.setVisible(false);
+                            startMainView(currentUser);
                         }else{
                             System.out.println("algun tipo de error al guardar los cambios ");
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;

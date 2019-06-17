@@ -14,8 +14,8 @@ public class ImagePanel extends JPanel{
     private  BufferedImage image;
 
     public Image ImagePanel(String imgPath) throws IOException {
-        if (imgPath.equals(" ")){
-            image = ImageIO.read(new File("./imatges/default.jpeg"));
+        if (imgPath == null){
+            image = ImageIO.read(new File("./src/Imatges/default.jpeg"));
         } else {
             image = ImageIO.read(new File(imgPath));
         }

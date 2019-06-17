@@ -6,12 +6,15 @@ import Server.Model.entity.Usuari;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
+import User.View.DemanarFoto;
 import User.View.RegistrationView;
 import User.View.View;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
     private ClientNetworkManager networkManager;
+    private DemanarFoto demanarFoto;
     private View mainView;
     private Server server;
     private User currentUser;
@@ -29,7 +33,6 @@ public class ControllerClient implements ActionListener {
     public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
-
     }
 
     public void start() {
@@ -159,6 +162,16 @@ public class ControllerClient implements ActionListener {
                 chat += currentUser.getUserName() + ": " + mensaje + "\n";
                // mainView.setJtaMessages(chat);
                 break;
+
+            case "DemanarFoto":
+                try {
+                    demanarFoto = new DemanarFoto();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Demanem foto al usuari");
+                demanarFoto.setVisible(true);
+                break;
         }
     }
 
@@ -209,7 +222,7 @@ public class ControllerClient implements ActionListener {
         contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
         edat = Integer.parseInt(getRegistrationView().getEdat().getText());
         correo = getRegistrationView().getCorreo().getText();
-        urlFoto = getRegistrationView().getUrlFoto().getText();
+        urlFoto = getDemanarFoto().getTextName().getText();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
         likedUsers = ordenaUsuarios(currentUser);
@@ -241,4 +254,10 @@ public class ControllerClient implements ActionListener {
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
     public Server getServer() { return server; }
     public void setServer(Server server) { this.server = server; }
+    public DemanarFoto getDemanarFoto() {
+        return demanarFoto;
+    }
+    public void setDemanarFoto(DemanarFoto demanarFoto) {
+        this.demanarFoto = demanarFoto;
+    }
 }

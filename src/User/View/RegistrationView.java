@@ -13,10 +13,9 @@ public class RegistrationView extends JFrame{
     private TextField correo;
     private TextField contraseña;
     private TextField repetirContraseña;
-    private TextField urlFoto;
     private TextField lenguaje;
     private TextField descripción;
-    private JButton register;
+    private JButton register, demanarFoto;
 
 
     public RegistrationView(){
@@ -38,7 +37,7 @@ public class RegistrationView extends JFrame{
         correo = new TextField();
         contraseña = new TextField();
         repetirContraseña = new TextField();
-        urlFoto = new TextField();
+        demanarFoto = new JButton("Escoger foto");
         lenguaje = new TextField();
         descripción = new TextField();
         register = new JButton("Registrate!");
@@ -54,7 +53,7 @@ public class RegistrationView extends JFrame{
         mainpanel.add(new JLabel("Repite tu contraseña: "));
         mainpanel.add(repetirContraseña);
         mainpanel.add(new JLabel("URL de tu fotografía: "));
-        mainpanel.add(urlFoto);
+        mainpanel.add(demanarFoto);
         mainpanel.add(new JLabel("Lenguaje: "));
         mainpanel.add(lenguaje);
         mainpanel.add(new JLabel("Descripción: "));
@@ -68,6 +67,9 @@ public class RegistrationView extends JFrame{
     public void autenticationController(ActionListener controller){
         register.addActionListener(controller);
         register.setActionCommand("Register");
+
+        demanarFoto.addActionListener(controller);
+        demanarFoto.setActionCommand("DemanarFoto");
     }
 
 
@@ -87,12 +89,12 @@ public class RegistrationView extends JFrame{
     public void setContraseña(TextField contraseña) { this.contraseña = contraseña; }
     public TextField getRepetirContraseña() { return repetirContraseña; }
     public void setRepetirContraseña(TextField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
-    public TextField getUrlFoto() { return urlFoto; }
-    public void setUrlFoto(TextField urlFoto) { this.urlFoto = urlFoto; }
     public TextField getLenguaje() { return lenguaje; }
     public void setLenguaje(TextField lenguaje) { this.lenguaje = lenguaje; }
     public TextField getDescripción() { return descripción; }
     public void setDescripción(TextField descripción) { this.descripción = descripción; }
+    public JButton getDemanarFoto() { return demanarFoto; }
+    public void setDemanarFoto(JButton demanarFoto) { this.demanarFoto = demanarFoto; }
     public JButton getRegister() { return register; }
     public void setRegister(JButton register) { this.register = register; }
 }

@@ -11,8 +11,9 @@ public class RegistrationView extends JFrame{
     private TextField edat;
     private boolean premium;
     private TextField correo;
-    private TextField contraseña;
-    private TextField repetirContraseña;
+    private JPasswordField contraseña;
+    private JPasswordField repetirContraseña;
+    private TextField urlFoto;
     private TextField lenguaje;
     private TextField descripción;
     private JButton register, demanarFoto;
@@ -31,34 +32,42 @@ public class RegistrationView extends JFrame{
     }
 
     private void configuraCentro(){
-        mainpanel = new JPanel(new GridLayout(14,1));
+        //mainpanel = new JPanel(new GridLayout(14,1));
+        mainpanel = new JPanel(new BorderLayout());
         userName = new TextField();
         edat = new TextField();
         correo = new TextField();
-        contraseña = new TextField();
-        repetirContraseña = new TextField();
+        contraseña = new JPasswordField();
+        repetirContraseña = new JPasswordField();
+        urlFoto = new TextField();
         demanarFoto = new JButton("Escoger foto");
         lenguaje = new TextField();
         descripción = new TextField();
         register = new JButton("Registrate!");
 
-        mainpanel.add(new JLabel("Username: "));
-        mainpanel.add(userName);
-        mainpanel.add(new JLabel("Edad: "));
-        mainpanel.add(edat);
-        mainpanel.add(new JLabel("Correo: "));
-        mainpanel.add(correo);
-        mainpanel.add(new JLabel("Contraseña: "));
-        mainpanel.add(contraseña);
-        mainpanel.add(new JLabel("Repite tu contraseña: "));
-        mainpanel.add(repetirContraseña);
-        mainpanel.add(new JLabel("URL de tu fotografía: "));
-        mainpanel.add(demanarFoto);
-        mainpanel.add(new JLabel("Lenguaje: "));
-        mainpanel.add(lenguaje);
-        mainpanel.add(new JLabel("Descripción: "));
-        mainpanel.add(descripción);
-        mainpanel.add(register);
+        JPanel jpMid= new JPanel(new GridLayout(9,1));
+        jpMid.add(new JLabel("          Username: "));
+        jpMid.add(userName);
+        jpMid.add(new JLabel("          Edad: "));
+        jpMid.add(edat);
+        jpMid.add(new JLabel("          Correo: "));
+        jpMid.add(correo);
+        jpMid.add(new JLabel("          Contraseña: "));
+        jpMid.add(contraseña);
+        jpMid.add(new JLabel("          Repite tu contraseña: "));
+        jpMid.add(repetirContraseña);
+        jpMid.add(new JLabel("          URL de tu fotografía: "));
+        jpMid.add(demanarFoto);
+        jpMid.add(new JLabel("          Lenguaje: "));
+        jpMid.add(lenguaje);
+        jpMid.add(new JLabel("          Descripción: "));
+        jpMid.add(descripción);
+
+        JLabel jlTitol = new JLabel("   Registro");
+        jlTitol.setFont (jlTitol.getFont ().deriveFont (30.0f));
+        mainpanel.add(jlTitol, BorderLayout.NORTH);
+        mainpanel.add(jpMid, BorderLayout.CENTER);
+        mainpanel.add(register,BorderLayout.SOUTH);
 
         mainpanel.setVisible(true);
         this.add(mainpanel);
@@ -85,10 +94,10 @@ public class RegistrationView extends JFrame{
     public void setPremium(boolean premium) { this.premium = premium; }
     public TextField getCorreo() { return correo; }
     public void setCorreo(TextField correo) { this.correo = correo; }
-    public TextField getContraseña() { return contraseña; }
-    public void setContraseña(TextField contraseña) { this.contraseña = contraseña; }
-    public TextField getRepetirContraseña() { return repetirContraseña; }
-    public void setRepetirContraseña(TextField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
+    public JPasswordField getContraseña() { return contraseña; }
+    public void setContraseña(JPasswordField contraseña) { this.contraseña = contraseña; }
+    public JPasswordField getRepetirContraseña() { return repetirContraseña; }
+    public void setRepetirContraseña(JPasswordField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
     public TextField getLenguaje() { return lenguaje; }
     public void setLenguaje(TextField lenguaje) { this.lenguaje = lenguaje; }
     public TextField getDescripción() { return descripción; }

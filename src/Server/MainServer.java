@@ -1,6 +1,6 @@
 package Server;
 
-import Network.ServerNetworkManager;
+import Server.Model.Controller.Controller;
 import Server.Model.Server;
 import Server.Model.entity.UsuariManager;
 import Server.View.View;
@@ -10,24 +10,25 @@ import configReader.Configuration;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainServer {
 
 
-    
+
     public static void main(String[] args){
-        Server server;
-        ServerNetworkManager networkManager = null;
+        Server server = null;
+        // ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
+
         View v = new View();
+        Controller c = new Controller(v,model);
+        v.registerController(c);
 
-
-       try {
+        try {
             server = new Server(model);
-            networkManager = new ServerNetworkManager(server);
-        } catch (IOException | SQLException e) {
+            // networkManager = new ServerNetworkManager(server);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -43,19 +44,11 @@ public class MainServer {
             System.out.println("Fitxer trobat");
             System.out.println("port bbdd: " + config.getConfigServer().getPort_bbdd());
 
+            if (server != null) {
+                server.run();
 
-
-            try {
-                if (networkManager != null) {
-                    networkManager.connectServer();
-
-                } else {
-                    System.out.println("Null");
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else {
+                System.out.println("Null");
             }
 
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json

@@ -5,32 +5,36 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BarChart extends JPanel {
-    private Map<Color, Integer> bars = new LinkedHashMap<Color, Integer>();
+public class GraficaBarres extends JPanel {
+    private Map<Color, Integer> barres = new LinkedHashMap<Color, Integer>();
 
     public void addBar(Color color, int value)
     {
-        bars.put(color, value);
+        barres.put(color, value);
         repaint();
+    }
+
+    public void reset() {
+        for (int i = 0; i < barres.size(); i++) {
+            barres.remove(i);
+        }
+        barres.clear();
     }
 
     @Override
     protected void paintComponent(Graphics g)
     {
-// determine longest bar
         int max = Integer.MIN_VALUE;
-        for (Integer value : bars.values())
+        for (Integer value : barres.values())
         {
             max = Math.max(max, value);
         }
-    // paint bars
-        int width = (getWidth() / bars.size()) - 2;
+        int width = (getWidth() / barres.size()) - 2;
         int x = 1;
-        for (Color color : bars.keySet())
+        for (Color color : barres.keySet())
         {
-            int value = bars.get(color);
-            int height = (int)
-            ((getHeight()-5) * ((double)value / max));
+            int value = barres.get(color);
+            int height = (int)( (getHeight() - 5) * ( (double)value / max));
             g.setColor(color);
             g.fillRect(x, getHeight() - height, width, height);
             g.setColor(Color.black);
@@ -41,9 +45,8 @@ public class BarChart extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(bars.size() * 10 + 2, 50);
+        return new Dimension(barres.size() * 10 + 2, 50);
     }
-
 
 }
 

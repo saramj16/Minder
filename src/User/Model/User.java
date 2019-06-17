@@ -32,6 +32,20 @@ public class User implements Serializable {
     }
 
     public User(String userName, int edat, boolean premium, String correo, String password,
+                String urlFoto, String lenguaje, String description, ArrayList<Match> listaMatch){
+
+        this.userName = userName;
+        this.edat = edat;
+        this.premium = premium;
+        this.correo = correo;
+        this.password = password;
+        this.urlFoto = urlFoto;
+        this.lenguaje = lenguaje;
+        this.description = description;
+        this.listaMatch = listaMatch;
+    }
+
+    public User(String userName, int edat, boolean premium, String correo, String password,
                 String urlFoto, String lenguaje, String description, ArrayList<Match> listaMatch, ArrayList<User> listaLikedUsers){
 
         this.userName = userName;

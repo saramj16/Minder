@@ -1,12 +1,12 @@
 package User.Controller;
 
-import Network.ClientNetworkManager;
 import Server.Model.Server;
-import Server.Model.entity.Usuari;
 import User.Model.Mensaje;
 import User.Model.User;
+import User.Network.ServerComunication;
 import User.View.AutenticationView;
 import User.View.DemanarFoto;
+import User.View.EditProfile;
 import User.View.RegistrationView;
 import User.View.View;
 
@@ -24,13 +24,15 @@ public class ControllerClient implements ActionListener {
     private RegistrationView registrationView;
     private ClientNetworkManager networkManager;
     private DemanarFoto demanarFoto;
+    private ServerComunication networkManager;
     private View mainView;
     private Server server;
     private User currentUser;
     private ArrayList<User> connectedUsers;
+    private EditProfile editProfile;
 
 
-    public ControllerClient(AutenticationView autenticationView, ClientNetworkManager networkManager) {
+    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
     }
@@ -48,23 +50,23 @@ public class ControllerClient implements ActionListener {
         boolean ok = false;
         ArrayList<User> listaLikedUsers = null;
 
-        switch (event.getActionCommand()){
+        switch (event.getActionCommand()) {
             case "logIn":
                 String username = getAutenticationView().getUsernameTextField().getText();
                 String password = getAutenticationView().getPasswordTextField().getText();
 
-                if (username.equals("") || password.equals("")){
+                if (username.equals("") || password.equals("")) {
                     JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos!");
-                }else{
+                } else {
                     try {
                         ok = networkManager.functionalities(1, username, password);
-                        System.out.println("ok = " + ok );
+                        System.out.println("ok = " + ok);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     if (!ok) {
                         JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
-                    }else{
+                    } else {
                         autenticationView.setVisible(false);
                         try {
                             this.currentUser = networkManager.getCurrentUser();
@@ -73,12 +75,12 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        try {
+                       /* try {
                             listaLikedUsers = ordenaUsuarios(currentUser);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                        currentUser.setListaLikedUsers(listaLikedUsers);
+                        currentUser.setListaLikedUsers(listaLikedUsers);*/
                         try {
                             startMainView(currentUser);
                         } catch (IOException e) {
@@ -101,18 +103,16 @@ public class ControllerClient implements ActionListener {
                     User user = newUserFromRegistration();
                     if (user != null) {
                         ok = networkManager.functionalities(2, user, null);
-                        if (ok){
+                        if (ok) {
                             JOptionPane.showMessageDialog(null, "Usuario registrado!");
                             this.currentUser = user;
                             registrationView.setVisible(false);
                             startMainView(currentUser);
-                        }else{
+                        } else {
                             System.out.println("algun tipo de error al registrar usuario");
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -127,7 +127,7 @@ public class ControllerClient implements ActionListener {
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
-                    if (ok){
+                    if (ok) {
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
                     }
                 } catch (IOException e) {
@@ -142,18 +142,44 @@ public class ControllerClient implements ActionListener {
                     User userRemoved = connectedUsers.remove(0);
                     connectedUsers.add(userRemoved);
                     mainView.setUserLooking(connectedUsers.get(0));
+                    mainView.setVisible(false);
+                    startMainView(currentUser);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
 
-            case "EditarPerfil":
-                //llamamos a la vista de editar perfil
+            case "EditProfile":
+                try {
+                    this.editProfile = new EditProfile(currentUser);
+                    editProfile.autenticationController(this);
+                    mainView.setVisible(false);
+                    editProfile.setVisible(true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
 
-            case "GuardarPerfil":
-                //TODO: nos guardamos toda la info y volvemos a pantalla principal
+
+            case "SaveEditProfile":
+                System.out.println("Actualizando perfil...!!");
+                try {
+                    User user = editUserFromEditProfile();
+                    if (user != null) {
+                        ok = networkManager.functionalities(5, user, null);
+                        if (ok){
+                            JOptionPane.showMessageDialog(null, "Cambios guardados correctamente!");
+                            this.currentUser = user;
+                            editProfile.setVisible(false);
+                            startMainView(currentUser);
+                        }else{
+                            System.out.println("algun tipo de error al guardar los cambios ");
+                        }
+                    }
+                } catch (IOException | SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "SendMessage":
@@ -242,6 +268,41 @@ public class ControllerClient implements ActionListener {
 
     }
 
+    private User editUserFromEditProfile() throws IOException, SQLException {
+        String username;
+        String password;
+        int edat;
+        boolean isPremium;
+        String correo;
+        String urlFoto;
+        String lenguaje;
+        String descripción;
+        ArrayList<User> likedUsers;
+
+        //username = getRegistrationView().getUserName().getText();
+        password = getEditProfileView().getPasswordTextField().getText();
+        //edat = getEditProfileView().getJsEdat().get();
+        correo = getEditProfileView().getJtfCorreu().getText();
+        //urlFoto = getEditProfileView().getUrlFoto().getText();
+        //lenguaje = getEditProfileView().getLenguaje().getText();
+        descripción = getEditProfileView().getJtfDescription().getText();
+        //isPremium = getEditProfileView().getJcbPremium().ge();
+        // likedUsers = ordenaUsuarios(currentUser);
+
+        //if (username.equals(username)){
+        //User user = User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+
+        User user = new User( "",0,false,correo, password, "", "", descripción);
+        // user.setListaLikedUsers(likedUsers);
+        return user;
+
+        //}else{
+        //JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
+        // return null;
+        //}
+
+    }
+
     private Mensaje getMensaje(){
         Mensaje mensaje = null;
 
@@ -260,4 +321,8 @@ public class ControllerClient implements ActionListener {
     public void setDemanarFoto(DemanarFoto demanarFoto) {
         this.demanarFoto = demanarFoto;
     }
+
+    public EditProfile getEditProfileView() { return editProfile; }
+    public void setEditProfileView(EditProfile editProfile) { this.editProfile = editProfile; }
+
 }

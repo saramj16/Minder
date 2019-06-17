@@ -25,6 +25,7 @@ public class DBConnector {
         public static DBConnector getInstance(){
             if(instance == null){
                 instance = new DBConnector("root", "5432", "minder", 3306);
+
                 instance.connect();
             }
             return instance;

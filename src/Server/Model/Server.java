@@ -4,23 +4,31 @@ import Server.Model.entity.Matx;
 import Server.Model.entity.Missatge;
 import Server.Model.entity.Usuari;
 import Server.Model.entity.UsuariManager;
+import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 
-import javax.swing.*;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Server {
+public class Server extends Thread{
     private int serverPort;
     private UsuariManager usuariManager;
     private ArrayList<User> users;
+    private boolean running;
+    private ArrayList<DedicatedServer> dedicatedServerList;
+    private static final int PORT = 9999;
 
 
     public Server(UsuariManager usuariManager) throws SQLException {
         this.usuariManager = usuariManager;
         this.users = getAllUsers();
+        running = true;
+        dedicatedServerList = new ArrayList<>();
     }
 
     public int getServerPort() { return serverPort; }
@@ -29,6 +37,37 @@ public class Server {
     public void setUsers(ArrayList users) { this.users = users; }
 
     //---------------------------------------------------------------------------------------//
+
+
+    public void run() {
+
+        try {
+            ServerSocket sServer = new ServerSocket(PORT);
+
+            addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "C", "pene"));
+            addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));
+            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "", "Java", "fucking bosssss"));
+            addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel", "", "C", "pene"));
+            addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel", "", "C", "pene"));
+
+            while (running) {
+                Socket sClient = sServer.accept();
+                DedicatedServer ds = new DedicatedServer(sClient, this);
+                dedicatedServerList.add(ds);
+            }
+            sServer.close();
+            for (DedicatedServer ds : dedicatedServerList) {
+                ds.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void removeFromDedicatedList(DedicatedServer dedicatedServer) {
+        dedicatedServerList.remove(dedicatedServer);
+    }
 
     public void addUsuari(Usuari u){
         usuariManager.addUsuari(u);
@@ -44,16 +83,31 @@ public class Server {
         return false;
     }
 
+    public boolean actualizaUser(User user) throws SQLException {
+        User user1 = getUser(user.getUserName());
+        if (user1 != null){
+            updateUser(user1, user);
+            return true;
+        }
+        return false;
+    }
+
+    private void updateUser(User user2modificate, User userModificated) {
+        //TODO: 4 u Saraaaaaaaaaaaaaaaaaaaaaaaa
+    }
+
     public boolean comprobarRegistro(User user){
         if (!usuariManager.searchUsuari(user.getUserName())){
             usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword()));
+
+            // ****
             return true;
         }
         return false;
     }
 
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
-        ArrayList<User> currentUserlikedUsers = new ArrayList<>();
+
         ArrayList<User> userLikeLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
@@ -61,10 +115,6 @@ public class Server {
 
         for (User u : userLikeLikedUsers){
             if (u.getUserName().equals(currentUser.getUserName())){
-                //TODO de Javo -> ver como poner los IDs de los matches
-
-                //Aqui se añade matx a los dos Usuarios
-
                 usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
                 return true;
             }
@@ -76,6 +126,13 @@ public class Server {
         ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike);
 
         return convertUsuaristoUsers(likedUsers);
+
+    }
+
+    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+        ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
+
+        return convertMatxToMach(matches);
 
     }
 
@@ -112,11 +169,11 @@ public class Server {
         ArrayList<User> users = new ArrayList<>();
 
         for (int i = 0; i < usuaris.size(); i++){
-            ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
-            ArrayList<User> listaLikedUsers = convertUsuaristoUsers(usuariManager.getUsuarisAccepted(usuaris.get(i).getUserName()));
+            //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
+
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),
-                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription(),listaMatch,listaLikedUsers));
+                    usuaris.get(i).getUrlFoto(), usuaris.get(i).getLenguaje(),usuaris.get(i).getDescription()));
         }
 
         return users;
@@ -148,11 +205,11 @@ public class Server {
 
        Usuari u = usuariManager.getUsuari(username);
 
-       ArrayList<User> listaLikedUsers = getLikedUsers(username);
-       ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(username));
+       //ArrayList<User> listaLikedUsers = getLikedUsers(username);
+       //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(username));
 
 
-       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription(),listaMatch,listaLikedUsers);
+       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());
 
        return user;
     }

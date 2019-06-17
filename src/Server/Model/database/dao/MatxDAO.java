@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -201,7 +202,7 @@ public class MatxDAO {
     public ArrayList<String> selectAcceptedUsers (String user1){
         ArrayList<String> acceptedUsers = new ArrayList<>();
 
-        String query = "SELECT user2 FROM Matx WHERE user1 = '"+user1+"' AND accept = true;";
+        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND accept = 1;";
         //System.out.println(query);
 
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -231,7 +232,7 @@ public class MatxDAO {
     public ArrayList<String> selectMatxedUsers(String user1) {
         ArrayList<String> matxedUsers = new ArrayList<>();
 
-        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND matx = true;";
+        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND matx = " + true + ";";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -258,7 +259,7 @@ public class MatxDAO {
     public ArrayList<Matx> selectMatxes(String usuari) {
         ArrayList<Matx> matxedUsers = new ArrayList<>();
 
-        String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = true;";
+        String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = " + true + ";";
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -272,12 +273,7 @@ public class MatxDAO {
                         resultat.getDate("dataMatch"));
 
                 matxedUsers.add(m);
-                System.out.println("User1 " + resultat.getString("user1"));
-                System.out.println("User2 " + resultat.getString("user2"));
-                System.out.println("Matx " + resultat.getBoolean("matx"));
-                System.out.println("Accept " + resultat.getBoolean("accept"));
-                System.out.println("Vist " + resultat.getBoolean("vist"));
-                System.out.println("Matx " + resultat.getDate("dataMatch"));
+
 
             }
         } catch (SQLException e) {
@@ -305,18 +301,132 @@ public class MatxDAO {
     /**
      * Mètode per eliminar el match entre dos usuaris dins la BBDD de SQL
      *
+     * @param  hora    hora a la qual has de buscar
      * @return void
      *
      */
-    public int numMatchHora(Date hora) {
-        Date nextHora = new Date();
-        nextHora = hora;
+    public int getNumeroMatxesHora(int hora) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + now.get(Calendar.DAY_OF_MONTH) + " ";
 
-        String query = "SELECT COUNT(matx)/2 FROM Matx WHERE dataMatch BETWEEN '" + hora +"' AND '" + "2019-06-12 14:00:00" + "';";
+        String h = data + hora + ":00:00" ;
+        String h1 = data + (hora + 1) + ":00:00";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + h +"' AND '" + h1 + "';";
+
         dbConnector.selectQuery(query);
 
-        return 0;
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
     }
+
+    public int getNumeroMatxesDiaSetmana(int i) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        int dia = now.get(Calendar.DAY_OF_MONTH) + i - now.get(Calendar.DAY_OF_WEEK) +1;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 00:00:00";
+        String data1 = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 23:59:59";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + data +"' AND '" + data1 + "';";
+
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
+    }
+
+    public int getNumeroMatxesDiaMes(int i) {
+        int num = 0;
+        Calendar now = Calendar.getInstance();
+        int mes = now.get(Calendar.MONTH);
+        mes++;
+        int dia = i+1;
+        String data = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 00:00:00";
+        String data1 = now.get(Calendar.YEAR) + "-" + mes + "-" + dia + " 23:59:59";
+
+        String query = "SELECT COUNT(matx)/2 AS numero FROM Matx WHERE dataMatch BETWEEN '" + data +"' AND '" + data1 + "';";
+
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return num;
+    }
+
+    public ArrayList<String> top5UsuarisMesAcceptats (){
+        ArrayList<String> usuaris = new ArrayList<>(5);
+        String nom;
+
+        String query = "SELECT user2 FROM Matx WHERE accept = 1 GROUP BY user2 ORDER BY COUNT(accept) DESC LIMIT 5;";
+
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                nom = resultat.getString("user2");
+                usuaris.add(nom);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuaris;
+    }
+
+    public ArrayList<Integer> top5NAcceptacions(){
+        ArrayList<Integer> numAcceptacions = new ArrayList<>(5);
+        int num;
+
+        String query = "SELECT COUNT(accept) AS numero FROM Matx WHERE accept = 1 GROUP BY user2 ORDER BY COUNT(accept) DESC LIMIT 5;";
+
+        dbConnector.selectQuery(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                num = resultat.getInt("numero");
+                numAcceptacions.add(num);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numAcceptacions;
+    }
+
+
 
 
 }

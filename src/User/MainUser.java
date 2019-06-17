@@ -1,8 +1,7 @@
 package User;
 
-import Network.ClientNetworkManager;
 import User.Controller.ControllerClient;
-import User.Model.User;
+import User.Network.ServerComunication;
 import User.View.AutenticationView;
 import User.View.DemanarFoto;
 import User.View.EditProfile;
@@ -14,13 +13,12 @@ import java.sql.SQLException;
 public class MainUser {
     public static void main(String[] args) throws IOException, SQLException {
 
-
-        ClientNetworkManager networkManager = new ClientNetworkManager();
         AutenticationView autenticationView = new AutenticationView();
-        ControllerClient controller = new ControllerClient(autenticationView, networkManager);
+        ServerComunication serverComunication = new ServerComunication(autenticationView);
+        ControllerClient controller = new ControllerClient(autenticationView, serverComunication);
 
-        networkManager.connectClient();
         controller.start();
         autenticationView.setVisible(true);
+
     }
 }

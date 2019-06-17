@@ -1,49 +1,33 @@
-package Network;
+package User.Network;
 
 import User.Model.User;
+import User.View.AutenticationView;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientNetworkManager{
-
-    //CLIENT ATRIBUTES
-    private static final String IP = "localhost";
-    private Socket sServidor;
-    private DataOutputStream doStream;
-    private DataInputStream diStream;
-    private ObjectOutputStream ooStream;
-    private ObjectInputStream oiStream;
+public class ServerComunication extends Thread{
+    private Socket sClient;
     private static final int PORT = 9999;
+    private static final String IP = "localhost";
+    public AutenticationView autenticationView;
+    private DataInputStream diStream;
+    private DataOutputStream doStream;
+    private ObjectInputStream oiStream;
+    private ObjectOutputStream ooStream;
 
-    public ClientNetworkManager() throws IOException {
-        System.out.println("Intento conectar");
-        this.sServidor = new Socket(IP, PORT);
-        this.diStream = new DataInputStream(sServidor.getInputStream());
-        this.doStream = new DataOutputStream(sServidor.getOutputStream());
-        this.ooStream = new ObjectOutputStream(sServidor.getOutputStream());
-        this.oiStream = new ObjectInputStream(sServidor.getInputStream());
+
+    public ServerComunication(AutenticationView autenticationView) throws IOException {
+        sClient = new Socket(IP, PORT);
+        this.autenticationView = autenticationView;
+        diStream = new DataInputStream(sClient.getInputStream());
+        doStream = new DataOutputStream(sClient.getOutputStream());
+        oiStream = new ObjectInputStream(sClient.getInputStream());
+        ooStream = new ObjectOutputStream(sClient.getOutputStream());
+        start();
     }
 
-    //-------------------------------------------------------------------------------//
-    public void connectClient() throws IOException {
-        String respostaServer = diStream.readUTF();
-        System.out.println("el server dice: " + respostaServer);
-
-
-        //diStream.close();
-        //doStream.close();
-        //disconnectClient();
-    }
-
-    public void disconnectClient() {
-        try {
-            sServidor.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public boolean functionalities (int id, Object object1, Object object2) throws IOException {
         boolean ok = false;
@@ -51,10 +35,10 @@ public class ClientNetworkManager{
         System.out.println(id);
 
         switch (id){
-            case 1:
-                //object1 = username, object2 = password
+            case 1://object1 = username, object2 = password
                 doStream.writeUTF((String) object1);
                 doStream.writeUTF((String) object2);
+
                 ok = diStream.readBoolean();
                 break;
 
@@ -72,6 +56,11 @@ public class ClientNetworkManager{
             case 4://user declinaod --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
+                break;
+
+            case 5://registrar usuario --> object1 = user modificado, object2= null
+                ooStream.writeObject(object1);
+                ok = diStream.readBoolean();
                 break;
         }
 

@@ -1,8 +1,9 @@
 package User.Model;
 
 
+import java.io.Serializable;
 
-public class Mensaje {
+public class Mensaje implements Serializable {
     private String mensaje;
     private User userSend;
     private User userReceive;

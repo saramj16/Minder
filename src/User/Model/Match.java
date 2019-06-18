@@ -1,10 +1,11 @@
 package User.Model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Match {
+public class Match implements Serializable {
     //private String id;
     private User user1;
     private User user2;

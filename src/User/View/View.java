@@ -129,7 +129,7 @@ public class View extends JFrame {
         jpGrid.add(jlLanguage);
         jpGrid.add(jlDescTitle);
 
-        jtaDescription = new JTextArea(/*user.getDescription()*/"Em menjo els mocs");
+        jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setEditable(false);
 
         jbEditProfile = new JButton("Editar Perfil");

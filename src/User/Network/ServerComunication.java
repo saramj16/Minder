@@ -83,22 +83,15 @@ public class ServerComunication extends Thread{
     public ArrayList<Match> getListaMatches() throws IOException, ClassNotFoundException {
         Match match;
         ArrayList<Match> matches = new ArrayList<>();
-        boolean check = true;
 
         int sizeMatches = diStream.readInt();
 
         if (sizeMatches != 0){
-
-            while (check) {
-                try{
-                    match = (Match) oiStream.readObject();
-                    matches.add(match);
-                } catch(EOFException ex){
-                    check=false;
-                }
+            for (int i = 0; i < sizeMatches; i++){
+                match = (Match) oiStream.readObject();
+                matches.add(match);
             }
-            return matches;
         }
-        return null;
+        return matches;
     }
 }

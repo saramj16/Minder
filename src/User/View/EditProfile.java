@@ -67,13 +67,10 @@ public class EditProfile extends JFrame {
         jlLanguage = new JLabel("Llenguatge: ");
 
         ButtonGroup group = new ButtonGroup();
-
-
-            jrbC = new JRadioButton("C", false);
-            jrbJava = new JRadioButton("Java", false);
-            group.add( jrbC );
-            group.add( jrbJava );
-
+        jrbC = new JRadioButton("C", false);
+        jrbJava = new JRadioButton("Java", false);
+        group.add( jrbC );
+        group.add( jrbJava );
 
         jbSave = new JButton("Save");
 

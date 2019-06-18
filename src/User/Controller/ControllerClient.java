@@ -242,13 +242,13 @@ public class ControllerClient implements ActionListener {
         return usuarios;
     }
 
-    private User newUserFromRegistration() throws IOException, SQLException {
+    private User newUserFromRegistration() throws  SQLException {
         String username;
         String password;
-        int edat;
+        String edat;
         String correo;
         String contraseñaRepetida;
-        String urlFoto;
+        String urlFoto = null;
         String lenguaje;
         String descripción;
         ArrayList<User> likedUsers;
@@ -256,7 +256,7 @@ public class ControllerClient implements ActionListener {
         username = getRegistrationView().getUserName().getText();
         password = getRegistrationView().getContraseña().getText();
         contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-        edat = Integer.parseInt(getRegistrationView().getEdat().getText());
+        edat = getRegistrationView().getEdat().getText();
         correo = getRegistrationView().getCorreo().getText();
         urlFoto = getDemanarFoto().getPathUsuari().toString();
         lenguaje = getRegistrationView().getLenguaje().getText();
@@ -265,9 +265,13 @@ public class ControllerClient implements ActionListener {
 
 
         //TODO: ordenar lista de posibles matchs según unos criterios
+        if ( username == null || password == null ||  contraseñaRepetida == null ||edat == null || correo == null || urlFoto == null || lenguaje == null || descripción == null ) {
+            JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
+            return null;
+        }
 
         if (password.equals(contraseñaRepetida)){
-           User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
+           User user = new User(username, Integer.parseInt(edat), false, correo, password, urlFoto, lenguaje, descripción);
            user.setListaLikedUsers(likedUsers);
            return user;
 
@@ -275,6 +279,8 @@ public class ControllerClient implements ActionListener {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
             return null;
         }
+
+
 
     }
 

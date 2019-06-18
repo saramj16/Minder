@@ -75,11 +75,7 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                        try {
-                            possiblesMatxs = ordenaUsuarios(currentUser);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
+                        possiblesMatxs = ordenaUsuarios(currentUser);
                         try {
                             startMainView(currentUser);
                         } catch (IOException | ClassNotFoundException e) {
@@ -198,18 +194,33 @@ public class ControllerClient implements ActionListener {
                 System.out.println("Demanem foto al usuari");
                 demanarFoto.setVisible(true);
                 break;
+
+            case "Refresh":
+                possiblesMatxs = ordenaUsuarios(currentUser);
+                mainView.setVisible(false);
+                try {
+                    startMainView(currentUser);
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+
         }
     }
 
     private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
-        this.mainView = new View(currentUser, possiblesMatxs.get(0));
+        if (possiblesMatxs.size() != 0){
+            this.mainView = new View(currentUser, possiblesMatxs.get(0));
+        }else{
+            this.mainView = new View(currentUser, null);
+        }
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
 
-    private ArrayList<User> ordenaUsuarios(User user) throws SQLException {
+    private ArrayList<User> ordenaUsuarios(User user) {
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
@@ -227,9 +238,7 @@ public class ControllerClient implements ActionListener {
                 usuarios.add(allUsers.get(i));
             }
         }
-        for (int j = 0; j < usuarios.size(); j++){
-            System.out.println("CACA" + usuarios.get(j).getUserName());
-        }
+
         return usuarios;
     }
 

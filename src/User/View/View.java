@@ -53,9 +53,9 @@ public class View extends JFrame {
     private JLabel jlMatchLanguage;
     private JLabel jlMatchDescriptionTitle;
     private JLabel jlMatchDescription;
-    private JButton jbMatchYes;
-    private JButton jbMatchNo;
-    private JButton jbRefresca;
+    private JButton jbMatchYes = new JButton("Yes!");;
+    private JButton jbMatchNo = new JButton(("Nope"));
+    private JButton jbRefresca = new JButton("Refresh!");
 
     //Small pane for closed conversations and its elements
     private JPanel jpClosedConver;
@@ -162,52 +162,49 @@ public class View extends JFrame {
         //Panel Info
         JPanel jpInfoMatch = new JPanel();
 
-        jpInfoMatch.setLayout(new BorderLayout());
-        JPanel jpNorth = new JPanel(new GridLayout(3,2));
-        jlName = new JLabel(user.getUserName());
-        jpNorth.add(jlName);
-        jlAge = new JLabel(String.valueOf(user.getEdat()) + " anys");
-        jpNorth.add(jlAge);
-        JLabel jlLlenguatge = new JLabel("Llenguatge: ");
-        jpNorth.add(jlLlenguatge);
-        jlLanguage = new JLabel(user.getLenguaje());
-        jpNorth.add(jlLanguage);
-        JLabel jlDescTitle = new JLabel("Descripció: ");
-        jpNorth.add(jlDescTitle);
+        if (user != null){
+            jpInfoMatch.setLayout(new BorderLayout());
+            JPanel jpNorth = new JPanel(new GridLayout(3,2));
+            jlName = new JLabel(user.getUserName());
+            jpNorth.add(jlName);
+            jlAge = new JLabel(String.valueOf(user.getEdat()) + " anys");
+            jpNorth.add(jlAge);
+            JLabel jlLlenguatge = new JLabel("Llenguatge: ");
+            jpNorth.add(jlLlenguatge);
+            jlLanguage = new JLabel(user.getLenguaje());
+            jpNorth.add(jlLanguage);
+            JLabel jlDescTitle = new JLabel("Descripció: ");
+            jpNorth.add(jlDescTitle);
 
-        jpInfoMatch.add(jpNorth, BorderLayout.NORTH);
+            jpInfoMatch.add(jpNorth, BorderLayout.NORTH);
 
-        jtaDescription = new JTextArea(user.getDescription());
-        jtaDescription.setEditable(false);
-        jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
+            jtaDescription = new JTextArea(user.getDescription());
+            jtaDescription.setEditable(false);
+            jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
 
-        JPanel jpBotons = new JPanel(new GridLayout(1, 2));
-        jbMatchYes = new JButton("Yes!");
-        jpBotons.add(jbMatchYes);
-        jbMatchNo = new JButton(("Nope"));
-        jpBotons.add(jbMatchNo);
+            JPanel jpBotons = new JPanel(new GridLayout(1, 2));
 
-        //jpInfoMatch.add(jpBotons, BorderLayout.SOUTH);
-        jpInfoMatch.add(jpBotons, BorderLayout.SOUTH);
+            jpBotons.add(jbMatchYes);
+            jpBotons.add(jbMatchNo);
 
+            jpInfoMatch.add(jpBotons, BorderLayout.SOUTH);
 
-        //jpInfoMatch.add(jpBotons);
+            jpMatches.add(jpInfoMatch);
 
-        jpMatches.add(jpInfoMatch);
+            return jpMatches;
+        }else {
+            JPanel jpTitledMatches = new JPanel(new BorderLayout());
+            JPanel jpTensUnMatch = new JPanel(new FlowLayout());
 
-        JPanel jpTitledMatches = new JPanel(new BorderLayout());
+            jlTitleMatches = new JLabel("No queden usuaris... Torna en una estona!");
 
-        JPanel jpTensUnMatch = new JPanel(new FlowLayout());
-        jlTitleMatches = new JLabel(" Tens un possible match!");
-        jbRefresca = new JButton("Refresca");
-        jpTensUnMatch.add(jlTitleMatches);
-        jpTensUnMatch.add(jbRefresca);
-        jbRefresca.setVisible(false);
+            jpTensUnMatch.add(jlTitleMatches);
+            jpTensUnMatch.add(jbRefresca);
 
-        jpTitledMatches.add(jpTensUnMatch, BorderLayout.NORTH);
-        jpTitledMatches.add(jpMatches, BorderLayout.CENTER);
+            jpTitledMatches.add(jpTensUnMatch, BorderLayout.NORTH);
 
-        return jpTitledMatches;
+            return jpTitledMatches;
+        }
     }
 
     public JPanel getJpChats(User user) {
@@ -257,6 +254,9 @@ public class View extends JFrame {
 
         jbEditProfile.addActionListener(controller);
         jbEditProfile.setActionCommand("EditProfile");
+
+        jbRefresca.addActionListener(controller);
+        jbRefresca.setActionCommand("Refresh");
 
     }
 

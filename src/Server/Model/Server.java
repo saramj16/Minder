@@ -46,7 +46,7 @@ public class Server extends Thread{
 
             addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "C", "pene"));
             addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));
-            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "", "Java", "fucking bosssss"));
+            addUsuari(new Usuari("Javo", 22, true, "javo@minder.com", "javo", "", "C", "fucking bosssss"));
             addUsuari(new Usuari("Manel", 22, true, "manel@minder.com", "manel", "", "C", "pene"));
             addUsuari(new Usuari("Marcel", 23, true, "marcel@minder.com", "marcel", "", "C", "pene"));
 

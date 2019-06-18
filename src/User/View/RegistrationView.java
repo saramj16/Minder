@@ -17,6 +17,8 @@ public class RegistrationView extends JFrame{
     private TextField lenguaje;
     private TextField descripción;
     private JButton register, demanarFoto;
+    private JRadioButton jrbJava;
+    private JRadioButton jrbC;
 
 
     public RegistrationView(){
@@ -44,7 +46,7 @@ public class RegistrationView extends JFrame{
         descripción = new TextField();
         register = new JButton("Registrate!");
 
-        JPanel jpMid= new JPanel(new GridLayout(9,1));
+        JPanel jpMid= new JPanel(new GridLayout(9,2));
         jpMid.add(new JLabel("          Username: "));
         jpMid.add(userName);
         jpMid.add(new JLabel("          Edad: "));
@@ -58,7 +60,21 @@ public class RegistrationView extends JFrame{
         jpMid.add(new JLabel("          URL de tu fotografía: "));
         jpMid.add(demanarFoto);
         jpMid.add(new JLabel("          Lenguaje: "));
-        jpMid.add(lenguaje);
+        jpMid.add(new JLabel(" "));
+
+
+
+        ButtonGroup group = new ButtonGroup();
+        jrbC = new JRadioButton("C", false);
+        jrbJava = new JRadioButton("Java", false);
+        group.add( jrbC );
+        group.add( jrbJava );
+        jpMid.add( jrbC );
+        jpMid.add( jrbJava );
+
+
+
+
         jpMid.add(new JLabel("          Descripción: "));
         jpMid.add(descripción);
 

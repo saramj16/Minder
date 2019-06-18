@@ -1,8 +1,4 @@
-git rm -rf --cached .
-git add .
-
-
-.idea/
+git rm --cached -r .idea
 
 ######################
 # Project Specific

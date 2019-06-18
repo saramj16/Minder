@@ -28,6 +28,7 @@ public class UsuariManager {
     }
 
     public void modificiaUsuari(Usuari u){
+
         usuariDAO.modificaUsuari(u);
     }
 

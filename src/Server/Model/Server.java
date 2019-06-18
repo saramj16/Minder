@@ -85,8 +85,8 @@ public class Server extends Thread{
 
     public boolean actualizaUser(User user) throws SQLException {
         User user1 = getUser(user.getUserName());
-        System.out.println(user1.getUserName());
-        if (user1 != null){
+        System.out.println("Usuari a actualitzar " + user1.getUserName());
+        if (user1.getUserName() != null){
             updateUser(user1, user);
             return true;
         }
@@ -95,7 +95,7 @@ public class Server extends Thread{
 
     private void updateUser(User user2modificate, User userModificated) {
         usuariManager.modificiaUsuari(new Usuari(userModificated.getUserName(),userModificated.getEdat(),userModificated.isPremium(), userModificated.getCorreo(), userModificated.getPassword(), userModificated.getUrlFoto(), userModificated.getLenguaje(), userModificated.getDescription()));
-        //TODO: 4 u Saraaaaaaaaaaaaaaaaaaaaaaaa
+
     }
 
     public boolean comprobarRegistro(User user){

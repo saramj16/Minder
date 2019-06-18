@@ -63,7 +63,7 @@ public class DedicatedServer extends Thread{
                             User u = server.getUser(username);
                             System.out.println("user name connected " + u.getUserName());
                             ooStream.writeObject(u);
-                           //doStream.writeInt(server.getMatchList(u.getUserName()).size());
+                            doStream.writeInt(server.getMatchList(u.getUserName()).size());
                             sendMatches(u);
                         }
                         break;

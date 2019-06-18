@@ -59,7 +59,7 @@ public class ServerComunication extends Thread{
                 ooStream.writeObject(object2);
                 break;
 
-            case 5://registrar usuario --> object1 = user modificado, object2= null
+            case 5://editar usuario --> object1 = user modificado, object2= null
                 ooStream.writeObject(object1);
                 ok = diStream.readBoolean();
                 break;

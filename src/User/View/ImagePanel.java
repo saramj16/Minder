@@ -12,7 +12,7 @@ class ImagePanel extends JPanel{
     Image ImagePanel(String imgPath) throws IOException {
         BufferedImage image;
         if (imgPath == null || imgPath.equals("")){
-            image = ImageIO.read(new File("C:\\Users\\javog\\OneDrive\\Escritorio\\universidad\\Asignaturas\\18-19\\DPOO\\proyectoMinder\\src\\Imatges\\default.jpeg"));
+            image = ImageIO.read(new File("C:\\Users\\saram\\IdeaProjects\\Minder\\src\\Imatges\\default.jpeg"));
         } else {
             image = ImageIO.read(new File(imgPath));
         }

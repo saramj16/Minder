@@ -123,7 +123,7 @@ public class UsuariDAO {
     //Crec que la canviare, en funcio de com fem la vista
     //Igual es mes senzill agafar la nova info i unicament eliminar l'anterior i tornar a inserirlo
     public void modificaUsuari(Usuari u) {
-        String query = "UPDATE Usuari SET urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
+        String query = "UPDATE Usuari SET edat = '" + u.getEdat() +"', premium = '" + u.isPremium() + "', correo = '" + u.getCorreo() + "', password = '" + u.getPassword() + "', urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() +"', descripcion = '" + u.getDescription() + "' WHERE userName = '"+ u.getUserName() + "';";
         //System.out.println(query);
         dbConnector.updateQuery(query);
     }

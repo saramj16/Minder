@@ -39,7 +39,6 @@ public class RegistrationView extends JFrame{
         correo = new TextField();
         contraseña = new JPasswordField();
         repetirContraseña = new JPasswordField();
-        urlFoto = new TextField();
         demanarFoto = new JButton("Escoger foto");
         lenguaje = new TextField();
         descripción = new TextField();

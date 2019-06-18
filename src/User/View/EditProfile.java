@@ -129,6 +129,9 @@ public class EditProfile extends JFrame {
     public void autenticationController(ActionListener controller){
         jbSave.addActionListener(controller);
         jbSave.setActionCommand("SaveEditProfile");
+
+        jbChangeImage.addActionListener(controller);
+        jbChangeImage.setActionCommand("DemanarFoto");
     }
 
     //public JPanel getMainPanel() { return mainPanel; }

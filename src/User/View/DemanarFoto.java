@@ -1,14 +1,11 @@
 package User.View;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +22,7 @@ public class DemanarFoto extends JFrame {
     ImageIcon icon;
     JFileChooser fileChooser = new JFileChooser();
     File selectedFile;
+    Path pathUsuari;
 
     public DemanarFoto() throws IOException {
         button = new JButton("Browse");
@@ -38,6 +36,11 @@ public class DemanarFoto extends JFrame {
 
         label = new JLabel();
         label.setBounds(10,10,400,250);
+
+        setLayout(null);
+        setSize(440,420);
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -57,8 +60,6 @@ public class DemanarFoto extends JFrame {
                     }
                     icon = new ImageIcon(imatge.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH));
                     label.setIcon(icon);
-                    //JFileChooser fotoGuardada = new JFileChooser("/src/User/Imatges");
-                   // fotoGuardada.setCurrentDirectory(selectedFile);
 
                 }
                 else if(result == JFileChooser.CANCEL_OPTION){
@@ -72,7 +73,13 @@ public class DemanarFoto extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println("ENTREM");
-                String dest = System.getProperty("user.dir") + "/src/User/Imatges/" + selectedFile.getName();
+                String extension = "";
+
+                int i = selectedFile.getName().lastIndexOf('.');
+                if (i > 0) {
+                    extension = selectedFile.getName().substring(i+1);
+                }
+                String dest = System.getProperty("user.dir") + "/src/User/Imatges/" + textName.getText() + "." + extension;
                 Path desti = Paths.get(dest);
 
                 String orig = selectedFile.getAbsolutePath();
@@ -84,21 +91,8 @@ public class DemanarFoto extends JFrame {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-/*
-                FileWriter escriu;
-                fileChooser.showSaveDialog(null);
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                try {
-                    escriu = new FileWriter(selectedFile, true);
-                    escriu.write(textName.getText());
-                    escriu.close();
-                } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al guardar, ponga nombre al archivo");
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al guardar, en la salida");
-                }
-*/
-
+                setPathUsuari(desti);
+                setVisible(false);
             }
         });
 
@@ -107,10 +101,6 @@ public class DemanarFoto extends JFrame {
         add(textName);
         add(button);
         add(button2);
-        setLayout(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(440,420);
-        setVisible(true);
     }
 
     public JButton getButton() {
@@ -142,5 +132,11 @@ public class DemanarFoto extends JFrame {
     }
     public void setImatge(Image imatge) {
         this.imatge = imatge;
+    }
+    public Path getPathUsuari() {
+        return pathUsuari;
+    }
+    public void setPathUsuari(Path pathUsuari) {
+        this.pathUsuari = pathUsuari;
     }
 }

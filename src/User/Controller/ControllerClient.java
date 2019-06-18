@@ -22,9 +22,8 @@ import java.util.ArrayList;
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
-    private ClientNetworkManager networkManager;
-    private DemanarFoto demanarFoto;
     private ServerComunication networkManager;
+    private DemanarFoto demanarFoto;
     private View mainView;
     private Server server;
     private User currentUser;
@@ -75,12 +74,12 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                       /* try {
+                        try {
                             listaLikedUsers = ordenaUsuarios(currentUser);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                        currentUser.setListaLikedUsers(listaLikedUsers);*/
+                        currentUser.setListaLikedUsers(listaLikedUsers);
                         try {
                             startMainView(currentUser);
                         } catch (IOException e) {
@@ -120,10 +119,14 @@ public class ControllerClient implements ActionListener {
             case "AcceptUser":
                 try {
                     System.out.println("user aceptado!");
-                    ok = networkManager.functionalities(3, currentUser, connectedUsers.get(0));
-                    User userRemoved = connectedUsers.remove(0);
-                    connectedUsers.add(userRemoved);
-                    mainView.setUserLooking(connectedUsers.get(0));
+                    ok = networkManager.functionalities(3, currentUser, currentUser.getListaLikedUsers().get(0));
+                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
+                   // currentUser.getListaLikedUsers().add(userRemoved);
+                    if(currentUser.getListaLikedUsers().size() == 0){
+                        JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
+                    }else{
+                        mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
+                    }
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
@@ -138,10 +141,10 @@ public class ControllerClient implements ActionListener {
             case "DeclineUser":
                 try {
                     System.out.println("user declinado!");
-                    networkManager.functionalities(4, currentUser, connectedUsers.get(0));
-                    User userRemoved = connectedUsers.remove(0);
-                    connectedUsers.add(userRemoved);
-                    mainView.setUserLooking(connectedUsers.get(0));
+                    networkManager.functionalities(4, currentUser, currentUser.getListaLikedUsers().get(0));
+                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
+                    currentUser.getListaLikedUsers().add(userRemoved);
+                    mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
@@ -202,7 +205,9 @@ public class ControllerClient implements ActionListener {
     }
 
     private void startMainView(User currentUser) throws IOException {
-        this.mainView = new View(currentUser, connectedUsers.get(0));
+        if(currentUser.getListaLikedUsers().size() !=0){
+            this.mainView = new View(currentUser, currentUser.getListaLikedUsers().get(0));
+        }
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
@@ -211,7 +216,6 @@ public class ControllerClient implements ActionListener {
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
-            System.out.println("allUsers = " + allUsers.get(i).getUserName());
             if (user.isPremium()) {
                 for (int j = 0; j < user.getListaLikedUsers().size(); j++) {
                     System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
@@ -248,7 +252,7 @@ public class ControllerClient implements ActionListener {
         contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
         edat = Integer.parseInt(getRegistrationView().getEdat().getText());
         correo = getRegistrationView().getCorreo().getText();
-        urlFoto = getDemanarFoto().getTextName().getText();
+        urlFoto = getDemanarFoto().getPathUsuari().toString();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
         likedUsers = ordenaUsuarios(currentUser);

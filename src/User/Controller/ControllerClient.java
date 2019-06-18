@@ -6,13 +6,16 @@ import User.Model.Mensaje;
 import User.Model.User;
 import User.Network.ServerComunication;
 import User.View.AutenticationView;
+import User.View.DemanarFoto;
 import User.View.EditProfile;
 import User.View.RegistrationView;
 import User.View.View;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
     private ServerComunication networkManager;
+    private DemanarFoto demanarFoto;
     private View mainView;
     private Server server;
     private User currentUser;
@@ -45,6 +49,7 @@ public class ControllerClient implements ActionListener {
 
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
+        ArrayList<User> listaLikedUsers = null;
 
         switch (event.getActionCommand()) {
             case "logIn":
@@ -71,10 +76,15 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-
+                        try {
+                            listaLikedUsers = ordenaUsuarios(currentUser);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        currentUser.setListaLikedUsers(listaLikedUsers);
                         try {
                             startMainView(currentUser);
-                        } catch (IOException | ClassNotFoundException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -103,7 +113,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al registrar usuario");
                         }
                     }
-                } catch (IOException | SQLException | ClassNotFoundException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -111,17 +121,21 @@ public class ControllerClient implements ActionListener {
             case "AcceptUser":
                 try {
                     System.out.println("user aceptado!");
-                    ok = networkManager.functionalities(3, currentUser, connectedUsers.get(0));
-                    User userRemoved = connectedUsers.remove(0);
-                    connectedUsers.add(userRemoved);
-                    mainView.setUserLooking(connectedUsers.get(0));
+                    ok = networkManager.functionalities(3, currentUser, currentUser.getListaLikedUsers().get(0));
+                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
+                   // currentUser.getListaLikedUsers().add(userRemoved);
+                    if(currentUser.getListaLikedUsers().size() == 0){
+                        JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
+                    }else{
+                        mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
+                    }
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
                     if (ok) {
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
                     }
-                } catch (IOException | ClassNotFoundException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -129,14 +143,14 @@ public class ControllerClient implements ActionListener {
             case "DeclineUser":
                 try {
                     System.out.println("user declinado!");
-                    networkManager.functionalities(4, currentUser, connectedUsers.get(0));
-                    User userRemoved = connectedUsers.remove(0);
-                    connectedUsers.add(userRemoved);
-                    mainView.setUserLooking(connectedUsers.get(0));
+                    networkManager.functionalities(4, currentUser, currentUser.getListaLikedUsers().get(0));
+                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
+                    currentUser.getListaLikedUsers().add(userRemoved);
+                    mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
-                } catch (IOException | ClassNotFoundException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -168,7 +182,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al guardar los cambios ");
                         }
                     }
-                } catch (IOException | SQLException | ClassNotFoundException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -179,22 +193,33 @@ public class ControllerClient implements ActionListener {
                 mainView.getTa().append(chat);
                 mainView.getJtfMessage().setText("");
                 break;
+
+            case "DemanarFoto":
+                try {
+                    demanarFoto = new DemanarFoto();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Demanem foto al usuari");
+                demanarFoto.setVisible(true);
+                break;
         }
     }
 
-    private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
+    private void startMainView(User currentUser) throws IOException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
-        this.mainView = new View(currentUser, connectedUsers.get(0));
+        if(currentUser.getListaLikedUsers().size() !=0){
+            this.mainView = new View(currentUser, currentUser.getListaLikedUsers().get(0));
+        }
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
 
-    private ArrayList<User> ordenaUsuarios(User user) {
+    private ArrayList<User> ordenaUsuarios(User user) throws SQLException {
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
-            System.out.println("allUsers = " + allUsers.get(i).getUserName());
             if (user.isPremium()) {
                 for (int j = 0; j < user.getListaLikedUsers().size(); j++) {
                     System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
@@ -231,7 +256,7 @@ public class ControllerClient implements ActionListener {
         contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
         edat = Integer.parseInt(getRegistrationView().getEdat().getText());
         correo = getRegistrationView().getCorreo().getText();
-        urlFoto = getRegistrationView().getUrlFoto().getText();
+        urlFoto = getDemanarFoto().getPathUsuari().toString();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
         likedUsers = ordenaUsuarios(currentUser);
@@ -313,6 +338,12 @@ public class ControllerClient implements ActionListener {
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
     public Server getServer() { return server; }
     public void setServer(Server server) { this.server = server; }
+    public DemanarFoto getDemanarFoto() {
+        return demanarFoto;
+    }
+    public void setDemanarFoto(DemanarFoto demanarFoto) {
+        this.demanarFoto = demanarFoto;
+    }
 
     public EditProfile getEditProfileView() { return editProfile; }
     public void setEditProfileView(EditProfile editProfile) { this.editProfile = editProfile; }

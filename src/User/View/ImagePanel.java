@@ -7,12 +7,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-class ImagePanel extends JPanel{
+public class ImagePanel extends JPanel{
+    private  BufferedImage image;
 
-    Image ImagePanel(String imgPath) throws IOException {
-        BufferedImage image;
+    public Image ImagePanel(String imgPath) throws IOException {
         if (imgPath == null || imgPath.equals("")){
-            image = ImageIO.read(new File("C:\\Users\\javog\\OneDrive\\Escritorio\\universidad\\Asignaturas\\18-19\\DPOO\\Minder-master\\src\\Imatges\\default.jpeg"));
+            image = ImageIO.read(new File("./src/User/Imatges/default.jpeg"));
         } else {
             image = ImageIO.read(new File(imgPath));
         }

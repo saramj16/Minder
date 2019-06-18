@@ -1,5 +1,6 @@
 package User.Network;
 
+import User.Model.Match;
 import User.Model.User;
 import User.View.AutenticationView;
 
@@ -58,7 +59,7 @@ public class ServerComunication extends Thread{
                 ooStream.writeObject(object2);
                 break;
 
-            case 5://registrar usuario --> object1 = user modificado, object2= null
+            case 5://editar usuario --> object1 = user modificado, object2= null
                 ooStream.writeObject(object1);
                 ok = diStream.readBoolean();
                 break;
@@ -77,5 +78,20 @@ public class ServerComunication extends Thread{
 
     public ArrayList<User> getAllUsers() throws IOException, ClassNotFoundException {
         return (ArrayList<User>) oiStream.readObject();
+    }
+
+    public ArrayList<Match> getListaMatches() throws IOException, ClassNotFoundException {
+        Match match;
+        ArrayList<Match> matches = new ArrayList<>();
+
+        int sizeMatches = diStream.readInt();
+
+        if (sizeMatches != 0){
+            for (int i = 0; i < sizeMatches; i++){
+                match = (Match) oiStream.readObject();
+                matches.add(match);
+            }
+        }
+        return matches;
     }
 }

@@ -85,6 +85,7 @@ public class Server extends Thread{
 
     public boolean actualizaUser(User user) throws SQLException {
         User user1 = getUser(user.getUserName());
+        System.out.println(user1.getUserName());
         if (user1 != null){
             updateUser(user1, user);
             return true;
@@ -93,6 +94,7 @@ public class Server extends Thread{
     }
 
     private void updateUser(User user2modificate, User userModificated) {
+        usuariManager.modificiaUsuari(new Usuari(userModificated.getUserName(),userModificated.getEdat(),userModificated.isPremium(), userModificated.getCorreo(), userModificated.getPassword(), userModificated.getUrlFoto(), userModificated.getLenguaje(), userModificated.getDescription()));
         //TODO: 4 u Saraaaaaaaaaaaaaaaaaaaaaaaa
     }
 
@@ -129,14 +131,14 @@ public class Server extends Thread{
 
     }
 
-    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+    public ArrayList<Match> getMatchList(String userLike) throws SQLException {
         ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
 
         return convertMatxToMach(matches);
 
     }
 
-    private ArrayList<User> getMatchedUsers(String userMatch) throws SQLException {
+    public ArrayList<User> getMatchedUsers(String userMatch) throws SQLException {
         ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch);
 
         return convertUsuaristoUsers(usuaris);
@@ -180,17 +182,19 @@ public class Server extends Thread{
     }
 
     public ArrayList<Match> convertMatxToMach (ArrayList<Matx> matxes) throws SQLException {
-        ArrayList<Match> matches = new ArrayList<>();
+        ArrayList<Match> matches = new ArrayList<>(matxes.size());
 
-        for (int i = 0; i < matxes.size(); i++){
-            matches.add(new Match(getUser(matxes.get(i).getUser1()), getUser(matxes.get(i).getUser2()), getMessages(matxes.get(i).getUser1(),matxes.get(i).getUser2())));
+        if (matxes.size() != 0){
+            for (int i = 0; i < matxes.size(); i++){
+                matches.add(new Match(getUser(matxes.get(i).getUser1()), getUser(matxes.get(i).getUser2()), getMessages(matxes.get(i).getUser1(),matxes.get(i).getUser2())));
+            }
         }
 
         return matches;
     }
 
     public ArrayList<Mensaje> convertMissatgeToMensaje (ArrayList<Missatge> missatges) throws SQLException {
-        ArrayList<Mensaje> mensajes = new ArrayList<>();
+        ArrayList<Mensaje> mensajes = new ArrayList<>(missatges.size());
 
         for (int i = 0; i < missatges.size(); i++){
             User u = getUser(missatges.get(i).getUserSend());
@@ -204,9 +208,6 @@ public class Server extends Thread{
     public User getUser(String username) throws SQLException {
 
        Usuari u = usuariManager.getUsuari(username);
-
-       //ArrayList<User> listaLikedUsers = getLikedUsers(username);
-       //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(username));
 
 
        User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());

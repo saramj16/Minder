@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Server.Model.Server;
 import User.Controller.ControllerClient;
+import User.Model.Match;
 import User.Model.User;
 
 import java.io.*;
@@ -21,7 +22,6 @@ public class DedicatedServer extends Thread{
     private ObjectOutputStream ooStream;
     private ObjectInputStream oiStream;
     private boolean running;
-    private ControllerClient controller;
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.server = server;
@@ -63,6 +63,8 @@ public class DedicatedServer extends Thread{
                             User u = server.getUser(username);
                             System.out.println("user name connected " + u.getUserName());
                             ooStream.writeObject(u);
+                           //doStream.writeInt(server.getMatchList(u.getUserName()).size());
+                            sendMatches(u);
                         }
                         break;
 
@@ -70,6 +72,7 @@ public class DedicatedServer extends Thread{
                         User user = (User) oiStream.readObject();
                         ok = server.comprobarRegistro(user);
                         doStream.writeBoolean(ok);
+                        sendMatches(user);
                         break;
 
                     case 3: //user aceptado(liked)
@@ -77,18 +80,21 @@ public class DedicatedServer extends Thread{
                         likedUser = (User) oiStream.readObject();
                         ok = server.acceptUser(currentUser, likedUser);
                         doStream.writeBoolean(ok);
+                        sendMatches(currentUser);
                         break;
 
                     case 4:
                         currentUser = (User) oiStream.readObject();
                         likedUser = (User) oiStream.readObject();
                         server.declineUser(currentUser, likedUser);
+                        sendMatches(currentUser);
                         break;
 
                     case 5:
                         user = (User) oiStream.readObject();
                         ok = server.actualizaUser(user);
                         doStream.writeBoolean(ok);
+                        sendMatches(user);
                         break;
                     default:
                         System.out.println("DEFAULT!!!");
@@ -108,6 +114,16 @@ public class DedicatedServer extends Thread{
         }
     }
 
+    private void sendMatches(User u) throws SQLException, IOException {
+        ArrayList<Match> matches = server.getMatchList(u.getUserName());
+        doStream.writeInt(matches.size());
+        if (server.getMatchList(u.getUserName()).size() != 0){
+            for (int i = 0; i < matches.size(); i++){
+                ooStream.writeObject(matches.get(i));
+            }
+        }
+    }
+
     public static void disconnectClient() {
         try {
             sServidor.close();
@@ -120,5 +136,6 @@ public class DedicatedServer extends Thread{
 
     public void close() {
         running = false;
+        disconnectClient();
     }
 }

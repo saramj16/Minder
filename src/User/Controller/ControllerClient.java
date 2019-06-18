@@ -1,6 +1,7 @@
 package User.Controller;
 
 import Server.Model.Server;
+import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.Network.ServerComunication;
@@ -34,6 +35,7 @@ public class ControllerClient implements ActionListener {
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
+
     }
 
     public void start() {
@@ -168,7 +170,7 @@ public class ControllerClient implements ActionListener {
             case "SaveEditProfile":
                 System.out.println("Actualizando perfil...!!");
                 try {
-                    User user = editUserFromEditProfile();
+                    User user = editUserFromEditProfile(currentUser);
                     if (user != null) {
                         ok = networkManager.functionalities(5, user, null);
                         if (ok){
@@ -189,7 +191,9 @@ public class ControllerClient implements ActionListener {
                 String mensaje = String.valueOf(mainView.getJtfMessage());
                 String chat = String.valueOf(mainView.getJtaMessages());
                 chat += currentUser.getUserName() + ": " + mensaje + "\n";
-               // mainView.setJtaMessages(chat);
+                mainView.getTa().append(chat);
+                mainView.setJtfMessage(new JTextField(""));
+                //mainView.getTa().setCaretPosition(mainView.getTa().getText().length() - 1);
                 break;
 
             case "DemanarFoto":
@@ -205,6 +209,8 @@ public class ControllerClient implements ActionListener {
     }
 
     private void startMainView(User currentUser) throws IOException {
+        ArrayList<Match> matches = networkManager.getListaMatches();
+        currentUser.setListaMatch(matches);
         if(currentUser.getListaLikedUsers().size() !=0){
             this.mainView = new View(currentUser, currentUser.getListaLikedUsers().get(0));
         }
@@ -272,7 +278,7 @@ public class ControllerClient implements ActionListener {
 
     }
 
-    private User editUserFromEditProfile() throws IOException, SQLException {
+    private User editUserFromEditProfile(User u) throws IOException, SQLException {
         String username;
         String password;
         int edat;
@@ -283,20 +289,35 @@ public class ControllerClient implements ActionListener {
         String descripción;
         ArrayList<User> likedUsers;
 
-        //username = getRegistrationView().getUserName().getText();
         password = getEditProfileView().getPasswordTextField().getText();
-        //edat = getEditProfileView().getJsEdat().get();
+        edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
         //urlFoto = getEditProfileView().getUrlFoto().getText();
-        //lenguaje = getEditProfileView().getLenguaje().getText();
+
+        if (getEditProfileView().getJrbC().isSelected()){
+            if (getEditProfileView().getJrbJava().isSelected()){
+                lenguaje = "C & Java";
+                getEditProfileView().getJrbJava().setSelected(true);
+                getEditProfileView().getJrbC().setSelected(true);
+            }else{
+                lenguaje = "C";
+                getEditProfileView().getJrbJava().setSelected(false);
+                getEditProfileView().getJrbC().setSelected(true);
+            }
+        }else {
+            lenguaje = "Java";
+            getEditProfileView().getJrbJava().setSelected(true);
+            getEditProfileView().getJrbC().setSelected(false);
+        }
+
         descripción = getEditProfileView().getJtfDescription().getText();
-        //isPremium = getEditProfileView().getJcbPremium().ge();
+        isPremium = getEditProfileView().getJcbPremium().isEnabled();
         // likedUsers = ordenaUsuarios(currentUser);
 
         //if (username.equals(username)){
         //User user = User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
 
-        User user = new User( "",0,false,correo, password, "", "", descripción);
+        User user = new User( u.getUserName(),edat,isPremium,correo, password, "", lenguaje, descripción);
         // user.setListaLikedUsers(likedUsers);
         return user;
 

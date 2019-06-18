@@ -158,5 +158,19 @@ public class EditProfile extends JFrame {
     public JButton getJbSave() { return jbSave; }
     public void setJbSave(JButton jbSave) { this.jbSave = jbSave; }
 
+    public JRadioButton getJrbJava() {
+        return jrbJava;
+    }
 
+    public void setJrbJava(JRadioButton jrbJava) {
+        this.jrbJava = jrbJava;
+    }
+
+    public JRadioButton getJrbC() {
+        return jrbC;
+    }
+
+    public void setJrbC(JRadioButton jrbC) {
+        this.jrbC = jrbC;
+    }
 }

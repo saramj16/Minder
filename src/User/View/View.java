@@ -46,6 +46,7 @@ public class View extends JFrame {
 
     //Matches Pane and its elements
     private JPanel jpMatches;
+    private JLabel jlTitleMatches;
     private JPanel jpMatchImage;
     private JLabel jlMatchName;
     private JLabel jlMatchAge;
@@ -54,6 +55,7 @@ public class View extends JFrame {
     private JLabel jlMatchDescription;
     private JButton jbMatchYes;
     private JButton jbMatchNo;
+    private JButton jbRefresca;
 
     //Small pane for closed conversations and its elements
     private JPanel jpClosedConver;
@@ -175,7 +177,7 @@ public class View extends JFrame {
 
         jpInfoMatch.add(jpNorth, BorderLayout.NORTH);
 
-        jtaDescription = new JTextArea(/*user.getDescription()*/"Em menjo els mocs");
+        jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setEditable(false);
         jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
 
@@ -194,9 +196,13 @@ public class View extends JFrame {
         jpMatches.add(jpInfoMatch);
 
         JPanel jpTitledMatches = new JPanel(new BorderLayout());
-        JLabel jlTitleMatches = new JLabel(" Tens un possible match!");
+
         JPanel jpTensUnMatch = new JPanel(new FlowLayout());
+        jlTitleMatches = new JLabel(" Tens un possible match!");
+        jbRefresca = new JButton("Refresca");
         jpTensUnMatch.add(jlTitleMatches);
+        jpTensUnMatch.add(jbRefresca);
+        jbRefresca.setVisible(false);
 
         jpTitledMatches.add(jpTensUnMatch, BorderLayout.NORTH);
         jpTitledMatches.add(jpMatches, BorderLayout.CENTER);
@@ -242,7 +248,6 @@ public class View extends JFrame {
         return jpMatches;
     }
 
-    //Test5
     public void autenticationController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
         jbMatchYes.setActionCommand("AcceptUser");
@@ -256,6 +261,19 @@ public class View extends JFrame {
         jbEditProfile.addActionListener(controller);
         jbEditProfile.setActionCommand("EditProfile");
 
+    }
+
+    public void noQuedenMatches() {
+        jlTitleMatches.setText(" No queda gent amb qui emparellar-te :(   ");
+        jpMatches.setVisible(false);
+        jbRefresca.setVisible(true);
+
+    }
+
+    public void tornaAHaverHiMatches() {
+        jlTitleMatches.setText(" Tens un possible match!");
+        jpMatches.setVisible(true);
+        jbRefresca.setVisible(false);
     }
 
     public User getUserLooking() {

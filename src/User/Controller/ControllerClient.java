@@ -84,7 +84,7 @@ public class ControllerClient implements ActionListener {
                         currentUser.setListaLikedUsers(listaLikedUsers);
                         try {
                             startMainView(currentUser);
-                        } catch (IOException e) {
+                        } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
@@ -113,7 +113,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al registrar usuario");
                         }
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException | SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -135,7 +135,7 @@ public class ControllerClient implements ActionListener {
                     if (ok) {
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
                     }
-                } catch (IOException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -150,7 +150,7 @@ public class ControllerClient implements ActionListener {
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
-                } catch (IOException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -182,7 +182,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al guardar los cambios ");
                         }
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException | SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -208,7 +208,7 @@ public class ControllerClient implements ActionListener {
         }
     }
 
-    private void startMainView(User currentUser) throws IOException {
+    private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
         if(currentUser.getListaLikedUsers().size() !=0){
@@ -292,7 +292,7 @@ public class ControllerClient implements ActionListener {
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        //urlFoto = getEditProfileView().getUrlFoto().getText();
+        //urlFoto = getDemanarFoto().getPathUsuari().toString();
 
         if (getEditProfileView().getJrbC().isSelected()){
             if (getEditProfileView().getJrbJava().isSelected()){
@@ -312,19 +312,12 @@ public class ControllerClient implements ActionListener {
 
         descripción = getEditProfileView().getJtfDescription().getText();
         isPremium = getEditProfileView().getJcbPremium().isEnabled();
-        // likedUsers = ordenaUsuarios(currentUser);
-
-        //if (username.equals(username)){
-        //User user = User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
 
         User user = new User( u.getUserName(),edat,isPremium,correo, password, "", lenguaje, descripción);
-        // user.setListaLikedUsers(likedUsers);
+
         return user;
 
-        //}else{
-        //JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
-        // return null;
-        //}
+
 
     }
 

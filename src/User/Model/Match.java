@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 
 public class Match implements Serializable {
-    //private String id;
     private User user1;
     private User user2;
     private ArrayList<Mensaje> chat;
@@ -15,7 +14,6 @@ public class Match implements Serializable {
     public Match(User user1, User user2, ArrayList<Mensaje> chat) {
         this.user1 = user1;
         this.user2 = user2;
-        //this.id = id;
         this.chat = chat;
     }
 

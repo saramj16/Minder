@@ -174,12 +174,10 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "SendMessage":
-                String mensaje = String.valueOf(mainView.getJtfMessage());
-                String chat = String.valueOf(mainView.getJtaMessages());
-                chat += currentUser.getUserName() + ": " + mensaje + "\n";
+                String mensaje = (mainView.getJtfMessage().getText());
+                String chat = currentUser.getUserName() + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
-                mainView.setJtfMessage(new JTextField(""));
-                //mainView.getTa().setCaretPosition(mainView.getTa().getText().length() - 1);
+                mainView.getJtfMessage().setText("");
                 break;
         }
     }

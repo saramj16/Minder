@@ -61,6 +61,7 @@ public class View extends JFrame {
     private JLabel jlNameCC;
     private JLabel jlLastMessageCC;
 
+
     //Chats Pane and its elements
     public  JTextArea ta;
     private JPanel jpChats;
@@ -209,17 +210,14 @@ public class View extends JFrame {
 
         JScrollPane scrollpaneChats = new JScrollPane();
 
-        if(user.getListaMatch() == null){
+        if(user.getListaMatch().size() == 0 || user.getListaMatch() == null){
             scrollpaneChats.add(new JLabel("Ningún Chat activo!"));
         }else {
             for (Match m : user.getListaMatch()){
-                JPanel jpChat = new JPanel();
-                JLabel jLabel = new JLabel("chat with: " + m.getUser1());
-                jpChat.add(jLabel);
-                scrollpaneChats.add(jpChat);
+                JButton jLabel = new JButton("chat with: " + m.getUser1());
+                scrollpaneChats.add(jLabel);
             }
         }
-
         JPanel jRight = new JPanel(new BorderLayout());
         jpMatches.add(scrollpaneChats);
 
@@ -284,5 +282,9 @@ public class View extends JFrame {
 
     public JTextArea getTa() {
         return ta;
+    }
+
+    public void setTa(JTextArea ta) {
+        this.ta = ta;
     }
 }

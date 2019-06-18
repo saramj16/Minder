@@ -1,6 +1,7 @@
 package User.Controller;
 
 import Server.Model.Server;
+import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.Network.ServerComunication;
@@ -44,7 +45,6 @@ public class ControllerClient implements ActionListener {
 
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
-        ArrayList<User> listaLikedUsers = null;
 
         switch (event.getActionCommand()) {
             case "logIn":
@@ -71,15 +71,10 @@ public class ControllerClient implements ActionListener {
                         }
 
                         System.out.println("Current user = " + currentUser.getUserName());
-                       /* try {
-                            listaLikedUsers = ordenaUsuarios(currentUser);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        currentUser.setListaLikedUsers(listaLikedUsers);*/
+
                         try {
                             startMainView(currentUser);
-                        } catch (IOException e) {
+                        } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
@@ -108,7 +103,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al registrar usuario");
                         }
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException | SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -126,7 +121,7 @@ public class ControllerClient implements ActionListener {
                     if (ok) {
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
                     }
-                } catch (IOException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -141,7 +136,7 @@ public class ControllerClient implements ActionListener {
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
-                } catch (IOException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -173,7 +168,7 @@ public class ControllerClient implements ActionListener {
                             System.out.println("algun tipo de error al guardar los cambios ");
                         }
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException | SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -182,18 +177,22 @@ public class ControllerClient implements ActionListener {
                 String mensaje = String.valueOf(mainView.getJtfMessage());
                 String chat = String.valueOf(mainView.getJtaMessages());
                 chat += currentUser.getUserName() + ": " + mensaje + "\n";
-               // mainView.setJtaMessages(chat);
+                mainView.getTa().append(chat);
+                mainView.setJtfMessage(new JTextField(""));
+                //mainView.getTa().setCaretPosition(mainView.getTa().getText().length() - 1);
                 break;
         }
     }
 
-    private void startMainView(User currentUser) throws IOException {
+    private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
+        ArrayList<Match> matches = networkManager.getListaMatches();
+        currentUser.setListaMatch(matches);
         this.mainView = new View(currentUser, connectedUsers.get(0));
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
 
-    private ArrayList<User> ordenaUsuarios(User user) throws SQLException {
+    private ArrayList<User> ordenaUsuarios(User user) {
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {

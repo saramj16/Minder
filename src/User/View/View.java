@@ -62,12 +62,13 @@ public class View extends JFrame {
     private JLabel jlLastMessageCC;
 
     //Chats Pane and its elements
+    public  JTextArea ta;
     private JPanel jpChats;
     private JScrollPane jspClosedChats;
     private JTextPane jtpChat;
     private JTextField jtfMessage;
     private JButton jbSend;
-    JTextArea jtaMessages;
+    public JPanel jtaMessages;
 
     private ArrayList<ClosedChat> chats;
 
@@ -222,7 +223,11 @@ public class View extends JFrame {
         JPanel jRight = new JPanel(new BorderLayout());
         jpMatches.add(scrollpaneChats);
 
-        jtaMessages = new JTextArea();
+        ta = new JTextArea();
+        ta.setEditable(false);
+        jtaMessages = new JPanel(new GridLayout(1,1));
+        jtaMessages.add(new JScrollPane(ta));
+        ta.setEditable(false);
         jRight.add(jtaMessages, BorderLayout.CENTER);
 
         JPanel jBot = new JPanel(new BorderLayout());
@@ -269,11 +274,15 @@ public class View extends JFrame {
         this.jtfMessage = jtfMessage;
     }
 
-    public JTextArea getJtaMessages() {
+    public JPanel getJtaMessages() {
         return jtaMessages;
     }
 
-    public void setJtaMessages(JTextArea jtaMessages) {
+    public void setJtaMessages(JPanel jtaMessages) {
         this.jtaMessages = jtaMessages;
+    }
+
+    public JTextArea getTa() {
+        return ta;
     }
 }

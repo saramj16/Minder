@@ -129,14 +129,14 @@ public class Server extends Thread{
 
     }
 
-    private ArrayList<Match> getMatchList(String userLike) throws SQLException {
+    public ArrayList<Match> getMatchList(String userLike) throws SQLException {
         ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
 
         return convertMatxToMach(matches);
 
     }
 
-    private ArrayList<User> getMatchedUsers(String userMatch) throws SQLException {
+    public ArrayList<User> getMatchedUsers(String userMatch) throws SQLException {
         ArrayList<Usuari> usuaris = usuariManager.getUsuarisMatxes(userMatch);
 
         return convertUsuaristoUsers(usuaris);
@@ -182,8 +182,10 @@ public class Server extends Thread{
     public ArrayList<Match> convertMatxToMach (ArrayList<Matx> matxes) throws SQLException {
         ArrayList<Match> matches = new ArrayList<>();
 
-        for (int i = 0; i < matxes.size(); i++){
-            matches.add(new Match(getUser(matxes.get(i).getUser1()), getUser(matxes.get(i).getUser2()), getMessages(matxes.get(i).getUser1(),matxes.get(i).getUser2())));
+        if (matxes.size() != 0){
+            for (int i = 0; i < matxes.size(); i++){
+                matches.add(new Match(getUser(matxes.get(i).getUser1()), getUser(matxes.get(i).getUser2()), getMessages(matxes.get(i).getUser1(),matxes.get(i).getUser2())));
+            }
         }
 
         return matches;

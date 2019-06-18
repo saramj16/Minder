@@ -1,5 +1,6 @@
 package User.Network;
 
+import User.Model.Match;
 import User.Model.User;
 import User.View.AutenticationView;
 
@@ -77,5 +78,27 @@ public class ServerComunication extends Thread{
 
     public ArrayList<User> getAllUsers() throws IOException, ClassNotFoundException {
         return (ArrayList<User>) oiStream.readObject();
+    }
+
+    public ArrayList<Match> getListaMatches() throws IOException, ClassNotFoundException {
+        Match match;
+        ArrayList<Match> matches = new ArrayList<>();
+        boolean check = true;
+
+        int sizeMatches = diStream.readInt();
+
+        if (sizeMatches != 0){
+
+            while (check) {
+                try{
+                    match = (Match) oiStream.readObject();
+                    matches.add(match);
+                } catch(EOFException ex){
+                    check=false;
+                }
+            }
+            return matches;
+        }
+        return null;
     }
 }

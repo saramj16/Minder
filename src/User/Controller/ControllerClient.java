@@ -238,7 +238,7 @@ public class ControllerClient implements ActionListener {
     private User newUserFromRegistration() throws  SQLException {
         String username;
         String password;
-        String edat;
+        int edat;
         String correo;
         String contraseñaRepetida;
         String urlFoto = null;
@@ -249,16 +249,15 @@ public class ControllerClient implements ActionListener {
         username = getRegistrationView().getUserName().getText();
         password = getRegistrationView().getContraseña().getText();
         contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-        edat = getRegistrationView().getEdat().getText();
+        edat = Integer.parseInt(getRegistrationView().getEdat().getText());
         correo = getRegistrationView().getCorreo().getText();
         urlFoto = getDemanarFoto().getPathUsuari().toString();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
-        likedUsers = ordenaUsuarios(currentUser);
 
 
         //TODO: ordenar lista de posibles matchs según unos criterios
-        if ( username == null || password == null ||  contraseñaRepetida == null ||edat == null || correo == null || urlFoto == null || lenguaje == null || descripción == null ) {
+        if ( username == null || password == null ||  contraseñaRepetida == null || correo == null || urlFoto == null || lenguaje == null || descripción == null ) {
             JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
             return null;
         }

@@ -12,7 +12,8 @@ public class EditProfile extends JFrame {
 
     private JButton jbChangeImage, jbSave;
     private JCheckBox jcbPremium;
-    private JRadioButton jrbJava, jrbC;
+    private JRadioButton jrbJava;
+    private JRadioButton jrbC;
     private JTextField jtfCorreu,jtfPassword, jtfDescription;
     private JSpinner jsEdat;
     private JLabel jlNom;
@@ -39,6 +40,8 @@ public class EditProfile extends JFrame {
 
     }
 
+
+
     public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage) throws IOException {
 
         jlNom = new JLabel(nom);
@@ -62,18 +65,15 @@ public class EditProfile extends JFrame {
         jlPremium = new JLabel("Premium: ");
         jcbPremium = new JCheckBox(" ", premium);
         jlLanguage = new JLabel("Llenguatge: ");
-        if (lenguage == null || lenguage.equals("")){
+
+        ButtonGroup group = new ButtonGroup();
+
+
             jrbC = new JRadioButton("C", false);
             jrbJava = new JRadioButton("Java", false);
-        }else {
-            if (lenguage.equals("C")){
-                jrbC = new JRadioButton("C", true);
-                jrbJava = new JRadioButton("Java", false);
-            } else {
-                jrbC = new JRadioButton("C", false);
-                jrbJava = new JRadioButton("Java", true);
-            }
-        }
+            group.add( jrbC );
+            group.add( jrbJava );
+
 
         jbSave = new JButton("Save");
 

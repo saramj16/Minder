@@ -30,7 +30,7 @@ public class ControllerClient implements ActionListener {
     private User currentUser;
     private ArrayList<User> connectedUsers;
     private EditProfile editProfile;
-
+    private ArrayList<User> possiblesMatxs;
 
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
@@ -49,7 +49,6 @@ public class ControllerClient implements ActionListener {
 
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
-        ArrayList<User> listaLikedUsers = null;
 
         switch (event.getActionCommand()) {
             case "logIn":
@@ -77,11 +76,10 @@ public class ControllerClient implements ActionListener {
 
                         System.out.println("Current user = " + currentUser.getUserName());
                         try {
-                            listaLikedUsers = ordenaUsuarios(currentUser);
+                            possiblesMatxs = ordenaUsuarios(currentUser);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                        currentUser.setListaLikedUsers(listaLikedUsers);
                         try {
                             startMainView(currentUser);
                         } catch (IOException | ClassNotFoundException e) {
@@ -121,13 +119,10 @@ public class ControllerClient implements ActionListener {
             case "AcceptUser":
                 try {
                     System.out.println("user aceptado!");
-                    ok = networkManager.functionalities(3, currentUser, currentUser.getListaLikedUsers().get(0));
-                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
-                   // currentUser.getListaLikedUsers().add(userRemoved);
-                    if(currentUser.getListaLikedUsers().size() == 0){
+                    ok = networkManager.functionalities(3, currentUser, possiblesMatxs.get(0));
+                    possiblesMatxs.remove(0);
+                    if(possiblesMatxs.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
-                    }else{
-                        mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
                     }
                     mainView.setVisible(false);
                     startMainView(currentUser);
@@ -143,10 +138,10 @@ public class ControllerClient implements ActionListener {
             case "DeclineUser":
                 try {
                     System.out.println("user declinado!");
-                    networkManager.functionalities(4, currentUser, currentUser.getListaLikedUsers().get(0));
-                    User userRemoved = currentUser.getListaLikedUsers().remove(0);
-                    currentUser.getListaLikedUsers().add(userRemoved);
-                    mainView.setUserLooking(currentUser.getListaLikedUsers().get(0));
+                    networkManager.functionalities(4, currentUser, possiblesMatxs.get(0));
+                    User userRemoved = possiblesMatxs.remove(0);
+                    possiblesMatxs.add(userRemoved);
+                    mainView.setUserLooking(possiblesMatxs.get(0));
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
@@ -209,9 +204,7 @@ public class ControllerClient implements ActionListener {
     private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
-        if(currentUser.getListaLikedUsers().size() !=0){
-            this.mainView = new View(currentUser, currentUser.getListaLikedUsers().get(0));
-        }
+        this.mainView = new View(currentUser, possiblesMatxs.get(0));
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
@@ -259,14 +252,9 @@ public class ControllerClient implements ActionListener {
         urlFoto = getDemanarFoto().getPathUsuari().toString();
         lenguaje = getRegistrationView().getLenguaje().getText();
         descripción = getRegistrationView().getDescripción().getText();
-        likedUsers = ordenaUsuarios(currentUser);
-
-
-        //TODO: ordenar lista de posibles matchs según unos criterios
 
         if (password.equals(contraseñaRepetida)){
            User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
-           user.setListaLikedUsers(likedUsers);
            return user;
 
         }else{

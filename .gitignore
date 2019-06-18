@@ -1,3 +1,9 @@
+git rm -rf --cached .
+git add .
+
+
+.idea/
+
 ######################
 # Project Specific
 ######################
@@ -53,7 +59,7 @@ local.properties
 ######################
 # Intellij
 ######################
-.idea/
+
 *.iml
 *.iws
 *.ipr

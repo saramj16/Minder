@@ -111,13 +111,16 @@ public class Server extends Thread{
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
         boolean found = false;
         ArrayList<User> userLikeLikedUsers;
+        ArrayList<User> currentUserLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
         userLikeLikedUsers = getLikedUsers(userLike.getUserName());
+        currentUserLikedUsers = getLikedUsers(currentUser.getUserName());
 
-        for (int i = 0; i < currentUser.getListaLikedUsers().size(); i++){
-            if (currentUser.getListaLikedUsers().get(i).getUserName().equals(userLike.getUserName())){
+        for (int i = 0; i < currentUserLikedUsers.size(); i++){
+            if (currentUserLikedUsers.get(i).getUserName().equals(userLike.getUserName())){
                 found = true;
+                break;
             }
         }
 

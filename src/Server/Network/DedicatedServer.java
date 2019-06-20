@@ -122,7 +122,7 @@ public class DedicatedServer extends Thread{
     private void sendMatches(User u) throws SQLException, IOException {
         ArrayList<Match> matches = server.getMatchList(u.getUserName());
         doStream.writeInt(matches.size());
-        if (server.getMatchList(u.getUserName()).size() != 0){
+        if (matches.size() > 0){
             for (int i = 0; i < matches.size(); i++){
                 ooStream.writeObject(matches.get(i));
             }

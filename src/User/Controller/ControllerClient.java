@@ -170,7 +170,7 @@ public class ControllerClient implements ActionListener {
                             editProfile.setVisible(false);
                             startMainView(currentUser);
                         }else{
-                            System.out.println("algun tipo de error al guardar los cambios ");
+                            JOptionPane.showMessageDialog(null, "algun tipo de error al guardar los cambios!");
                         }
                     }
                 } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -196,7 +196,15 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "Refresh":
-                possiblesMatxs = ordenaUsuarios(currentUser);
+                ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser);
+
+                for (int i = 0; i < newPossiblesMatxs.size(); i++){
+                    for (int j = 0; j < possiblesMatxs.size(); j++){
+                        if (newPossiblesMatxs.get(i).equals(possiblesMatxs.get(j))){
+                            possiblesMatxs.remove(j);
+                        }
+                    }
+                }
                 mainView.setVisible(false);
                 try {
                     startMainView(currentUser);
@@ -211,7 +219,7 @@ public class ControllerClient implements ActionListener {
     private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
-        if (possiblesMatxs.size() != 0){
+        if (possiblesMatxs.size() != 0 || possiblesMatxs == null){
             this.mainView = new View(currentUser, possiblesMatxs.get(0));
         }else{
             this.mainView = new View(currentUser, null);
@@ -253,17 +261,16 @@ public class ControllerClient implements ActionListener {
         String descripción;
         ArrayList<User> likedUsers;
 
-        username = getRegistrationView().getUserName().getText();
-        password = getRegistrationView().getContraseña().getText();
-        contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-        edat = Integer.parseInt(getRegistrationView().getEdat().getText());
-        correo = getRegistrationView().getCorreo().getText();
-        urlFoto = getDemanarFoto().getPathUsuari().toString();
-        lenguaje = getRegistrationView().getLenguaje().getText();
-        descripción = getRegistrationView().getDescripción().getText();
-
-
-        if ( username == null || password == null ||  contraseñaRepetida == null || correo == null || urlFoto == null || lenguaje == null || descripción == null ) {
+        try {
+            username = getRegistrationView().getUserName().getText();
+            password = getRegistrationView().getContraseña().getText();
+            contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
+            edat = Integer.parseInt(getRegistrationView().getEdat().getText());
+            correo = getRegistrationView().getCorreo().getText();
+            urlFoto = getDemanarFoto().getPathUsuari().toString();
+            lenguaje = getRegistrationView().getLenguaje().getText();
+            descripción = getRegistrationView().getDescripción().getText();
+        }catch (NullPointerException e){
             JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
             return null;
         }

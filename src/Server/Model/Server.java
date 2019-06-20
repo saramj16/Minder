@@ -228,4 +228,10 @@ public class Server extends Thread{
     public void declineUser(User currentUser, User declinedUser) {
         usuariManager.addVist(currentUser.getUserName(),declinedUser.getUserName());
     }
+
+    public void announceChanges(User user) {
+        for (DedicatedServer ds : dedicatedServerList){
+            ds.anounceChanges(user);
+        }
+    }
 }

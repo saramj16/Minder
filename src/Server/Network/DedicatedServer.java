@@ -22,6 +22,7 @@ public class DedicatedServer extends Thread{
     private ObjectOutputStream ooStream;
     private ObjectInputStream oiStream;
     private boolean running;
+    private User user;
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.server = server;
@@ -61,6 +62,7 @@ public class DedicatedServer extends Thread{
 
                         if (ok) {
                             User u = server.getUser(username);
+                            this.user = u;
                             System.out.println("user name connected " + u.getUserName());
                             ooStream.writeObject(u);
                             doStream.writeInt(server.getMatchList(u.getUserName()).size());
@@ -95,6 +97,9 @@ public class DedicatedServer extends Thread{
                         ok = server.actualizaUser(user);
                         doStream.writeBoolean(ok);
                         sendMatches(user);
+                        if (ok){
+                            server.announceChanges(user);
+                        }
                         break;
                     default:
                         System.out.println("DEFAULT!!!");
@@ -137,5 +142,11 @@ public class DedicatedServer extends Thread{
     public void close() {
         running = false;
         disconnectClient();
+    }
+
+    public void anounceChanges(User user) {
+        if (!user.equals(this.user)){
+
+        }
     }
 }

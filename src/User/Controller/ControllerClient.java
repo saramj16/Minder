@@ -35,7 +35,7 @@ public class ControllerClient implements ActionListener {
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
-
+        this.possiblesMatxs = new ArrayList<>();
     }
 
     public void start() {
@@ -120,12 +120,13 @@ public class ControllerClient implements ActionListener {
                     if(possiblesMatxs.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
                     }
-                    mainView.setVisible(false);
-                    startMainView(currentUser);
 
                     if (ok) {
                         JOptionPane.showMessageDialog(null, "NEW MATCH!");
                     }
+
+                    mainView.setVisible(false);
+                    startMainView(currentUser);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -212,7 +213,6 @@ public class ControllerClient implements ActionListener {
                     e.printStackTrace();
                 }
                 break;
-
         }
     }
 
@@ -302,7 +302,11 @@ public class ControllerClient implements ActionListener {
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        //urlFoto = getDemanarFoto().getPathUsuari().toString();
+        urlFoto = getDemanarFoto().getPathUsuari().toString();
+
+        if (urlFoto == null){
+            urlFoto = u.getUrlFoto();
+        }
 
         if (getEditProfileView().getJrbC().isSelected()){
             if (getEditProfileView().getJrbJava().isSelected()){
@@ -323,7 +327,7 @@ public class ControllerClient implements ActionListener {
         descripción = getEditProfileView().getJtfDescription().getText();
         isPremium = getEditProfileView().getJcbPremium().isEnabled();
 
-        User user = new User( u.getUserName(),edat,isPremium,correo, password, "", lenguaje, descripción);
+        User user = new User( u.getUserName(),edat,isPremium,correo, password, urlFoto, lenguaje, descripción);
 
         return user;
 

@@ -263,7 +263,6 @@ public class ControllerClient implements ActionListener {
         descripción = getRegistrationView().getDescripción().getText();
 
 
-        //TODO: ordenar lista de posibles matchs según unos criterios
         if ( username == null || password == null ||  contraseñaRepetida == null || correo == null || urlFoto == null || lenguaje == null || descripción == null ) {
             JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
             return null;

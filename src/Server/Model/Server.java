@@ -109,16 +109,24 @@ public class Server extends Thread{
     }
 
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
-
+        boolean found = false;
         ArrayList<User> userLikeLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
         userLikeLikedUsers = getLikedUsers(userLike.getUserName());
 
-        for (User u : userLikeLikedUsers){
-            if (u.getUserName().equals(currentUser.getUserName())){
-                usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
-                return true;
+        for (int i = 0; i < currentUser.getListaLikedUsers().size(); i++){
+            if (currentUser.getListaLikedUsers().get(i).getUserName().equals(userLike.getUserName())){
+                found = true;
+            }
+        }
+
+        if (!found){
+            for (User u : userLikeLikedUsers){
+                if (u.getUserName().equals(currentUser.getUserName())){
+                    usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
+                    return true;
+                }
             }
         }
         return false;

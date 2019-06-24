@@ -7,7 +7,6 @@ import Server.Model.database.dao.UsuariDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 
 public class UsuariManager {
     private MatxDAO matxDAO;
@@ -71,10 +70,12 @@ public class UsuariManager {
         matxDAO.addVist(user1,user2);
     }
 
-    public void addMatx (String user1, String user2){
+    public boolean addMatx (String user1, String user2){
         if(matxDAO.comprovaMatx(user1,user2)){
             matxDAO.addMatx(user1,user2);
+            return true;
         }
+        return false;
     }
 
     public ArrayList<Missatge> preparaChat (String usuari1, String usuari2){

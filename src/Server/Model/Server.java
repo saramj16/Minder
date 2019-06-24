@@ -85,12 +85,14 @@ public class Server extends Thread{
 
     public boolean actualizaUser(User user) throws SQLException {
         User user1 = getUser(user.getUserName());
-        System.out.println("Usuari a actualitzar " + user1.getUserName());
+
         if (user1.getUserName() != null){
+            System.out.println("Usuari a actualitzar " + user1.getUserName());
             updateUser(user1, user);
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     private void updateUser(User user2modificate, User userModificated) {
@@ -109,30 +111,10 @@ public class Server extends Thread{
     }
 
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
-        boolean found = false;
-        ArrayList<User> userLikeLikedUsers;
-        ArrayList<User> currentUserLikedUsers;
 
         addLikedUserToCurrentUser(currentUser, userLike);
-        userLikeLikedUsers = getLikedUsers(userLike.getUserName());
-        currentUserLikedUsers = getLikedUsers(currentUser.getUserName());
 
-        for (int i = 0; i < currentUserLikedUsers.size(); i++){
-            if (currentUserLikedUsers.get(i).getUserName().equals(userLike.getUserName())){
-                found = true;
-                break;
-            }
-        }
-
-        if (!found){
-            for (User u : userLikeLikedUsers){
-                if (u.getUserName().equals(currentUser.getUserName())){
-                    usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
-                    return true;
-                }
-            }
-        }
-        return false;
+        return usuariManager.addMatx(currentUser.getUserName(), userLike.getUserName());
     }
 
     private ArrayList<User> getLikedUsers(String userLike) throws SQLException {
@@ -178,11 +160,10 @@ public class Server extends Thread{
     }
 
 
-    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris) throws SQLException {
+    public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris)  {
         ArrayList<User> users = new ArrayList<>();
 
         for (int i = 0; i < usuaris.size(); i++){
-            //ArrayList<Match> listaMatch = convertMatxToMach(usuariManager.getMatxedUsers(usuaris.get(i).getUserName()));
 
             users.add(new User(usuaris.get(i).getUserName(), usuaris.get(i).getEdat(),
                     usuaris.get(i).isPremium(), usuaris.get(i).getCorreo(), usuaris.get(i).getPassword(),

@@ -265,7 +265,11 @@ public class ControllerClient implements ActionListener {
             username = getRegistrationView().getUserName().getText();
             password = getRegistrationView().getContraseña().getText();
             contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-            edat = Integer.parseInt(getRegistrationView().getEdat().getText());
+            if (!getRegistrationView().getEdat().getText().equals(null)){
+                edat = Integer.parseInt(getRegistrationView().getEdat().getText());
+            } else {
+                edat = -1;
+            }
             correo = getRegistrationView().getCorreo().getText();
             urlFoto = getDemanarFoto().getPathUsuari().toString();
             lenguaje = getRegistrationView().getLenguaje().getText();
@@ -276,6 +280,10 @@ public class ControllerClient implements ActionListener {
         }
 
         if (password.equals(contraseñaRepetida)){
+            if (edat < 0){
+                JOptionPane.showMessageDialog(null, "Tienes que poner una edat real!");
+                return null;
+            }
            User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
            return user;
 
@@ -284,6 +292,7 @@ public class ControllerClient implements ActionListener {
             return null;
         }
 
+        //TODO: Manel --> Comprovar que la contrasenya tingui 8 caracters, alguna majuscula o minuscula, etc.
 
 
     }
@@ -302,8 +311,8 @@ public class ControllerClient implements ActionListener {
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        urlFoto = getDemanarFoto().getPathUsuari().toString();
-
+        //urlFoto = getDemanarFoto().getPathUsuari().toString();
+        urlFoto = null;
         if (urlFoto == null){
             urlFoto = u.getUrlFoto();
         }

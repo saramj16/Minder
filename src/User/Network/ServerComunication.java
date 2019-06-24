@@ -1,6 +1,7 @@
 package User.Network;
 
 import User.Model.Match;
+import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
 
@@ -62,6 +63,8 @@ public class ServerComunication extends Thread{
             case 5://editar usuario --> object1 = user modificado, object2= null
                 ooStream.writeObject(object1);
                 ok = diStream.readBoolean();
+                //Aqui no lee bien la mierda esta
+                System.out.println("OK: " + ok);
                 break;
         }
 
@@ -83,8 +86,11 @@ public class ServerComunication extends Thread{
     public ArrayList<Match> getListaMatches() throws IOException, ClassNotFoundException {
         Match match;
         ArrayList<Match> matches = new ArrayList<>();
+        ArrayList<Mensaje> mensajes = new ArrayList<>();
 
         int sizeMatches = diStream.readInt();
+        System.out.println("sizeMatches: " + sizeMatches);
+
 
         if (sizeMatches != 0){
             for (int i = 0; i < sizeMatches; i++){
@@ -92,6 +98,29 @@ public class ServerComunication extends Thread{
                 matches.add(match);
             }
         }
+
+
         return matches;
+    }
+
+    private User llegimUsuari() throws IOException {
+        String nom = diStream.readUTF();
+        System.out.println("nom " + nom);
+        int edat = diStream.readInt();
+        System.out.println("edat " + edat);
+        boolean premium = diStream.readBoolean();
+        System.out.println("Premium " + premium);
+        String correu = diStream.readUTF();
+        System.out.println("correu " + correu);
+        String password = diStream.readUTF();
+        System.out.println("password " + password);
+        String urlFoto = diStream.readUTF();
+        System.out.println("url " + urlFoto);
+        String leneguaje = diStream.readUTF();
+        System.out.println("lenguaje " + leneguaje);
+        String description = diStream.readUTF();
+        System.out.println("description " + description);
+        User u = new User(nom,edat,premium,correu,password,urlFoto,leneguaje,description);
+        return u;
     }
 }

@@ -215,6 +215,8 @@ public class ControllerClient implements ActionListener {
                 break;
             case "LogOut":
                 mainView.setVisible(false);
+                autenticationView = new AutenticationView();
+                autenticationView.autenticationController(this);
                 autenticationView.setVisible(true);
                 break;
         }

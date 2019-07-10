@@ -213,6 +213,10 @@ public class ControllerClient implements ActionListener {
                     e.printStackTrace();
                 }
                 break;
+            case "LogOut":
+                mainView.setVisible(false);
+                autenticationView.setVisible(true);
+                break;
         }
     }
 

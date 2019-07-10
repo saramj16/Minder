@@ -25,8 +25,7 @@ public class GraficaBarres extends JPanel {
     protected void paintComponent(Graphics g)
     {
         int max = Integer.MIN_VALUE;
-        for (Integer value : barres.values())
-        {
+        for (Integer value : barres.values()){
             max = Math.max(max, value);
         }
         int width = (getWidth() / barres.size()) - 2;

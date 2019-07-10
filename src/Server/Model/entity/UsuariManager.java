@@ -124,9 +124,9 @@ public class UsuariManager {
 
     public int[] llistaMatchesDiaria(){
         Calendar now = Calendar.getInstance();
-        int numMatches[] = new int[now.get(Calendar.HOUR_OF_DAY)];
+        int numMatches[] = new int[now.get(Calendar.HOUR_OF_DAY)+1];
 
-        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
+        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY)+1; i++) {
             numMatches[i] = matxDAO.getNumeroMatxesHora(i);
         }
 

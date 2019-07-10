@@ -130,12 +130,17 @@ public class View extends JFrame {
         jpTop5Users.add(jlTop5);
         jpTop5Users.add(jlTop5NCops);
 
+        inicialitzaTop5();
+
+        return jpTop5Users;
+
+    }
+
+    public void inicialitzaTop5 (){
         String[] testTop5 = {"Sara", "Manel", "Javo", "Marcel", "Jofre"};   //TEST
         Integer[] testTop5NCops = {53,43,24,15,8};                          //TEST
 
         setTop5(testTop5, testTop5NCops);
-        return jpTop5Users;
-
     }
 
     /*
@@ -176,7 +181,7 @@ public class View extends JFrame {
         chart.reset();
         repaint();
         Calendar now = Calendar.getInstance();
-        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY); i++) {
+        for (int i = 0; i < now.get(Calendar.HOUR_OF_DAY)+1; i++) {
             chart.addBar(new Color(51,153,230+i), horesMatches[i]);
         }
         jlInfo.setText("Nombre de matches realitzats les "+now.get(Calendar.HOUR_OF_DAY)+" hores d'avui.");
@@ -236,6 +241,8 @@ public class View extends JFrame {
     public void registerController (Controller c) {
         jbVeure.setActionCommand("VEURE");
         jbVeure.addActionListener(c);
+
+
     }
 }
 

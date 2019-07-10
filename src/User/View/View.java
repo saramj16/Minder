@@ -27,6 +27,7 @@ public class View extends JFrame {
     private JLabel jlDescription;
     private JTextArea jtaDescription;
     private JButton jbEditProfile;
+    private JButton jbLogOut;
 
     //Edit Profile elements
     private JButton jbEditImage;
@@ -134,11 +135,16 @@ public class View extends JFrame {
         jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setEditable(false);
 
+        JPanel jpButtons = new JPanel();
         jbEditProfile = new JButton("Editar Perfil");
+        jbLogOut = new JButton("Log out");
+        jpButtons.add(jbEditProfile);
+        jpButtons.add(jbLogOut);
 
         jpInfoProfile.add(jpGrid, BorderLayout.NORTH);
         jpInfoProfile.add(jtaDescription, BorderLayout.CENTER);
-        jpInfoProfile.add(jbEditProfile, BorderLayout.SOUTH);
+        jpInfoProfile.add(jpButtons, BorderLayout.SOUTH);
+
 
         jpProfile.add(jpInfoProfile);
 
@@ -182,7 +188,7 @@ public class View extends JFrame {
             jtaDescription.setEditable(false);
             jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
 
-            JPanel jpBotons = new JPanel(new GridLayout(1, 2));
+            JPanel jpBotons = new JPanel();
 
             jpBotons.add(jbMatchYes);
             jpBotons.add(jbMatchNo);
@@ -257,6 +263,9 @@ public class View extends JFrame {
 
         jbRefresca.addActionListener(controller);
         jbRefresca.setActionCommand("Refresh");
+
+        jbLogOut.addActionListener(controller);
+        jbLogOut.setActionCommand("LogOut");
 
     }
 

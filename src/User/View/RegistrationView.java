@@ -57,7 +57,7 @@ public class RegistrationView extends JFrame{
         jpMid.add(contraseña);
         jpMid.add(new JLabel("          Repite tu contraseña: "));
         jpMid.add(repetirContraseña);
-        jpMid.add(new JLabel("          URL de tu fotografía: "));
+        jpMid.add(new JLabel("          Fotografía: "));
         jpMid.add(demanarFoto);
         jpMid.add(new JLabel("          Lenguaje: "));
         jpMid.add(new JLabel(" "));

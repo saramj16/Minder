@@ -36,6 +36,8 @@ public class ControllerClient implements ActionListener {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
+
+
     }
 
     public void start() {
@@ -45,6 +47,10 @@ public class ControllerClient implements ActionListener {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+
+
+
     }
 
     public void actionPerformed(ActionEvent event){
@@ -212,6 +218,8 @@ public class ControllerClient implements ActionListener {
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+
+                mainView.setVisible(true);
                 break;
             case "LogOut":
                 mainView.setVisible(false);
@@ -227,9 +235,12 @@ public class ControllerClient implements ActionListener {
         currentUser.setListaMatch(matches);
         if (possiblesMatxs.size() != 0 || possiblesMatxs == null){
             this.mainView = new View(currentUser, possiblesMatxs.get(0));
+            //this.mainView = new View(currentUser, null);
         }else{
             this.mainView = new View(currentUser, null);
         }
+
+
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }
@@ -240,14 +251,14 @@ public class ControllerClient implements ActionListener {
         for (int i = 0; i < allUsers.size(); i++) {
             if (user.isPremium()) {
                 for (int j = 0; j < user.getListaLikedUsers().size(); j++) {
-                    System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
+                    //System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
                     if ((allUsers.get(i).getUserName().equals(user.getListaLikedUsers().get(j).getUserName()))
                             && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
                         usuarios.add(allUsers.get(i));
                     }
                 }
             }
-            System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
+            //System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
             if ((allUsers.get(i).getLenguaje().equals(user.getLenguaje())) && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
                 usuarios.add(allUsers.get(i));
             }

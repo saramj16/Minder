@@ -8,6 +8,7 @@ import User.Model.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -73,6 +74,8 @@ public class View extends JFrame {
     private JTextField jtfMessage;
     private JButton jbSend;
     public JPanel jtaMessages;
+
+    private ChatPanel[] panels;
 
     private ArrayList<ClosedChat> chats;
 
@@ -216,18 +219,28 @@ public class View extends JFrame {
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
 
-        JScrollPane scrollpaneChats = new JScrollPane();
+        JPanel jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
+        JScrollPane scrollpaneChats = new JScrollPane(jpScroll);
 
         if(user.getListaMatch().size() == 0 || user.getListaMatch() == null){
-            scrollpaneChats.add(new JLabel("Ningún Chat activo!"));
+            jpScroll.add(new JLabel("Ningún Chat activo!"), BorderLayout.CENTER);
+            jpMatches.add(jpScroll);
         }else {
-            for (Match m : user.getListaMatch()){
-                JButton jLabel = new JButton("chat with: " + m.getUser1());
-                scrollpaneChats.add(jLabel);
+            panels = new ChatPanel[user.getListaMatch().size()];
+            for (int i = 0; i < user.getListaMatch().size(); i++){
+               panels[i] = new ChatPanel(i, user.getListaMatch().get(i).getUser2().getUserName(),"");
+               jpScroll.add(panels[i]);
             }
+
+            jpMatches.add(jpScroll);
+            //JButton jLabel = new JButton("chat with: " + m.getUser1());
+
         }
+
+
+
         JPanel jRight = new JPanel(new BorderLayout());
-        jpMatches.add(scrollpaneChats);
+
 
         ta = new JTextArea();
         ta.setEditable(false);
@@ -266,6 +279,8 @@ public class View extends JFrame {
 
         jbLogOut.addActionListener(controller);
         jbLogOut.setActionCommand("LogOut");
+
+
 
     }
 

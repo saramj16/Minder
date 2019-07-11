@@ -1,5 +1,7 @@
 package User.View;
 
+import com.mysql.jdbc.Blob;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +11,7 @@ import javax.swing.*;
 
 public class ImagePanel extends JPanel{
     private  BufferedImage image;
+    //private Blob imatge;
 
     public Image ImagePanel(String imgPath) throws IOException {
         if (imgPath == null || imgPath.equals("")){

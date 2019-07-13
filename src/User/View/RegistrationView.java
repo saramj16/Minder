@@ -9,7 +9,7 @@ public class RegistrationView extends JFrame{
     private JPanel mainpanel;
     private TextField userName;
     private TextField edat;
-    private boolean premium;
+    //private boolean premium;
     private TextField correo;
     private JPasswordField contraseña;
     private JPasswordField repetirContraseña;
@@ -19,7 +19,8 @@ public class RegistrationView extends JFrame{
     private JButton register, demanarFoto;
     private JRadioButton jrbJava;
     private JRadioButton jrbC;
-
+    private JRadioButton jrbPremiumYes;
+    private JRadioButton jrbPremiumNo;
 
     public RegistrationView(){
         configuraVentana();
@@ -60,18 +61,30 @@ public class RegistrationView extends JFrame{
         jpMid.add(new JLabel("          Fotografía: "));
         jpMid.add(demanarFoto);
         jpMid.add(new JLabel("          Lenguaje: "));
-        jpMid.add(new JLabel(" "));
+        //jpMid.add(new JLabel(" "));
 
 
 
-        ButtonGroup group = new ButtonGroup();
+        ButtonGroup groupLanguage = new ButtonGroup();
         jrbC = new JRadioButton("C", false);
         jrbJava = new JRadioButton("Java", false);
-        group.add( jrbC );
-        group.add( jrbJava );
-        jpMid.add( jrbC );
-        jpMid.add( jrbJava );
+        JPanel jpRadioButtons = new JPanel(new GridLayout(1,2));
+        groupLanguage.add( jrbC );
+        groupLanguage.add( jrbJava );
+        jpRadioButtons.add(jrbC);
+        jpRadioButtons.add(jrbJava);
+        jpMid.add( jpRadioButtons );
 
+        jpMid.add(new JLabel("          Premium: "));
+        ButtonGroup groupPremium = new ButtonGroup();
+        jrbPremiumYes = new JRadioButton("Yes");
+        jrbPremiumNo = new JRadioButton("No");
+        groupPremium.add(jrbPremiumYes);
+        groupPremium.add(jrbPremiumNo);
+        JPanel jpPremium = new JPanel(new GridLayout(1,2));
+        jpPremium.add(jrbPremiumYes);
+        jpPremium.add(jrbPremiumNo);
+        jpMid.add(jpPremium);
 
 
 
@@ -105,8 +118,11 @@ public class RegistrationView extends JFrame{
     public void setUserName(TextField userName) { this.userName = userName; }
     public TextField getEdat() { return edat; }
     public void setEdat(TextField edat) { this.edat = edat; }
-    public boolean isPremium() { return premium; }
-    public void setPremium(boolean premium) { this.premium = premium; }
+    public boolean isPremium() { return jrbPremiumYes.isSelected(); }
+    public void setPremium(boolean premium) {
+        jrbPremiumYes.setSelected(premium);
+        jrbPremiumNo.setSelected(!premium);
+    }
     public TextField getCorreo() { return correo; }
     public void setCorreo(TextField correo) { this.correo = correo; }
     public JPasswordField getContraseña() { return contraseña; }

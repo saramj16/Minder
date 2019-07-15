@@ -114,6 +114,12 @@ public class DedicatedServer extends Thread{
                         User userRecibe = (User) oiStream.readObject();
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
                         break;
+
+                    case 10://chat mensajes
+                        User user1 = (User) oiStream.readObject();
+                        User user2 = (User) oiStream.readObject();
+                        ooStream.writeObject(server.getMessages(user1.getUserName(), user2.getUserName()));
+                        break;
                 }
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -164,5 +170,9 @@ public class DedicatedServer extends Thread{
         if (!user.equals(this.user)){
 
         }
+    }
+
+    public ArrayList<Mensaje> getMessages(User currentUser, User user2) throws SQLException {
+        return server.getMessages(currentUser.getUserName(), user2.getUserName());
     }
 }

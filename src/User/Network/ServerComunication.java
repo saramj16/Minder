@@ -1,5 +1,6 @@
 package User.Network;
 
+import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -131,5 +132,13 @@ public class ServerComunication extends Thread{
         System.out.println("description " + description);
         User u = new User(nom,edat,premium,correu,password,urlFoto,leneguaje,description);
         return u;
+    }
+
+    public ArrayList<Mensaje> getMessages(User currentUser, User user2) throws IOException, ClassNotFoundException {
+        doStream.writeInt(10);
+        ooStream.writeObject(currentUser);
+        ooStream.writeObject(user2);
+
+        return (ArrayList<Mensaje>) oiStream.readObject();
     }
 }

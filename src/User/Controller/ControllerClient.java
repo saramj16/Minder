@@ -243,7 +243,13 @@ public class ControllerClient implements ActionListener {
                     String[] split = event.getActionCommand().split(" ");
                     int i = Integer.parseInt(split[1]);
                     this.chatUser = currentUser.getListaMatch().get(i).getUser2();
-                    ArrayList<Mensaje> messages = currentUser.getListaMatch().get(i).getChat();
+                    ArrayList<Mensaje> messages = null;
+                    try {
+                        messages = networkManager.getMessages(currentUser, currentUser.getListaMatch().get(i).getUser2());
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    //currentUser.getListaMatch().get(i).getChat();
                     for (int j = 0; j < messages.size(); j++){
                         mensajes = messages.get(j).getMensaje() + "\n";
                     }

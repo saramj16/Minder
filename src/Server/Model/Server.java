@@ -226,6 +226,6 @@ public class Server extends Thread{
     }
 
     public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
-        usuariManager.afegeixMissatge(mensajeRecibido, currentUser.getUserName(), userRecibe.getUserName());
+        usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
     }
 }

@@ -28,12 +28,21 @@ public class MissatgeDAO {
      * @return void
      *
      */
-    public void addMissatge(Missatge missatge) {
+    /*public void addMissatge(Missatge missatge) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
         String query = "INSERT INTO Missatge(missatge, userSend, dateMessage ) VALUES ('"
                 +missatge.getMissatge()+"', '"+missatge.getUserSend() + "', '" + dtf.format(now) + "');";
+        System.out.println(query);
+        DBConnector.getInstance().insertQuery(query);
+    }*/
+    public void addMissatge(Missatge missatge) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        String query = "INSERT INTO Missatge(missatge, userSend, userReceive, dateMessage ) VALUES ('"
+                +missatge.getMissatge()+"', '"+missatge.getUserSend() + "', '" + missatge.getUserReceive() + "', '" + dtf.format(now) + "');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);
     }

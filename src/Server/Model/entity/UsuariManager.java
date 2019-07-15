@@ -155,6 +155,11 @@ public class UsuariManager {
         return numMatches;
     }
 
+
+    public void afegeixMissatge(String userSend, String userRecieve, String missatge){
+        missatgeDAO.addMissatge(new Missatge(userSend, userRecieve, missatge, null));
+    }
+
     public ArrayList<String> top5UsuarisAcceptats(){
         return matxDAO.top5UsuarisMesAcceptats();
     }

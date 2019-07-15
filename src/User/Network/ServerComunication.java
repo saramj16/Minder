@@ -66,6 +66,14 @@ public class ServerComunication extends Thread{
                 //Aqui no lee bien la mierda esta
                 System.out.println("OK: " + ok);
                 break;
+
+            case 6://refresh
+                System.out.println("refresh");
+                break;
+
+            case 7: //sendMessage
+                ooStream.writeUTF(String.valueOf(object1));
+                ok = diStream.readBoolean();
         }
 
         return ok;
@@ -80,6 +88,7 @@ public class ServerComunication extends Thread{
     }
 
     public ArrayList<User> getAllUsers() throws IOException, ClassNotFoundException {
+
         return (ArrayList<User>) oiStream.readObject();
     }
 

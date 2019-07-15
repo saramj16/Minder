@@ -1,12 +1,14 @@
 package User.View;
 
 import Server.Model.Server;
+import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -17,6 +19,8 @@ public class View extends JFrame {
     private final int HEIGHT = 300; //Alçada
     private JTabbedPane tabbedPane;
     private User userLooking;
+    private User mainUser;
+    private UsuariManager usuariManager;
 
     //Profile Pane and its elements
     private JPanel jpProfile;
@@ -75,7 +79,7 @@ public class View extends JFrame {
     private JButton jbSend;
     public JPanel jtaMessages;
 
-    private ChatPanel[] panels;
+    private JButton[] panels;
 
     private ArrayList<ClosedChat> chats;
 
@@ -218,6 +222,7 @@ public class View extends JFrame {
 
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
+        this.mainUser = user;
 
         JPanel jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
         JScrollPane scrollpaneChats = new JScrollPane(jpScroll);
@@ -226,9 +231,9 @@ public class View extends JFrame {
             jpScroll.add(new JLabel("Ningún Chat activo!"), BorderLayout.CENTER);
             jpMatches.add(jpScroll);
         }else {
-            panels = new ChatPanel[user.getListaMatch().size()];
+            panels = new JButton[user.getListaMatch().size()];
             for (int i = 0; i < user.getListaMatch().size(); i++){
-               panels[i] = new ChatPanel(i, user.getListaMatch().get(i).getUser2().getUserName(),"");
+               panels[i] = new JButton("Chat with --> " + user.getListaMatch().get(i).getUser2().getUserName());
                jpScroll.add(panels[i]);
             }
 
@@ -237,10 +242,7 @@ public class View extends JFrame {
 
         }
 
-
-
         JPanel jRight = new JPanel(new BorderLayout());
-
 
         ta = new JTextArea();
         ta.setEditable(false);
@@ -280,7 +282,14 @@ public class View extends JFrame {
         jbLogOut.addActionListener(controller);
         jbLogOut.setActionCommand("LogOut");
 
-
+        if (panels != null && panels.length > 0){
+            for (int i = 0; i < panels.length; i++){
+                User user = mainUser.getListaMatch().get(i).getUser2();
+                panels[i].addActionListener((ActionEvent e)->{
+                    jtfMessage.setText(String.valueOf(usuariManager.preparaChat(mainUser.getUserName(), user.getUserName())));
+                });
+            }
+        }
 
     }
 

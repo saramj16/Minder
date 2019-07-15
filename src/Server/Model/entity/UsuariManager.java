@@ -118,6 +118,7 @@ public class UsuariManager {
     }
 
     public void addVist(String user1, String user2) {
+
         matxDAO.addVist(user1,user2);
     }
 

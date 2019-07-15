@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import Server.Model.Server;
 import User.Controller.ControllerClient;
 import User.Model.Match;
+import User.Model.Mensaje;
 import User.Model.User;
 
 import java.io.*;
@@ -100,9 +101,15 @@ public class DedicatedServer extends Thread{
                             server.announceChanges(user);
                         }
                         break;
-                    default:
-                        System.out.println("DEFAULT!!!");
+
+                    case 6:
+                        System.out.println("opcion 6 del ds");
+                        ooStream.writeObject(server.getAllUsers());
                         break;
+
+                    case 7://sendMessage
+                        String mensajeRecibido = oiStream.readUTF();
+                        Mensaje mensaje = new Mensaje(mensajeRecibido, currentUser, )
                 }
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -113,6 +120,7 @@ public class DedicatedServer extends Thread{
                     sServidor.close();
                     server.removeFromDedicatedList(this);
                 } catch (IOException e) {
+                    System.out.println("error al cerrar el servidor dedicado");
                 }
             }
         }

@@ -31,13 +31,13 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> connectedUsers;
     private EditProfile editProfile;
     private ArrayList<User> possiblesMatxs;
+    private ArrayList<User> sawMatches;
 
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
-
-
+        this.sawMatches = new ArrayList<>();
     }
 
     public void start() {
@@ -47,10 +47,6 @@ public class ControllerClient implements ActionListener {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 
     public void actionPerformed(ActionEvent event){
@@ -122,6 +118,7 @@ public class ControllerClient implements ActionListener {
                 try {
                     System.out.println("user aceptado!");
                     ok = networkManager.functionalities(3, currentUser, possiblesMatxs.get(0));
+                    sawMatches.add(possiblesMatxs.get(0));
                     possiblesMatxs.remove(0);
                     if(possiblesMatxs.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
@@ -142,8 +139,10 @@ public class ControllerClient implements ActionListener {
                 try {
                     System.out.println("user declinado!");
                     networkManager.functionalities(4, currentUser, possiblesMatxs.get(0));
-                    User userRemoved = possiblesMatxs.remove(0);
-                    possiblesMatxs.add(userRemoved);
+                    sawMatches.add(possiblesMatxs.get(0));
+                    //User userRemoved = possiblesMatxs.remove(0);
+                    possiblesMatxs.remove(0);
+                    //possiblesMatxs.add(userRemoved);
                     mainView.setUserLooking(possiblesMatxs.get(0));
                     mainView.setVisible(false);
                     startMainView(currentUser);
@@ -190,6 +189,11 @@ public class ControllerClient implements ActionListener {
                 String chat = currentUser.getUserName() + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
                 mainView.getJtfMessage().setText("");
+                try {
+                    networkManager.functionalities(7, mensaje, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "DemanarFoto":
@@ -206,12 +210,13 @@ public class ControllerClient implements ActionListener {
                 ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser);
 
                 for (int i = 0; i < newPossiblesMatxs.size(); i++){
-                    for (int j = 0; j < possiblesMatxs.size(); j++){
-                        if (newPossiblesMatxs.get(i).equals(possiblesMatxs.get(j))){
-                            possiblesMatxs.remove(j);
+                    for (int j = 0; j < sawMatches.size(); j++){
+                        if (newPossiblesMatxs.get(i).equals(sawMatches.get(j))){
+                            sawMatches.remove(j);
                         }
                     }
                 }
+                possiblesMatxs = sawMatches;
                 mainView.setVisible(false);
                 try {
                     startMainView(currentUser);
@@ -227,6 +232,10 @@ public class ControllerClient implements ActionListener {
                 autenticationView.autenticationController(this);
                 autenticationView.setVisible(true);
                 break;
+
+            case "Chat":
+
+                break;
         }
     }
 
@@ -235,12 +244,9 @@ public class ControllerClient implements ActionListener {
         currentUser.setListaMatch(matches);
         if (possiblesMatxs.size() != 0 || possiblesMatxs == null){
             this.mainView = new View(currentUser, possiblesMatxs.get(0));
-            //this.mainView = new View(currentUser, null);
         }else{
             this.mainView = new View(currentUser, null);
         }
-
-
         mainView.autenticationController(this);
         mainView.setVisible(true);
     }

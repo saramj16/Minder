@@ -101,7 +101,7 @@ public class Server extends Thread{
     }
 
     public boolean comprobarRegistro(User user){
-        if (!usuariManager.searchUsuari(user.getUserName())){
+        if (!usuariManager.searchUsuari(user.getUserName())){ //Si l'usuari no existeix
             usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(), user.getPassword()));
 
             // ****

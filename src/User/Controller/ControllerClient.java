@@ -296,20 +296,57 @@ public class ControllerClient implements ActionListener {
             return null;
         }
 
-        if (password.equals(contraseñaRepetida)){
-            if (edat < 0){
-                JOptionPane.showMessageDialog(null, "Tienes que poner una edat real!");
-                return null;
-            }
-           User user = new User(username, edat, false, correo, password, urlFoto, lenguaje, descripción);
-           return user;
+        /** Cal que la contrasenya tingui com a mínim una longitud de 8 caràcters així
+        /com contingui com a mínim majúscules, minúscules i valors numèrics.
+        **/
 
-        }else{
-            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
+        boolean teMajus = true;
+        if (password.equals(password.toLowerCase())) {
+            teMajus = false;
+            //System.out.println("No te majus");
+        }
+
+        boolean teMinus = true;
+        if (password.equals(password.toUpperCase())) {
+            teMinus = false;
+            //System.out.println("No te minus");
+        }
+
+        boolean teNumeros = false;
+        char[] passwordArray = password.toCharArray();
+        for (char i : passwordArray) {
+            if (i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9' || i == '0') {
+                teNumeros = true;
+            }
+        }
+        /*if (!teNumeros) {
+            System.out.println("No te nums");
+        }*/
+
+            boolean passOk = false;
+        if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
+            passOk = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener más de 8 " +
+                    "carácteres, mayúsculas, minúsculas y un número o más.");
+            passOk = false;
             return null;
         }
 
-        //TODO: Manel --> Comprovar que la contrasenya tingui 8 caracters, alguna majuscula o minuscula, etc.
+        if (password.equals(contraseñaRepetida) && passOk){
+                if (edat < 0){
+                    JOptionPane.showMessageDialog(null, "Tienes que poner una edad real!");
+                    return null;
+                }
+                User user = new User(username, edat,false, correo, password, urlFoto, lenguaje, descripción);
+                return user;
+
+        }else{
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
+                return null;
+        }
+
+
 
 
     }

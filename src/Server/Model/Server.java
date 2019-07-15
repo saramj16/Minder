@@ -224,4 +224,8 @@ public class Server extends Thread{
             ds.anounceChanges(user);
         }
     }
+
+    public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
+        usuariManager.afegeixMissatge(mensajeRecibido, currentUser.getUserName(), userRecibe.getUserName());
+    }
 }

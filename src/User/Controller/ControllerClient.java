@@ -12,10 +12,8 @@ import User.View.RegistrationView;
 import User.View.View;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ public class ControllerClient implements ActionListener {
     private EditProfile editProfile;
     private ArrayList<User> possiblesMatxs;
     private ArrayList<User> sawMatches;
+    private User chatUser;
 
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
@@ -189,8 +188,12 @@ public class ControllerClient implements ActionListener {
                 String chat = currentUser.getUserName() + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
                 mainView.getJtfMessage().setText("");
+
+                if (chatUser == null){
+                    chatUser = currentUser.getListaMatch().get(0).getUser2();
+                }
                 try {
-                    networkManager.functionalities(7, mensaje, null);
+                    networkManager.functionalities(7, mensaje, chatUser);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -209,9 +212,9 @@ public class ControllerClient implements ActionListener {
             case "Refresh":
                 ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser);
 
-                for (int i = 0; i < newPossiblesMatxs.size(); i++){
-                    for (int j = 0; j < sawMatches.size(); j++){
-                        if (newPossiblesMatxs.get(i).equals(sawMatches.get(j))){
+                for (User newPossiblesMatx : newPossiblesMatxs) {
+                    for (int j = 0; j < sawMatches.size(); j++) {
+                        if (newPossiblesMatx.equals(sawMatches.get(j))) {
                             sawMatches.remove(j);
                         }
                     }
@@ -226,6 +229,7 @@ public class ControllerClient implements ActionListener {
 
                 mainView.setVisible(true);
                 break;
+
             case "LogOut":
                 mainView.setVisible(false);
                 autenticationView = new AutenticationView();
@@ -233,8 +237,23 @@ public class ControllerClient implements ActionListener {
                 autenticationView.setVisible(true);
                 break;
 
-            case "Chat":
+            default: //CHat!
+                String mensajes = null;
+                if (event.getActionCommand().startsWith("Chat")){
+                    String[] split = event.getActionCommand().split(" ");
+                    int i = Integer.parseInt(split[1]);
+                    this.chatUser = currentUser.getListaMatch().get(i).getUser2();
+                    ArrayList<Mensaje> messages = currentUser.getListaMatch().get(i).getChat();
+                    for (int j = 0; j < messages.size(); j++){
+                        mensajes = messages.get(j).getMensaje() + "\n";
+                    }
 
+                    if (mensajes != null){
+                        mainView.getTa().setText(mensajes);
+                    }else {
+                        mainView.getTa().setText(" ");
+                    }
+                }
                 break;
         }
     }
@@ -242,7 +261,7 @@ public class ControllerClient implements ActionListener {
     private void startMainView(User currentUser) throws IOException, ClassNotFoundException {
         ArrayList<Match> matches = networkManager.getListaMatches();
         currentUser.setListaMatch(matches);
-        if (possiblesMatxs.size() != 0 || possiblesMatxs == null){
+        if (possiblesMatxs.size() != 0){
             this.mainView = new View(currentUser, possiblesMatxs.get(0));
         }else{
             this.mainView = new View(currentUser, null);
@@ -254,19 +273,19 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> ordenaUsuarios(User user) {
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
-        for (int i = 0; i < allUsers.size(); i++) {
+        for (User allUser : allUsers) {
             if (user.isPremium()) {
                 for (int j = 0; j < user.getListaLikedUsers().size(); j++) {
                     //System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
-                    if ((allUsers.get(i).getUserName().equals(user.getListaLikedUsers().get(j).getUserName()))
-                            && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
-                        usuarios.add(allUsers.get(i));
+                    if ((allUser.getUserName().equals(user.getListaLikedUsers().get(j).getUserName()))
+                            && !(allUser.getUserName().equals(user.getUserName()))) {
+                        usuarios.add(allUser);
                     }
                 }
             }
             //System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
-            if ((allUsers.get(i).getLenguaje().equals(user.getLenguaje())) && !(allUsers.get(i).getUserName().equals(user.getUserName()))) {
-                usuarios.add(allUsers.get(i));
+            if ((allUser.getLenguaje().equals(user.getLenguaje())) && !(allUser.getUserName().equals(user.getUserName()))) {
+                usuarios.add(allUser);
             }
         }
 
@@ -288,7 +307,7 @@ public class ControllerClient implements ActionListener {
             username = getRegistrationView().getUserName().getText();
             password = getRegistrationView().getContraseña().getText();
             contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-            if (!getRegistrationView().getEdat().getText().equals(null)){
+            if (getRegistrationView().getEdat().getText() != null){
                 edat = Integer.parseInt(getRegistrationView().getEdat().getText());
             } else {
                 edat = -1;
@@ -410,20 +429,20 @@ public class ControllerClient implements ActionListener {
         return mensaje;
     }
 
-    public AutenticationView getAutenticationView() { return autenticationView; }
+    private AutenticationView getAutenticationView() { return autenticationView; }
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }
-    public RegistrationView getRegistrationView() { return registrationView; }
+    private RegistrationView getRegistrationView() { return registrationView; }
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
     public Server getServer() { return server; }
     public void setServer(Server server) { this.server = server; }
-    public DemanarFoto getDemanarFoto() {
+    private DemanarFoto getDemanarFoto() {
         return demanarFoto;
     }
     public void setDemanarFoto(DemanarFoto demanarFoto) {
         this.demanarFoto = demanarFoto;
     }
 
-    public EditProfile getEditProfileView() { return editProfile; }
+    private EditProfile getEditProfileView() { return editProfile; }
     public void setEditProfileView(EditProfile editProfile) { this.editProfile = editProfile; }
 
 }

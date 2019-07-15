@@ -19,8 +19,7 @@ public class View extends JFrame {
     private final int HEIGHT = 300; //Alçada
     private JTabbedPane tabbedPane;
     private User userLooking;
-    private User mainUser;
-    private UsuariManager usuariManager;
+    private User chatUser;
 
     //Profile Pane and its elements
     private JPanel jpProfile;
@@ -222,7 +221,6 @@ public class View extends JFrame {
 
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
-        this.mainUser = user;
 
         JPanel jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
         JScrollPane scrollpaneChats = new JScrollPane(jpScroll);
@@ -284,13 +282,11 @@ public class View extends JFrame {
 
         if (panels != null && panels.length > 0){
             for (int i = 0; i < panels.length; i++){
-                User user = mainUser.getListaMatch().get(i).getUser2();
-                panels[i].addActionListener((ActionEvent e)->{
-                    jtfMessage.setText(String.valueOf(usuariManager.preparaChat(mainUser.getUserName(), user.getUserName())));
-                });
+               // User user = mainUser.getListaMatch().get(i).getUser2();
+                panels[i].addActionListener(controller);
+                panels[i].setActionCommand("Chat " + i);
             }
         }
-
     }
 
     public void noQuedenMatches() {

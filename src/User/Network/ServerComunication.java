@@ -71,9 +71,9 @@ public class ServerComunication extends Thread{
                 System.out.println("refresh");
                 break;
 
-            case 7: //sendMessage
+            case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
                 ooStream.writeUTF(String.valueOf(object1));
-                ok = diStream.readBoolean();
+                ooStream.writeObject(object2);
         }
 
         return ok;

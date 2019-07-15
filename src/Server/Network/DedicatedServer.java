@@ -24,6 +24,7 @@ public class DedicatedServer extends Thread{
     private ObjectInputStream oiStream;
     private boolean running;
     private User user;
+    private User mainUser;
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.server = server;
@@ -42,7 +43,7 @@ public class DedicatedServer extends Thread{
     @Override
     public void run() {
         boolean ok;
-        User currentUser, likedUser;
+        User currentUser = null, likedUser;
 
         try {
             ooStream.writeObject(server.getAllUsers());
@@ -63,6 +64,7 @@ public class DedicatedServer extends Thread{
 
                         if (ok) {
                             User u = server.getUser(username);
+                            this.mainUser = u;
                             this.user = u;
                             System.out.println("user name connected " + u.getUserName());
                             ooStream.writeObject(u);
@@ -109,7 +111,9 @@ public class DedicatedServer extends Thread{
 
                     case 7://sendMessage
                         String mensajeRecibido = oiStream.readUTF();
-                        Mensaje mensaje = new Mensaje(mensajeRecibido, currentUser, )
+                        User userRecibe = (User) oiStream.readObject();
+                        server.addMensaje(mensajeRecibido, mainUser, userRecibe);
+                        break;
                 }
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {

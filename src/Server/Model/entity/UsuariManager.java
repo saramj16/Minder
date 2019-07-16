@@ -158,7 +158,7 @@ public class UsuariManager {
 
 
     public void afegeixMissatge(String userSend, String userRecieve, String missatge){
-        missatgeDAO.addMissatge(new Missatge(userSend, userRecieve, missatge, null));
+        missatgeDAO.addMissatge(new Missatge(missatge, userSend, userRecieve, null));
     }
 
     public ArrayList<String> top5UsuarisAcceptats(){

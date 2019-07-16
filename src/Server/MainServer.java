@@ -11,6 +11,7 @@ import configReader.Configuracio;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MainServer {
 
@@ -21,7 +22,9 @@ public class MainServer {
         // ServerNetworkManager networkManager = null;
         UsuariManager model = new UsuariManager();
 
-        View v = new View();
+        ArrayList<String> noms = model.getTop5UsuarisAcceptats();
+        ArrayList<Integer> puntuacions = model.getTop5NumAcceptacions();
+        View v = new View(noms, puntuacions);
         Controller c = new Controller(v,model);
         v.registerController(c);
 

@@ -161,11 +161,12 @@ public class UsuariManager {
         missatgeDAO.addMissatge(new Missatge(missatge, userSend, userRecieve, null));
     }
 
-    public ArrayList<String> top5UsuarisAcceptats(){
+    public ArrayList<String> getTop5UsuarisAcceptats(){
         return matxDAO.top5UsuarisMesAcceptats();
     }
 
-    public ArrayList<Integer> top5NumAcceptacions(){
+    public ArrayList<Integer> getTop5NumAcceptacions(){
         return matxDAO.top5NAcceptacions();
     }
+
 }

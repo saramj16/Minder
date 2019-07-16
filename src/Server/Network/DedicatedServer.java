@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import Server.Model.Server;
+import Server.Model.entity.Usuari;
 import User.Controller.ControllerClient;
 import User.Model.Match;
 import User.Model.Mensaje;
@@ -75,6 +76,10 @@ public class DedicatedServer extends Thread{
                     case 2:
                         User user = (User) oiStream.readObject();
                         ok = server.comprobarRegistro(user);
+                        if (ok) {
+                            server.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(),
+                                    user.getCorreo(), user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription() ));
+                        }
                         doStream.writeBoolean(ok);
                         sendMatches(user);
                         break;

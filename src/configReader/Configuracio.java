@@ -3,9 +3,12 @@ package configReader;
 import configReader.ConfigClient;
 import configReader.ConfigServer;
 
-public class Configuration {
+public class Configuracio {
     ConfigClient configClient;
     ConfigServer configServer;
+
+    public Configuracio() {
+    }
 
     public ConfigClient getConfigClient() {
         return configClient;
@@ -14,6 +17,7 @@ public class Configuration {
     public ConfigServer getConfigServer() {
         return configServer;
     }
+
 
 
 }

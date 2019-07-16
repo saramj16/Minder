@@ -5,6 +5,9 @@ import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import configReader.Configuracio;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,8 +15,8 @@ import java.util.ArrayList;
 
 public class ServerComunication extends Thread{
     private Socket sClient;
-    private static final int PORT = 9999;
-    private static final String IP = "localhost";
+    private static  int port;// = 9999;
+    private static String ip;// = "localhost";
     public AutenticationView autenticationView;
     private DataInputStream diStream;
     private DataOutputStream doStream;
@@ -22,7 +25,20 @@ public class ServerComunication extends Thread{
 
 
     public ServerComunication(AutenticationView autenticationView) throws IOException {
-        sClient = new Socket(IP, PORT);
+        //Totxaco per llegor del Json el port del servidor
+        Configuracio config = new Configuracio();
+        Gson gson = new Gson();
+        JsonReader jReader;
+        try {
+            jReader = new JsonReader(new FileReader("data/config.json"));
+            config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
+            this.port = Integer.parseInt(config.getConfigClient().getPort_server());
+            this.ip = config.getConfigClient().getIp_server();
+        } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
+            System.out.println("Error: Fitxer no trobat.");
+        }
+
+        sClient = new Socket(ip, port);
         this.autenticationView = autenticationView;
         diStream = new DataInputStream(sClient.getInputStream());
         doStream = new DataOutputStream(sClient.getOutputStream());

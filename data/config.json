@@ -1,14 +1,14 @@
 {
 	"configServer": {
-		"port_bbdd": "example port_bbdd",
-		"ip_bbdd": "example ip_bbdd",
-		"name_bbdd": "example name_bbdd",
-		"username_bbdd": "example username_bbdd",
-		"password_bbdd": "example password_bbdd",
-		"port_client": "example port_client"
+		"port_bbdd": "3306",
+		"ip_bbdd": "jdbc:mysql://localhost",
+		"name_bbdd": "minder",
+		"username_bbdd": "root",
+		"password_bbdd": "admin",
+		"port_client": "9999"
 	},
 	"configClient": {
-		"ip_server": "example ip_server",
-		"port_server": "example port_server"
+		"ip_server": "localhost",
+		"port_server": "9999"
 	}
 }

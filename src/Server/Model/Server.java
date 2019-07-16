@@ -8,6 +8,9 @@ import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import configReader.Configuracio;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -21,7 +24,7 @@ public class Server extends Thread{
     private ArrayList<User> users;
     private boolean running;
     private ArrayList<DedicatedServer> dedicatedServerList;
-    private static final int PORT = 9999;
+    private int port = 9999;
 
 
     public Server(UsuariManager usuariManager) throws SQLException {
@@ -29,6 +32,18 @@ public class Server extends Thread{
         this.users = getAllUsers();
         running = true;
         dedicatedServerList = new ArrayList<>();
+
+        //Totxaco per llegor del Json el port
+        Configuracio config = new Configuracio();
+        Gson gson = new Gson();
+        JsonReader jReader;
+        try {
+            jReader = new JsonReader(new FileReader("data/config.json"));
+            config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
+            this.port = Integer.parseInt(config.getConfigServer().getPort_client()) ;
+        } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
+            System.out.println("Error: Fitxer no trobat.");
+        }
     }
 
     public int getServerPort() { return serverPort; }
@@ -42,7 +57,7 @@ public class Server extends Thread{
     public void run() {
 
         try {
-            ServerSocket sServer = new ServerSocket(PORT);
+            ServerSocket sServer = new ServerSocket(port);
 
             addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "C", "pene"));
             addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));

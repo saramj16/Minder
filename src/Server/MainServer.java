@@ -6,7 +6,7 @@ import Server.Model.entity.UsuariManager;
 import Server.View.View;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuration;
+import configReader.Configuracio;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -32,13 +32,13 @@ public class MainServer {
             e.printStackTrace();
         }
 
-        Configuration config;
+        Configuracio config;
         Gson gson = new Gson();
         JsonReader jReader;         //Lector
 
         try {                        //Try per si no podem obrir l'arxiu Json
             jReader = new JsonReader(new FileReader("data/config.json"));
-            config = gson.fromJson(jReader, Configuration.class);                       //Llegeix el fitxer Json
+            config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
 
             //debug
             System.out.println("Fitxer trobat");

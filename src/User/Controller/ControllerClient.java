@@ -105,7 +105,7 @@ public class ControllerClient implements ActionListener {
                             registrationView.setVisible(false);
                             startMainView(currentUser);
                         } else {
-                            System.out.println("algun tipo de error al registrar usuario");
+                            System.out.println("Error al registrar usuario");
                         }
                     }
                 } catch (IOException | SQLException | ClassNotFoundException e) {

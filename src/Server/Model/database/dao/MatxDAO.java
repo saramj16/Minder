@@ -52,9 +52,11 @@ public class MatxDAO {
 
                 if(nom1.equals(user1) && nom2.equals(user2)) {
                     //Hem d'afegir el matx en l'Usuari1 i l'Usuari2 per separat
-                    String query1 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + nom1 + "' AND user2 = '" + nom2 + "';";
+                    String query1 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" +
+                            nom1 + "' AND user2 = '" + nom2 + "';";
                     dbConnector.updateQuery(query1);
-                    String query2 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" + nom2 + "' AND user2 = '" + nom1 + "';";
+                    String query2 = "UPDATE Matx SET matx = " + true + ", dataMatch = '" + dtf.format(now) + "' WHERE user1 = '" +
+                            nom2 + "' AND user2 = '" + nom1 + "';";
                     dbConnector.updateQuery(query2);
                     existeix = true;
                 }
@@ -65,9 +67,11 @@ public class MatxDAO {
         }
 
         if(!existeix){
-            String query2 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user1 + "', '" + user2 + "' , " + true + " , " + true + " , " + true + ");";
+            String query2 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user1 + "', '" + user2 + "' , "
+                    + true + " , " + true + " , " + true + ");";
             dbConnector.insertQuery(query2);
-            String query3 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user2 + "', '" + user1 + "' , " + true + " , " + true + " , " + true + ");";
+            String query3 = "INSERT INTO Matx(user1, user2, vist, accept, matx) VALUES ('" + user2 + "', '" + user1 + "' , "
+                    + true + " , " + true + " , " + true + ");";
             dbConnector.insertQuery(query3);
         }
     }

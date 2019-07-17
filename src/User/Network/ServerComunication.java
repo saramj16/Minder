@@ -154,7 +154,8 @@ public class ServerComunication extends Thread{
         doStream.writeInt(10);
         ooStream.writeObject(currentUser);
         ooStream.writeObject(user2);
+        ArrayList<Mensaje> m = (ArrayList<Mensaje>) oiStream.readObject();
 
-        return (ArrayList<Mensaje>) oiStream.readObject();
+        return m;
     }
 }

@@ -88,7 +88,7 @@ public class UsuariManager {
         int i = 0;
         int j = 0;
         if (missatgesUsuari1.size() != 0 && missatgesUsuari2.size() != 0){
-            while (i >= missatgesUsuari1.size() && j >= missatgesUsuari2.size()){
+            while (i <= missatgesUsuari1.size() && j <= missatgesUsuari2.size()){
                 if(missatgesUsuari1.get(i).getDataMessage().before(missatgesUsuari2.get(j).getDataMessage())){
                     missatges.add(missatgesUsuari1.get(i));
                     i++;
@@ -99,13 +99,13 @@ public class UsuariManager {
             }
         } else {
             if(missatgesUsuari1.size() != 0){
-                while (i >= missatgesUsuari1.size()){
+                while (i <= missatgesUsuari1.size()){
                     missatges.add(missatgesUsuari1.get(i));
                     i++;
                 }
             } else {
                 if(missatgesUsuari2.size() != 0){
-                    while (j >= missatgesUsuari2.size()){
+                    while (j <= missatgesUsuari2.size()){
                         missatges.add(missatgesUsuari2.get(j));
                         j++;
                     }

@@ -247,7 +247,7 @@ public class Server extends Thread{
     public boolean isUserRecibeConnected(User userRecibe, String mensajeRecibido) {
         for (DedicatedServer ds : dedicatedServerList){
             if (ds.getMainUser().getUserName().equals(userRecibe)){
-                ds.updateChat
+            //    ds.updateChat
                 return true;
             }
         }

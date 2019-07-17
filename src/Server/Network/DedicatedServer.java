@@ -118,6 +118,7 @@ public class DedicatedServer extends Thread{
                         String mensajeRecibido = oiStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
+                        ok = server.isUserRecibeConnected(userRecibe, mensajeRecibido);
                         break;
 
                     case 10://chat mensajes
@@ -179,5 +180,13 @@ public class DedicatedServer extends Thread{
 
     public ArrayList<Mensaje> getMessages(User currentUser, User user2) throws SQLException {
         return server.getMessages(currentUser.getUserName(), user2.getUserName());
+    }
+
+    public User getMainUser() {
+        return mainUser;
+    }
+
+    public void setMainUser(User mainUser) {
+        this.mainUser = mainUser;
     }
 }

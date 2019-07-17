@@ -243,4 +243,14 @@ public class Server extends Thread{
     public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
     }
+
+    public boolean isUserRecibeConnected(User userRecibe, String mensajeRecibido) {
+        for (DedicatedServer ds : dedicatedServerList){
+            if (ds.getMainUser().getUserName().equals(userRecibe)){
+                ds.updateChat
+                return true;
+            }
+        }
+        return false;
+    }
 }

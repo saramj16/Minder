@@ -140,6 +140,7 @@ public class View extends JFrame {
 
         jtaDescription = new JTextArea(user.getDescription());
         jtaDescription.setEditable(false);
+        JScrollPane jspDesc = new JScrollPane(jtaDescription);
 
         JPanel jpButtons = new JPanel();
         jbEditProfile = new JButton("Editar Perfil");
@@ -148,7 +149,9 @@ public class View extends JFrame {
         jpButtons.add(jbLogOut);
 
         jpInfoProfile.add(jpGrid, BorderLayout.NORTH);
-        jpInfoProfile.add(jtaDescription, BorderLayout.CENTER);
+        //jpInfoProfile.add(jtaDescription, BorderLayout.CENTER);
+        jpInfoProfile.add(jspDesc, BorderLayout.CENTER);
+
         jpInfoProfile.add(jpButtons, BorderLayout.SOUTH);
 
 
@@ -192,7 +195,8 @@ public class View extends JFrame {
 
             jtaDescription = new JTextArea(user.getDescription());
             jtaDescription.setEditable(false);
-            jpInfoMatch.add(jtaDescription, BorderLayout.CENTER);
+            JScrollPane jspDesc = new JScrollPane(jtaDescription);
+            jpInfoMatch.add(jspDesc, BorderLayout.CENTER);
 
             JPanel jpBotons = new JPanel();
 

@@ -94,7 +94,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "Register":
-                System.out.println("registrando!!");
+                System.out.println("registrando!");
                 try {
                     User user = newUserFromRegistration();
                     if (user != null) {
@@ -106,6 +106,8 @@ public class ControllerClient implements ActionListener {
                             startMainView(currentUser);
                         } else {
                             System.out.println("Error al registrar usuario");
+                            JOptionPane.showMessageDialog(null, "     El usuario ya existe :(" + "\n"
+                            + "      Prueba otro nombre!");
                         }
                     }
                 } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -299,72 +301,67 @@ public class ControllerClient implements ActionListener {
     }
 
     private User newUserFromRegistration() throws  SQLException {
-        String username;
-        String password;
-        int edat;
-        String correo;
-        String contraseñaRepetida;
-        String urlFoto = null;
-        String lenguaje;
-        String descripción;
-        ArrayList<User> likedUsers;
+            String username;
+            String password;
+            int edat;
+            String correo;
+            String contraseñaRepetida;
+            String urlFoto = null;
+            String lenguaje;
+            String descripción;
+            ArrayList<User> likedUsers;
 
-        try {
-            username = getRegistrationView().getUserName().getText();
-            password = getRegistrationView().getContraseña().getText();
-            contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
-            if (getRegistrationView().getEdat().getText() != null){
-                edat = Integer.parseInt(getRegistrationView().getEdat().getText());
-            } else {
-                edat = -1;
+            try {
+                username = getRegistrationView().getUserName().getText();
+                password = getRegistrationView().getContraseña().getText();
+                contraseñaRepetida = getRegistrationView().getRepetirContraseña().getText();
+                if (getRegistrationView().getEdat().getText() != null){
+                    edat = Integer.parseInt(getRegistrationView().getEdat().getText());
+                } else {
+                    edat = -1;
+                }
+                correo = getRegistrationView().getCorreo().getText();
+                urlFoto = getDemanarFoto().getPathUsuari().toString();
+                lenguaje = getRegistrationView().getLenguaje();
+                descripción = getRegistrationView().getDescripción().getText();
+            }catch (NullPointerException | NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
+                return null;
             }
-            correo = getRegistrationView().getCorreo().getText();
-            urlFoto = getDemanarFoto().getPathUsuari().toString();
-            lenguaje = getRegistrationView().getLenguaje().getText();
-            descripción = getRegistrationView().getDescripción().getText();
-        }catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Tienes que rellenar todos los campos!");
-            return null;
-        }
 
-        /** Cal que la contrasenya tingui com a mínim una longitud de 8 caràcters així
-        /com contingui com a mínim majúscules, minúscules i valors numèrics.
-        **/
+            /** Cal que la contrasenya tingui com a mínim una longitud de 8 caràcters així
+             /com contingui com a mínim majúscules, minúscules i valors numèrics.
+             **/
 
-        boolean teMajus = true;
-        if (password.equals(password.toLowerCase())) {
-            teMajus = false;
-            //System.out.println("No te majus");
-        }
-
-        boolean teMinus = true;
-        if (password.equals(password.toUpperCase())) {
-            teMinus = false;
-            //System.out.println("No te minus");
-        }
-
-        boolean teNumeros = false;
-        char[] passwordArray = password.toCharArray();
-        for (char i : passwordArray) {
-            if (i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9' || i == '0') {
-                teNumeros = true;
+            boolean teMajus = true;
+            if (password.equals(password.toLowerCase())) {
+                teMajus = false;
             }
-        }
-        /*if (!teNumeros) {
-            System.out.println("No te nums");
-        }*/
+
+            boolean teMinus = true;
+            if (password.equals(password.toUpperCase())) {
+                teMinus = false;
+            }
+
+            boolean teNumeros = false;
+            char[] passwordArray = password.toCharArray();
+            for (char i : passwordArray) {
+                if (i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9' || i == '0') {
+                    teNumeros = true;
+                }
+            }
 
             boolean passOk = false;
-        if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
-            passOk = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "La contraseña debe tener más de 8 " +
-                    "carácteres, mayúsculas, minúsculas y un número o más.");
-            passOk = false;
-            return null;
-        }
+            if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
+                passOk = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "La contraseña debe tener más de 8 " +
+                        "carácteres, mayúsculas, minúsculas y un número o más.");
+                passOk = false;
+                return null;
+            }
 
-        if (password.equals(contraseñaRepetida) && passOk){
+            if (password.equals(contraseñaRepetida) && passOk){
                 if (edat < 0){
                     JOptionPane.showMessageDialog(null, "Tienes que poner una edad real!");
                     return null;
@@ -372,15 +369,11 @@ public class ControllerClient implements ActionListener {
                 User user = new User(username, edat,false, correo, password, urlFoto, lenguaje, descripción);
                 return user;
 
-        }else{
+            }else{
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden!");
                 return null;
+            }
         }
-
-
-
-
-    }
 
     private User editUserFromEditProfile(User u) throws IOException, SQLException {
         String username;
@@ -424,10 +417,8 @@ public class ControllerClient implements ActionListener {
         User user = new User( u.getUserName(),edat,isPremium,correo, password, urlFoto, lenguaje, descripción);
 
         return user;
-
-
-
     }
+
 
     private Mensaje getMensaje(){
         Mensaje mensaje = null;

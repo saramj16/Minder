@@ -229,25 +229,41 @@ public class View extends JFrame {
      * @param acceptacions: Array de Integers amb els corresponents matches del top 1 al 5
      */
     public void setTop5(String[] noms, Integer[] acceptacions) {
-        jlTop1.setText("   1.- "+noms[0]);
+        try {
+            jlTop1.setText("   1.- "+noms[0]);
         jlTop1NCops.setText(("     "+acceptacions[0].toString()));
         jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
+        try {
         jlTop2.setText("   2.- "+noms[1]);
         jlTop2NCops.setText(("     "+acceptacions[1].toString()));
         jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
+        try {
         jlTop3.setText("   3.- "+noms[2]);
         jlTop3NCops.setText(("     "+acceptacions[2].toString()));
         jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
-        jlTop4.setText("   4.- "+noms[3]);
+        try {
+            jlTop4.setText("   4.- "+noms[3]);
         jlTop4NCops.setText(("     "+acceptacions[3].toString()));
         jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
         try {
             jlTop5.setText("   5.- " + noms[4]);

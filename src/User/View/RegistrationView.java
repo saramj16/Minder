@@ -9,7 +9,6 @@ public class RegistrationView extends JFrame{
     private JPanel mainpanel;
     private TextField userName;
     private TextField edat;
-    //private boolean premium;
     private TextField correo;
     private JPasswordField contraseña;
     private JPasswordField repetirContraseña;
@@ -110,6 +109,9 @@ public class RegistrationView extends JFrame{
     }
 
 
+    public void showUsuariJaExistent() {
+
+    }
 
 
     public JPanel getMainpanel() { return mainpanel; }
@@ -129,7 +131,13 @@ public class RegistrationView extends JFrame{
     public void setContraseña(JPasswordField contraseña) { this.contraseña = contraseña; }
     public JPasswordField getRepetirContraseña() { return repetirContraseña; }
     public void setRepetirContraseña(JPasswordField repetirContraseña) { this.repetirContraseña = repetirContraseña; }
-    public TextField getLenguaje() { return lenguaje; }
+    public String getLenguaje() {
+        if (jrbJava.isSelected()) {
+            return "Java";
+        }else {
+            return "C";
+        }
+    }
     public void setLenguaje(TextField lenguaje) { this.lenguaje = lenguaje; }
     public TextField getDescripción() { return descripción; }
     public void setDescripción(TextField descripción) { this.descripción = descripción; }

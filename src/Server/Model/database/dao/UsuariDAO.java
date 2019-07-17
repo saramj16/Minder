@@ -28,7 +28,9 @@ public class UsuariDAO {
      *
      */
     public void addUsuari(Usuari usuari) {
-        String query = "INSERT INTO Usuari(userName, edat, premium, correo, password, urlFoto, lenguaje, description) VALUES ('"+usuari.getUserName()+"', '" +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+ "', '"+usuari.getPassword()+"', '" + usuari.getUrlFoto() + "', '" + usuari.getLenguaje() + "', '" + usuari.getDescription() + "');";
+        String query = "INSERT INTO Usuari(userName, edat, premium, correo, password, urlFoto, lenguaje, description) VALUES " +
+                "('"+usuari.getUserName()+"', '" +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+ "', '"
+                +usuari.getPassword()+"', '" + usuari.getUrlFoto() + "', '" + usuari.getLenguaje() + "', '" + usuari.getDescription() + "');";
         System.out.println(query);
         dbConnector.insertQuery(query);
     }

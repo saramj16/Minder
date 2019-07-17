@@ -41,7 +41,7 @@ public class MissatgeDAO {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        String query = "INSERT INTO Missatge(missatge, userSend, userReceive, dateMessage ) VALUES ('"
+        String query = "INSERT INTO Missatge(missatge, userSend, userReceive, dataMessage ) VALUES ('"
                 +missatge.getMissatge()+"', '"+missatge.getUserSend() + "', '" + missatge.getUserReceive() + "', '" + dtf.format(now) + "');";
         System.out.println(query);
         DBConnector.getInstance().insertQuery(query);

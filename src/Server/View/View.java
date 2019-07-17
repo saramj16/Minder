@@ -1,9 +1,11 @@
 package Server.View;
 
 import Server.Model.Controller.Controller;
+import Server.Model.entity.UsuariManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class View extends JFrame {
@@ -33,7 +35,7 @@ public class View extends JFrame {
     private JLabel jlTop5NCops;
 
 
-    public View() {
+    public View(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +45,7 @@ public class View extends JFrame {
         //tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
 
         tabbedPane.add("Evolució", getJpEvolucio());
-        tabbedPane.add("Top 5 Usuaris", getJpTop5Users());
+        tabbedPane.add("Top 5 Usuaris", getJpTop5Users(noms, puntuacions));
         //tabbedPane.add("Top 5 Users", getTop5());
         //pack();
 
@@ -96,13 +98,15 @@ public class View extends JFrame {
         return jpChart;
     }
 
-    public JPanel getJpTop5Users() {
+    public JPanel getJpTop5Users(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
         JPanel jpTop5Users = new JPanel(new GridLayout(6,2, 0,0));
         //jpTop5Users.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
 
-        JLabel jlUsuari = new JLabel("Usuari:");
+        JLabel jlUsuari = new JLabel("  Usuari:");
+        jlUsuari.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jpTop5Users.add(jlUsuari);
-        JLabel jlNCopsAcceptat = new JLabel(("Nombre de cops acceptat"));
+        JLabel jlNCopsAcceptat = new JLabel(("  Nombre de cops acceptat"));
+        jlNCopsAcceptat.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jpTop5Users.add(jlNCopsAcceptat);
 
         jlTop1 = new JLabel("");
@@ -130,17 +134,21 @@ public class View extends JFrame {
         jpTop5Users.add(jlTop5);
         jpTop5Users.add(jlTop5NCops);
 
-        inicialitzaTop5();
+        //inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions)
+        inicialitzaTop5(noms, puntuacions);
 
         return jpTop5Users;
 
     }
 
-    public void inicialitzaTop5 (){
-        String[] testTop5 = {"Sara", "Manel", "Javo", "Marcel", "Jofre"};   //TEST
-        Integer[] testTop5NCops = {53,43,24,15,8};                          //TEST
-
-        setTop5(testTop5, testTop5NCops);
+    public void inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions){
+        //String[] testTop5 = {"Sara", "Manel", "Javo", "Marcel", "Jofre"};   //TEST
+        //Integer[] testTop5NCops = {53,43,24,15,8};                          //TEST
+        String[] nomsArr = new String[noms.size()];
+        nomsArr = noms.toArray(nomsArr);
+        Integer[] puntuacionsArr = new Integer[puntuacions.size()];
+        puntuacionsArr = puntuacions.toArray(puntuacionsArr);
+        setTop5(nomsArr , puntuacionsArr);
     }
 
     /*
@@ -223,19 +231,32 @@ public class View extends JFrame {
     public void setTop5(String[] noms, Integer[] acceptacions) {
         jlTop1.setText("   1.- "+noms[0]);
         jlTop1NCops.setText(("     "+acceptacions[0].toString()));
+        jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         jlTop2.setText("   2.- "+noms[1]);
         jlTop2NCops.setText(("     "+acceptacions[1].toString()));
+        jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         jlTop3.setText("   3.- "+noms[2]);
         jlTop3NCops.setText(("     "+acceptacions[2].toString()));
+        jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         jlTop4.setText("   4.- "+noms[3]);
         jlTop4NCops.setText(("     "+acceptacions[3].toString()));
+        jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        jlTop5.setText("   5.- "+noms[4]);
-        jlTop5NCops.setText(("     "+acceptacions[4].toString()));
-
+        try {
+            jlTop5.setText("   5.- " + noms[4]);
+            jlTop5NCops.setText(("     " + acceptacions[4].toString()));
+            jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerController (Controller c) {

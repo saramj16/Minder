@@ -229,49 +229,58 @@ public class View extends JFrame {
      * @param acceptacions: Array de Integers amb els corresponents matches del top 1 al 5
      */
     public void setTop5(String[] noms, Integer[] acceptacions) {
-        try {
-            jlTop1.setText("   1.- "+noms[0]);
-        jlTop1NCops.setText(("     "+acceptacions[0].toString()));
-        jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+        if (noms.length != 0){
+            try {
+                jlTop1.setText("   1.- "+noms[0]);
+                jlTop1NCops.setText(("     "+acceptacions[0].toString()));
+                jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            }catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
 
-        try {
-        jlTop2.setText("   2.- "+noms[1]);
-        jlTop2NCops.setText(("     "+acceptacions[1].toString()));
-        jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+            try {
+                jlTop2.setText("   2.- "+noms[1]);
+                jlTop2NCops.setText(("     "+acceptacions[1].toString()));
+                jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            }catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
 
-        try {
-        jlTop3.setText("   3.- "+noms[2]);
-        jlTop3NCops.setText(("     "+acceptacions[2].toString()));
-        jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+            try {
+                jlTop3.setText("   3.- "+noms[2]);
+                jlTop3NCops.setText(("     "+acceptacions[2].toString()));
+                jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            }catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
 
-        try {
-            jlTop4.setText("   4.- "+noms[3]);
-        jlTop4NCops.setText(("     "+acceptacions[3].toString()));
-        jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+            try {
+                jlTop4.setText("   4.- "+noms[3]);
+                jlTop4NCops.setText(("     "+acceptacions[3].toString()));
+                jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            }catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
 
-        try {
-            jlTop5.setText("   5.- " + noms[4]);
-            jlTop5NCops.setText(("     " + acceptacions[4].toString()));
-            jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
+            try {
+                jlTop5.setText("   5.- " + noms[4]);
+                jlTop5NCops.setText(("     " + acceptacions[4].toString()));
+                jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            }catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
+        }else {
+            jlTop1.setText("   1.- No users!");
+            jlTop2.setText("   1.- No users!");
+            jlTop3.setText("   1.- No users!");
+            jlTop4.setText("   1.- No users!");
+            jlTop5.setText("   1.- No users!");
+
         }
     }
 

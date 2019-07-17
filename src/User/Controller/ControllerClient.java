@@ -253,7 +253,7 @@ public class ControllerClient implements ActionListener {
                     }
                     //currentUser.getListaMatch().get(i).getChat();
                     for (int j = 0; j < messages.size(); j++){
-                        mensajes = messages.get(j).getMensaje() + "\n";
+                        mensajes += messages.get(j).getMensaje() + "\n";
                     }
 
                     if (mensajes != null){

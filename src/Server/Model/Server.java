@@ -215,7 +215,7 @@ public class Server extends Thread{
         for (int i = 0; i < missatges.size(); i++){
             User u = getUser(missatges.get(i).getUserSend());
             User u1 = getUser(missatges.get(i).getUserReceive());
-            mensajes.add(new Mensaje(missatges.get(i).getMissatge(), u, u1));
+            mensajes.add(new Mensaje(u.getUserName() + ": " + missatges.get(i).getMissatge(), u, u1));
         }
 
         return mensajes;

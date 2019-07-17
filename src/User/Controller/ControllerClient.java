@@ -144,7 +144,11 @@ public class ControllerClient implements ActionListener {
                     //User userRemoved = possiblesMatxs.remove(0);
                     possiblesMatxs.remove(0);
                     //possiblesMatxs.add(userRemoved);
-                    mainView.setUserLooking(possiblesMatxs.get(0));
+                    if(possiblesMatxs.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
+                    }else {
+                        mainView.setUserLooking(possiblesMatxs.get(0));
+                    }
                     mainView.setVisible(false);
                     startMainView(currentUser);
 
@@ -174,13 +178,31 @@ public class ControllerClient implements ActionListener {
                         if (ok){
                             JOptionPane.showMessageDialog(null, "Cambios guardados correctamente!");
                             this.currentUser = user;
+                            /*possiblesMatxs = ordenaUsuarios(currentUser);
                             editProfile.setVisible(false);
-                            startMainView(currentUser);
+                            startMainView(currentUser);*/
+                            possiblesMatxs = ordenaUsuarios(currentUser);
+                            if (possiblesMatxs.size() != 0){
+                                mainView.setUserLooking(possiblesMatxs.get(0));
+                                try {
+                                    this.mainView = new View(currentUser, possiblesMatxs.get(0));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                try {
+                                    this.mainView = new View(currentUser, null);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            mainView.autenticationController(this);
+                            mainView.setVisible(true);
                         }else{
                             JOptionPane.showMessageDialog(null, "algun tipo de error al guardar los cambios!");
                         }
                     }
-                } catch (IOException | SQLException | ClassNotFoundException e) {
+                } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -214,21 +236,37 @@ public class ControllerClient implements ActionListener {
             case "Refresh":
                 ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser);
 
-                for (User newPossiblesMatx : newPossiblesMatxs) {
-                    for (int j = 0; j < sawMatches.size(); j++) {
-                        if (newPossiblesMatx.equals(sawMatches.get(j))) {
-                            sawMatches.remove(j);
+                for (User sm : sawMatches) {
+                    for (int j = 0; j < newPossiblesMatxs.size(); j++) {
+                        if (sm.equals(newPossiblesMatxs.get(j))) {
+                            newPossiblesMatxs.remove(j);
                         }
                     }
                 }
-                possiblesMatxs = sawMatches;
+                this.possiblesMatxs = newPossiblesMatxs;
                 mainView.setVisible(false);
-                try {
+               /* try {
                     startMainView(currentUser);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
 
+                mainView.setVisible(true);*/
+                if (possiblesMatxs.size() != 0){
+                    mainView.setUserLooking(possiblesMatxs.get(0));
+                    try {
+                        this.mainView = new View(currentUser, possiblesMatxs.get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        this.mainView = new View(currentUser, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                mainView.autenticationController(this);
                 mainView.setVisible(true);
                 break;
 

@@ -6,10 +6,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -23,6 +28,7 @@ public class DemanarFoto extends JFrame {
     JFileChooser fileChooser = new JFileChooser();
     File selectedFile;
     Path pathUsuari;
+    InputStream is;
 
     public DemanarFoto() throws IOException {
         button = new JButton("Browse");
@@ -54,7 +60,7 @@ public class DemanarFoto extends JFrame {
                     String path = selectedFile.getAbsolutePath();
                     System.out.println("path = " + path);
                     try {
-                        imatge = new ImagePanel().ImagePanel(path);
+                        imatge = new ImagePanel().ImagePath(path);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -71,8 +77,7 @@ public class DemanarFoto extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("ENTREM");
+            /*
                 String extension = "";
 
                 int i = selectedFile.getName().lastIndexOf('.');
@@ -86,13 +91,25 @@ public class DemanarFoto extends JFrame {
                 Path origen = Paths.get(orig);
 
                 try {
-                    System.out.println("AMAZING");
                     Files.copy(origen, desti, REPLACE_EXISTING);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
                 setPathUsuari(desti);
-                setVisible(false);
+                setVisible(false);*/
+                String s = selectedFile.getAbsolutePath();
+
+                try{
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/minder","root","5432");
+                    PreparedStatement ps = con.prepareStatement("insert into Usuari(foto) values(?)");
+                    is = new FileInputStream(new File(s));
+                    ps.setBlob(1,is);
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Data Inserted");
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+
             }
         });
 
@@ -138,5 +155,13 @@ public class DemanarFoto extends JFrame {
     }
     public void setPathUsuari(Path pathUsuari) {
         this.pathUsuari = pathUsuari;
+    }
+
+    public InputStream getIs() {
+        return is;
+    }
+
+    public void setIs(InputStream is) {
+        this.is = is;
     }
 }

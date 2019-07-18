@@ -116,7 +116,7 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         //jpProfilePic.setBackground(Color.BLUE);
-        Image image = new ImagePanel().ImagePanel(user.getUrlFoto());
+        Image image = new ImagePanel().ImagePath(user.getUrlFoto());
         JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jpProfilePic.add(imgPanel);
 

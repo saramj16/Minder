@@ -3,6 +3,9 @@ package Server.Model.entity;
 import User.Model.Match;
 import User.Model.User;
 
+import java.awt.*;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class Usuari {
@@ -15,6 +18,7 @@ public class Usuari {
     private String urlFoto;
     private String lenguaje;
     private String description;
+    //private InputStream foto;
 
     public Usuari(String userName, int edat, boolean premium, String correo, String password) {
         this.userName = userName;
@@ -33,6 +37,7 @@ public class Usuari {
         this.urlFoto = urlFoto;
         this.lenguaje = lenguaje;
         this.description = description;
+        //this.foto = foto;
     }
 
     public Usuari() {
@@ -102,4 +107,5 @@ public class Usuari {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

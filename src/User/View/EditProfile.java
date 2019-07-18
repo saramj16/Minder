@@ -46,7 +46,7 @@ public class EditProfile extends JFrame {
 
         jlNom = new JLabel(nom);
 
-        Image imatge = new ImagePanel().ImagePanel(pathImage);
+        Image imatge = new ImagePanel().ImagePath(pathImage);
         jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jbChangeImage = new JButton("Change Image");
 

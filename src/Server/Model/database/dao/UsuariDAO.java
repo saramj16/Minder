@@ -27,7 +27,7 @@ public class UsuariDAO {
      * @return void
      *
      */
-    public void addUsuari(Usuari usuari) {
+    public synchronized void addUsuari(Usuari usuari) {
         String query = "INSERT INTO Usuari(userName, edat, premium, correo, password, urlFoto, lenguaje, description) VALUES " +
                 "('"+usuari.getUserName()+"', '" +usuari.getEdat()+"', "+usuari.isPremium()+", '"+usuari.getCorreo()+ "', '"
                 +usuari.getPassword()+"', '" + usuari.getUrlFoto() + "', '" + usuari.getLenguaje() + "', '" + usuari.getDescription() + "');";
@@ -43,7 +43,7 @@ public class UsuariDAO {
      * @return void
      *
      */
-    public void deleteUsuari (String userName){
+    public synchronized void deleteUsuari (String userName){
         String query = "DELETE FROM Usuari WHERE userName = '"+userName+"';";
         //System.out.println(query);
         dbConnector.deleteQuery(query);
@@ -58,7 +58,7 @@ public class UsuariDAO {
      * @return ArrayList<Usuari>  llista amb tots els Usuaris
      *
      */
-    public ArrayList<Usuari> searchUsuaris (ArrayList<String> usuaris){
+    public synchronized ArrayList<Usuari> searchUsuaris (ArrayList<String> usuaris){
         ArrayList<Usuari> usuaris1 = new ArrayList<>();
 
         for (int i = 0; i < usuaris.size(); i++){
@@ -94,7 +94,7 @@ public class UsuariDAO {
      * @return boolean true en cas que existeixi l'usuari, false en cas contrari
      *
      */
-    public boolean searchUsuari(String userName) {
+    public synchronized boolean searchUsuari(String userName) {
 
         String query = "SELECT userName FROM Usuari WHERE userName = '"+userName+"';";
         //System.out.println(query);
@@ -124,7 +124,7 @@ public class UsuariDAO {
      */
     //Crec que la canviare, en funcio de com fem la vista
     //Igual es mes senzill agafar la nova info i unicament eliminar l'anterior i tornar a inserirlo
-    public void modificaUsuari(Usuari u) {
+    public synchronized void modificaUsuari(Usuari u) {
         String query;
         if (u.isPremium()) {
             query = "UPDATE Usuari SET edat = " + u.getEdat() + ", premium = '1', correo = '" + u.getCorreo() + "', password = '" + u.getPassword() + "', urlFoto = '" + u.getUrlFoto() + "', lenguaje = '" + u.getLenguaje() + "', description = '" + u.getDescription() + "' WHERE userName = '" + u.getUserName() + "';";
@@ -147,7 +147,7 @@ public class UsuariDAO {
      * @return boolean true si les dades son correctes, false en cas contrari
      *
      */
-    public boolean comprovaUsuari(String username, String password){
+    public synchronized boolean comprovaUsuari(String username, String password){
         System.out.println(username);
         System.out.println(password);
         String query = "SELECT * FROM Usuari WHERE userName = '"+username+"' AND password = '" + password + "';";
@@ -179,7 +179,7 @@ public class UsuariDAO {
      * @return ArrayList<Usuari>  llista amb tots els Usuaris
      *
      */
-    public ArrayList<Usuari> getAllUsuari() {
+    public synchronized ArrayList<Usuari> getAllUsuari() {
 
         String query = "SELECT * FROM Usuari;";
         //System.out.println(query);
@@ -216,7 +216,7 @@ public class UsuariDAO {
      * @return Usuari amb tota la informació d'aquell Usuari
      *
      */
-    public Usuari getUsuari(String userName) {
+    public synchronized Usuari getUsuari(String userName) {
 
         String query = "SELECT * FROM Usuari WHERE userName = '" + userName + "';";
         //System.out.println(query);

@@ -4,7 +4,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import Server.Model.Server;
+import Server.Model.database.DBConnector;
+import Server.Model.database.dao.MissatgeDAO;
+import Server.Model.entity.Missatge;
 import Server.Model.entity.Usuari;
+import Server.Model.entity.UsuariManager;
 import User.Controller.ControllerClient;
 import User.Model.Match;
 import User.Model.Mensaje;
@@ -26,10 +30,13 @@ public class DedicatedServer extends Thread{
     private boolean running;
     private User user;
     private User mainUser;
+    private UsuariManager usuariManager;
 
-    public DedicatedServer(Socket socket, Server server) throws IOException {
+
+    public DedicatedServer(Socket socket, Server server, UsuariManager usuariManager) throws IOException {
         this.server = server;
         sServidor = socket;
+        this.usuariManager = usuariManager;
         running = true;
         diStream = new DataInputStream(sServidor.getInputStream());
         doStream = new DataOutputStream(sServidor.getOutputStream());
@@ -118,7 +125,7 @@ public class DedicatedServer extends Thread{
                         String mensajeRecibido = oiStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
-                        ok = server.isUserRecibeConnected(userRecibe, mensajeRecibido);
+                        server.isUserRecibeConnected(userRecibe, currentUser, mensajeRecibido);
                         break;
 
                     case 10://chat mensajes
@@ -188,5 +195,10 @@ public class DedicatedServer extends Thread{
 
     public void setMainUser(User mainUser) {
         this.mainUser = mainUser;
+    }
+
+
+    public void setIfMessageArrived(User currentUser, String mensaje) {
+        usuariManager.preparaChat(mainUser.getUserName(), currentUser.getUserName());
     }
 }

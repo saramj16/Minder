@@ -35,7 +35,7 @@ public class MatxDAO {
      * @return void
      *
      */
-    public void addMatx(String user1, String user2) {
+    public synchronized void addMatx(String user1, String user2) {
         boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+ user1 +"' AND user2 = '"+ user2 +"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -84,7 +84,7 @@ public class MatxDAO {
      * @return void
      *
      */
-    public void addVist(String user1, String user2) {
+    public synchronized void addVist(String user1, String user2) {
         boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -120,7 +120,7 @@ public class MatxDAO {
      * @return void
      *
      */
-    public void addAcceptedUser(String user1, String user2) {
+    public synchronized void addAcceptedUser(String user1, String user2) {
         boolean existeix = false;
         String query = "SELECT user1, user2 FROM Matx WHERE user1 = '"+user1+"' AND user2 = '"+user2+"';";
         ResultSet resultat = dbConnector.selectQuery(query);
@@ -156,7 +156,7 @@ public class MatxDAO {
      * @return boolean  true en cas que hi hagi match, false en cas contrari
      *
      */
-    public boolean comprovaMatx(String user1, String user2){
+    public synchronized boolean comprovaMatx(String user1, String user2){
 
         boolean accept = false, accept1 = false;
 
@@ -203,7 +203,7 @@ public class MatxDAO {
      * @return ArrayList</String> llista dels noms dels usuaris que han sigut acceptats
      *
      */
-    public ArrayList<String> selectAcceptedUsers (String user1){
+    public synchronized ArrayList<String> selectAcceptedUsers (String user1){
         ArrayList<String> acceptedUsers = new ArrayList<>();
 
         String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND accept = 1;";
@@ -233,7 +233,7 @@ public class MatxDAO {
      * @return ArrayList</String> llista dels noms dels usuaris amb els que hi ha match
      *
      */
-    public ArrayList<String> selectMatxedUsers(String user1) {
+    public synchronized ArrayList<String> selectMatxedUsers(String user1) {
         ArrayList<String> matxedUsers = new ArrayList<>();
 
         String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND matx = " + true + ";";
@@ -260,7 +260,7 @@ public class MatxDAO {
      * @return ArrayList<Matx> llista dels Matxes de l'Usuari
      *
      */
-    public ArrayList<Matx> selectMatxes(String usuari) {
+    public synchronized ArrayList<Matx> selectMatxes(String usuari) {
         ArrayList<Matx> matxedUsers = new ArrayList<>();
 
         String query = "SELECT * FROM Matx WHERE user1 = '"+ usuari +"' AND matx = " + true + ";";
@@ -295,7 +295,7 @@ public class MatxDAO {
      * @return void
      *
      */
-    public void deleteMatx(String user1, String user2) {
+    public synchronized void deleteMatx(String user1, String user2) {
         String query = "UPDATE Matx SET matx = " + false + " AND accept = " + false + " WHERE user1 = '"+user1+"' AND user2 = '" + user2 + "';";
         System.out.println(query);
         dbConnector.updateQuery(query);
@@ -309,7 +309,7 @@ public class MatxDAO {
      * @return void
      *
      */
-    public int getNumeroMatxesHora(int hora) {
+    public synchronized int getNumeroMatxesHora(int hora) {
         int num = 0;
         Calendar now = Calendar.getInstance();
         int mes = now.get(Calendar.MONTH);
@@ -336,7 +336,7 @@ public class MatxDAO {
         return num;
     }
 
-    public int getNumeroMatxesDiaSetmana(int i) {
+    public synchronized int getNumeroMatxesDiaSetmana(int i) {
         int num = 0;
         Calendar now = Calendar.getInstance();
         int mes = now.get(Calendar.MONTH);
@@ -362,7 +362,7 @@ public class MatxDAO {
         return num;
     }
 
-    public int getNumeroMatxesDiaMes(int i) {
+    public synchronized int getNumeroMatxesDiaMes(int i) {
         int num = 0;
         Calendar now = Calendar.getInstance();
         int mes = now.get(Calendar.MONTH);
@@ -388,7 +388,7 @@ public class MatxDAO {
         return num;
     }
 
-    public ArrayList<String> top5UsuarisMesAcceptats (){
+    public synchronized ArrayList<String> top5UsuarisMesAcceptats (){
         ArrayList<String> usuaris = new ArrayList<>(5);
         String nom;
 
@@ -409,7 +409,7 @@ public class MatxDAO {
         return usuaris;
     }
 
-    public ArrayList<Integer> top5NAcceptacions(){
+    public synchronized ArrayList<Integer> top5NAcceptacions(){
         ArrayList<Integer> numAcceptacions = new ArrayList<>(5);
         int num;
 
@@ -429,8 +429,4 @@ public class MatxDAO {
         }
         return numAcceptacions;
     }
-
-
-
-
 }

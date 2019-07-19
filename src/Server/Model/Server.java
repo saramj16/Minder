@@ -67,7 +67,7 @@ public class Server extends Thread{
 
             while (running) {
                 Socket sClient = sServer.accept();
-                DedicatedServer ds = new DedicatedServer(sClient, this);
+                DedicatedServer ds = new DedicatedServer(sClient, this, usuariManager);
                 dedicatedServerList.add(ds);
             }
             sServer.close();
@@ -245,13 +245,11 @@ public class Server extends Thread{
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
     }
 
-    public boolean isUserRecibeConnected(User userRecibe, String mensajeRecibido) {
+    public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) {
         for (DedicatedServer ds : dedicatedServerList){
-            if (ds.getMainUser().getUserName().equals(userRecibe)){
-            //    ds.updateChat
-                return true;
+            if (ds.getMainUser().equals(userRecibe)){
+                ds.setIfMessageArrived(currentUser, mensajeRecibido);
             }
         }
-        return false;
     }
 }

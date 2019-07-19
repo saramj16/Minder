@@ -71,7 +71,7 @@ public class ServerComunication extends Thread{
                 ok = diStream.readBoolean();
                 break;
 
-            case 4://user declinaod --> object1 = currentUser, object2 = likedUser
+            case 4://user declinado --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;
@@ -90,6 +90,16 @@ public class ServerComunication extends Thread{
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
                 ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
+                break;
+
+            case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser
+                System.out.println("Desfent match...");
+                ooStream.writeObject(object1);
+                ooStream.writeObject(object2);
+
+                /*ArrayList<Match> llistaMatches = new ArrayList<>();
+                llistaMatches = oiStream.readObject(llistaMatches);*/
+                break;
         }
 
         return ok;

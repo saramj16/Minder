@@ -15,6 +15,7 @@ public class MainUser {
 
         AutenticationView autenticationView = new AutenticationView();
         ServerComunication serverComunication = new ServerComunication(autenticationView);
+        //View mainView = new View();
         ControllerClient controller = new ControllerClient(autenticationView, serverComunication);
 
         controller.start();

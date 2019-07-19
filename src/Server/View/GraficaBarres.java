@@ -38,7 +38,7 @@ public class GraficaBarres extends JPanel {
             g.fillRect(x, getHeight() - height, width, height);
             g.setColor(Color.black);
             String valueStr = "" + value;
-            g.drawString(valueStr, x + 4,getHeight() - 10);
+            g.drawString(valueStr, x + width/2 - 2,getHeight() - 10);
             g.drawRect(x, getHeight() - height, width, height);
             x += (width + 2);
         }

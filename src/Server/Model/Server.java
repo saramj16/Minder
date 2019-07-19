@@ -119,7 +119,7 @@ public class Server extends Thread{
 
         if (!usuariManager.searchUsuari(user.getUserName())){ //Si l'usuari no existeix
 
-
+//NO BORREU AIXOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 /*
 
@@ -312,5 +312,9 @@ public class Server extends Thread{
             }
         }
         return false;
+    }
+
+    public void deleteMatch(String u1, String u2) {
+        usuariManager.deleteMatch(u1, u2);
     }
 }

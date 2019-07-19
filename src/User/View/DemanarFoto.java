@@ -1,14 +1,15 @@
 package User.View;
 
+import Server.Model.configReader.Configuracio;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -99,8 +100,24 @@ public class DemanarFoto extends JFrame {
                 setVisible(false);*/
                 String s = selectedFile.getAbsolutePath();
 
+                String url = "", user = "", password = "";
                 try{
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/minder","root","5432");
+
+                    //Totxaco per llegir del Json
+                    Configuracio config;
+                    Gson gson = new Gson();
+                    JsonReader jReader;
+                    try {
+                        jReader = new JsonReader(new FileReader("data/config.json"));
+                        config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
+                        url = config.getConfigServer().getIp_bbdd();
+                        user = config.getConfigServer().getUsername_bbdd();
+                        password = config.getConfigServer().getPassword_bbdd();
+                    } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
+                        System.out.println("Error: Fitxer no trobat.");
+                    }
+
+                    Connection con = DriverManager.getConnection(url, user, password);
                     PreparedStatement ps = con.prepareStatement("insert into Usuari(foto) values(?)");
                     is = new FileInputStream(new File(s));
                     ps.setBlob(1,is);

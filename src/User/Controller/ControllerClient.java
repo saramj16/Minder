@@ -413,7 +413,7 @@ public class ControllerClient implements ActionListener {
             }
         }
 
-        boolean passOk = false;
+        boolean passOk;
         if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
             passOk = true;
         } else {
@@ -424,8 +424,12 @@ public class ControllerClient implements ActionListener {
         }
 
         if (password.equals(contraseñaRepetida) && passOk){
-            if (edat < 0){
-                JOptionPane.showMessageDialog(null, "Tienes que poner una edad real!");
+            if (edat < 17){
+                JOptionPane.showMessageDialog(null, "Tienes que tener más de 17 años!");
+                return null;
+            }
+            if (edat > 100){
+                JOptionPane.showMessageDialog(null, "Este programa no es para dinosaurios!");
                 return null;
             }
             User user = new User(username, edat,false, correo, password, urlFoto, lenguaje, descripción);

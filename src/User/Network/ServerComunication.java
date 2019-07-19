@@ -1,13 +1,12 @@
 package User.Network;
 
-import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuracio;
+import User.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.Socket;

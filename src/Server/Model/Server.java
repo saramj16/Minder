@@ -10,7 +10,7 @@ import User.Model.Mensaje;
 import User.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuracio;
+import Server.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.ServerSocket;

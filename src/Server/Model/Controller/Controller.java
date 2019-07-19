@@ -24,12 +24,21 @@ public class Controller implements ActionListener {
             case "VEURE" :
                 if( v.getSelectedEvolution() == 1) { //Dia
                     v.setDayEvolution(um.llistaMatchesDiaria());
+                    for (int i : um.llistaMatchesDiaria()) {
+                        System.out.println("num matches/hora: "+i);
+                    }
                 }
-                if (v.getSelectedEvolution() == 2) {
+                if (v.getSelectedEvolution() == 2) {    //Setmana
                     v.setWeekEvolution(um.llistaMatchesSetmanal());
+                    for (int i : um.llistaMatchesSetmanal()) {
+                        System.out.println("num matches/dia: "+i);
+                    }
                 }
-                if (v.getSelectedEvolution() == 3) {
+                if (v.getSelectedEvolution() == 3) {    //Mes
                     v.setMonthEvolution(um.llistaMatchesMensual());
+                    for (int i : um.llistaMatchesMensual()) {
+                        System.out.println("num matches/dia: "+i);
+                    }
                 }
                 break;
             default:

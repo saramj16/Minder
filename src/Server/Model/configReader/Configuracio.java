@@ -1,7 +1,4 @@
-package configReader;
-
-import configReader.ConfigClient;
-import configReader.ConfigServer;
+package Server.Model.configReader;
 
 public class Configuracio {
     ConfigClient configClient;

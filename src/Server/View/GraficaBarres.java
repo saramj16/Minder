@@ -30,13 +30,15 @@ public class GraficaBarres extends JPanel {
         }
         int width = (getWidth() / barres.size()) - 2;
         int x = 1;
-        for (Color color : barres.keySet())
+        for (Color c : barres.keySet())
         {
-            int value = barres.get(color);
+            int value = barres.get(c);
             int height = (int)( (getHeight() - 5) * ( (double)value / max));
-            g.setColor(color);
+            g.setColor(c);
             g.fillRect(x, getHeight() - height, width, height);
             g.setColor(Color.black);
+            String valueStr = "" + value;
+            g.drawString(valueStr, x + 4,getHeight() - 10);
             g.drawRect(x, getHeight() - height, width, height);
             x += (width + 2);
         }

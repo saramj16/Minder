@@ -152,11 +152,11 @@ public class DedicatedServer extends Thread{
                         break;
 
 
-                   /* case 10://chat mensajes
+                    case 10://chat mensajes
                         User user1 = (User) oiStream.readObject();
                         User user2 = (User) oiStream.readObject();
                         ooStream.writeObject(server.getMessages(user1.getUserName(), user2.getUserName()));
-                        break;*/
+                        break;
                 }
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {

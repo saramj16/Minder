@@ -46,7 +46,6 @@ public class ControllerClient implements ActionListener {
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
         this.sawMatches = new ArrayList<>();
-       // this.connectivity = new Connectivity(ServerComunication.getIp(), ServerComunication.getPort(), this);
     }
 
     /**
@@ -241,7 +240,7 @@ public class ControllerClient implements ActionListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                autenticationView.autenticationController(this);
+                autenticationView.registerController(this);
 
                 break;
 
@@ -336,7 +335,7 @@ public class ControllerClient implements ActionListener {
                 autenticationView.setVisible(true);
             break;
 
-           /* default: //Chat
+            default: //Chat
                 String mensajes = null;
                 if (event.getActionCommand().startsWith("Chat")){
                     String[] split = event.getActionCommand().split(" ");
@@ -360,7 +359,7 @@ public class ControllerClient implements ActionListener {
                         mainView.getTa().setText(" ");
                     }
                 }
-                break;*/
+                break;
         }
     }
 

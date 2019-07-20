@@ -43,7 +43,12 @@ public class GraficaBarres extends JPanel {
         for (Integer value : barres.values()){
             max = Math.max(max, value);
         }
-        int width = (getWidth() / barres.size()) - 2;
+        int width = -1;
+        if (barres.size() != 0) {
+            width = (getWidth() / barres.size()) - 2;
+        } else {
+            width = (getWidth() / 1) - 2;
+        }
         int x = 1;
         for (Color c : barres.keySet())
         {

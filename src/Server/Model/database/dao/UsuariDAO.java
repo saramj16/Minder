@@ -3,6 +3,7 @@ package Server.Model.database.dao;
 import Server.Model.entity.Usuari;
 import Server.Model.database.DBConnector;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class UsuariDAO {
                             resultat.getString("password"),
                             resultat.getString("urlFoto"),
                             resultat.getString("lenguaje"),
-                            resultat.getString("description") );
+                            resultat.getString("description"));
                     usuaris1.add(u);
                 }
             } catch (SQLException e) {
@@ -196,7 +197,7 @@ public class UsuariDAO {
                                             resultat.getString("password"),
                                             resultat.getString("urlFoto"),
                                             resultat.getString("lenguaje"),
-                                            resultat.getString("description") );
+                                            resultat.getString("description"));
                 usuariList.add(usuari);
                 System.out.println(usuari.getUserName());
             }
@@ -244,4 +245,5 @@ public class UsuariDAO {
         }
         return null;
     }
+
 }

@@ -29,6 +29,7 @@ public class DemanarFoto extends JFrame {
     File selectedFile;
     Path pathUsuari;
     InputStream is;
+    String extension;
 
     public DemanarFoto() throws IOException {
         button = new JButton("Browse");
@@ -77,14 +78,12 @@ public class DemanarFoto extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            /*
-                String extension = "";
 
                 int i = selectedFile.getName().lastIndexOf('.');
                 if (i > 0) {
                     extension = selectedFile.getName().substring(i+1);
                 }
-                String dest = System.getProperty("user.dir") + "/src/User/Imatges/" + textName.getText() + "." + extension;
+                String dest = System.getProperty("user.dir") + "/src/Server/Imatges/" + textName.getText() + "." + extension;
                 Path desti = Paths.get(dest);
 
                 String orig = selectedFile.getAbsolutePath();
@@ -96,19 +95,19 @@ public class DemanarFoto extends JFrame {
                     e1.printStackTrace();
                 }
                 setPathUsuari(desti);
-                setVisible(false);*/
+                setVisible(false);
+                /*
                 String s = selectedFile.getAbsolutePath();
-
                 try{
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost/minder","root","5432");
                     PreparedStatement ps = con.prepareStatement("insert into Usuari(foto) values(?)");
-                    is = new FileInputStream(new File(s));
+                    is = new FileInputStream(new File (s));
                     ps.setBlob(1,is);
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Data Inserted");
                 }catch(Exception ex){
                     ex.printStackTrace();
-                }
+                }*/
 
             }
         });
@@ -163,5 +162,9 @@ public class DemanarFoto extends JFrame {
 
     public void setIs(InputStream is) {
         this.is = is;
+    }
+
+    public String getNomFoto() {
+        return textName.getText() + "." + extension;
     }
 }

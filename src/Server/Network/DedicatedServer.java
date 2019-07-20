@@ -78,7 +78,7 @@ public class DedicatedServer extends Thread{
                         ok = server.comprobarRegistro(user);
                         if (ok) {
                             server.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(),
-                                    user.getCorreo(), user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription() ));
+                                    user.getCorreo(), user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription()));
                         }
                         doStream.writeBoolean(ok);
                         sendMatches(user);

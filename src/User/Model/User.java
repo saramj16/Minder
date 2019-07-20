@@ -1,6 +1,8 @@
 package User.Model;
 
+import java.awt.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -43,7 +45,8 @@ public class User implements Serializable {
     public void setCorreo(String correo) { this.correo = correo; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getUrlFoto() { return urlFoto; }
+    public String getUrlFoto() {
+        return System.getProperty("user.dir") + "/src/Server/Imatges/" + urlFoto; }
     public void setUrlFoto(String urlFoto) { this.urlFoto = urlFoto; }
     public String getLenguaje() { return lenguaje; }
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }
@@ -53,5 +56,4 @@ public class User implements Serializable {
     public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
     public ArrayList<Match> getListaMatch() { return listaMatch; }
     public void setListaMatch(ArrayList<Match> listaMatch) { this.listaMatch = listaMatch; }
-
 }

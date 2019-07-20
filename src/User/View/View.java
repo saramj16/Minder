@@ -23,7 +23,7 @@ public class View extends JFrame {
 
     //Profile Pane and its elements
     private JPanel jpProfile;
-    private JPanel jpImage;
+    private JLabel jlImage;
     private JLabel jlName;
     private JLabel jlAge;
     private JLabel jlLanguage;
@@ -166,9 +166,14 @@ public class View extends JFrame {
         jpMatches.setLayout(new GridLayout(1,2));
 
         //Panel Foto perfil
-        JPanel jpMatchPic = new JPanel();
-        jpMatchPic.setBackground(Color.PINK );
-        jpMatches.add(jpMatchPic);
+        Image imatge = null;
+        try {
+            imatge = new ImagePanel().ImagePath(user.getUrlFoto());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
+        jpMatches.add(jlImage);
 
         //general
         /*User user = users.remove(0);

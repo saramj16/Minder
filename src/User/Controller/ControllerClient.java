@@ -1,6 +1,7 @@
 package User.Controller;
 
 import Server.Model.Server;
+import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -32,6 +34,7 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> sawMatches;
     private ArrayList<Match> matches;
     private User chatUser;
+    private ArrayList<User> usersILiked;
 
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
@@ -75,7 +78,6 @@ public class ControllerClient implements ActionListener {
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
-
                         System.out.println("Current user = " + currentUser.getUserName());
                         possiblesMatxs = ordenaUsuarios(currentUser);
                         try {
@@ -121,7 +123,7 @@ public class ControllerClient implements ActionListener {
                     System.out.println("user aceptado!");
                     ok = networkManager.functionalities(3, currentUser, possiblesMatxs.get(0));
                     sawMatches.add(possiblesMatxs.get(0));
-                    currentUser.getListaLikedUsers().add(possiblesMatxs.get(0));
+                    this.currentUser.getListaLikedUsers().add(possiblesMatxs.get(0));
                     possiblesMatxs.remove(0);
                     if(possiblesMatxs.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Has llegado al límite de usuarios!");
@@ -200,6 +202,7 @@ public class ControllerClient implements ActionListener {
                             }
                             mainView.autenticationController(this);
                             mainView.setVisible(true);
+                            editProfile.setVisible(false);
                         }else{
                             JOptionPane.showMessageDialog(null, "algun tipo de error al guardar los cambios!");
                         }
@@ -318,6 +321,7 @@ public class ControllerClient implements ActionListener {
     }
 
     private ArrayList<User> ordenaUsuarios(User user) {
+
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
         int trobat;
@@ -350,6 +354,7 @@ public class ControllerClient implements ActionListener {
                     }
                     if (trobat == 0 && !allUser.getUserName().equals(user.getUserName()) && allUser.getLenguaje().equals(user.getLenguaje())) {
                         usuarios.add(allUser);
+                        System.out.println("ENTRA");
                     }
                 } else {
                     //System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
@@ -368,10 +373,10 @@ public class ControllerClient implements ActionListener {
         int edat;
         String correo;
         String contraseñaRepetida;
-        String urlFoto = null;
+        String urlFoto;
         String lenguaje;
         String descripción;
-        ArrayList<User> likedUsers;
+        String nomFoto;
 
         try {
             username = getRegistrationView().getUserName().getText();
@@ -384,6 +389,7 @@ public class ControllerClient implements ActionListener {
             }
             correo = getRegistrationView().getCorreo().getText();
             urlFoto = getDemanarFoto().getPathUsuari().toString();
+            nomFoto = getDemanarFoto().getNomFoto();
             lenguaje = getRegistrationView().getLenguaje();
             descripción = getRegistrationView().getDescripción().getText();
         }catch (NullPointerException | NumberFormatException e){
@@ -428,7 +434,7 @@ public class ControllerClient implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Tienes que poner una edad real!");
                 return null;
             }
-            User user = new User(username, edat,false, correo, password, urlFoto, lenguaje, descripción);
+            User user = new User(username, edat,false, correo, password, nomFoto, lenguaje, descripción);
             return user;
 
         }else{
@@ -444,18 +450,14 @@ public class ControllerClient implements ActionListener {
         boolean isPremium;
         String correo;
         String urlFoto;
+        String nomFoto;
         String lenguaje;
-        String descripción;
-        ArrayList<User> likedUsers;
+        String descripcion;
 
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        //urlFoto = getDemanarFoto().getPathUsuari().toString();
-        urlFoto = null;
-        if (urlFoto == null){
-            urlFoto = u.getUrlFoto();
-        }
+        urlFoto = getDemanarFoto().getPathUsuari().toString();
 
         if (getEditProfileView().getJrbC().isSelected()){
             if (getEditProfileView().getJrbJava().isSelected()){
@@ -473,10 +475,12 @@ public class ControllerClient implements ActionListener {
             getEditProfileView().getJrbC().setSelected(false);
         }
 
-        descripción = getEditProfileView().getJtfDescription().getText();
+        descripcion = getEditProfileView().getJtfDescription().getText();
         isPremium = getEditProfileView().getJcbPremium().isEnabled();
 
-        User user = new User( u.getUserName(),edat,isPremium,correo, password, urlFoto, lenguaje, descripción);
+        nomFoto = getDemanarFoto().getNomFoto();
+
+        User user = new User( u.getUserName(),edat,isPremium,correo, password, nomFoto, lenguaje, descripcion);
 
         return user;
     }

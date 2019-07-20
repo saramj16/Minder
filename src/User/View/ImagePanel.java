@@ -16,12 +16,12 @@ public class ImagePanel extends JPanel{
 
     public Image ImagePath(String imgPath) throws IOException {
         if (imgPath == null || imgPath.equals("")){
-            image = ImageIO.read(new File("./src/User/Imatges/default.jpeg"));
+            image = ImageIO.read(new File("./src/Server/Imatges/default.jpeg"));
         } else {
             try {
                 image = ImageIO.read(new File(imgPath));
             }catch (IOException e){
-                image = ImageIO.read(new File("./src/User/Imatges/default.jpeg"));
+                image = ImageIO.read(new File("./src/Server/Imatges/default.jpeg"));
             }
         }
        return image;
@@ -33,7 +33,7 @@ public class ImagePanel extends JPanel{
     public Image ImageInput(InputStream img) throws IOException {
         if (img == null){
             System.out.println("BRUTAl");
-            image2 = ImageIO.read(new File("./src/User/Imatges/default.jpeg"));
+            image2 = ImageIO.read(new File("./src/Server/Imatges/default.jpeg"));
         } else {
             bImg = img.readAllBytes();
             ImageIcon imageIcon = new ImageIcon(bImg);

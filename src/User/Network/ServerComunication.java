@@ -130,7 +130,7 @@ public class ServerComunication extends Thread{
 
         if (sizeMatches != 0){
             for (int i = 0; i < sizeMatches; i++){
-                match = (Match) oiStream.readObject();
+                 match = (Match) oiStream.readObject();
                 matches.add(match);
             }
         }

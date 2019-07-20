@@ -22,6 +22,8 @@ public class View extends JFrame {
     private JLabel jlInfo;
 
 
+    private JButton jbRefresh;
+
     private JLabel jlTop1;
     private JLabel jlTop2;
     private JLabel jlTop3;
@@ -99,40 +101,48 @@ public class View extends JFrame {
     }
 
     public JPanel getJpTop5Users(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
-        JPanel jpTop5Users = new JPanel(new GridLayout(6,2, 0,0));
-        //jpTop5Users.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
+        JPanel jpTop5Users = new JPanel(new BorderLayout());
+        JPanel jpTop5Table = new JPanel(new GridLayout(6,2, 0,0));
+        jbRefresh = new JButton("Actualitza");
+        JPanel jpRefresh = new JPanel(new BorderLayout());
+        jpRefresh.add(jbRefresh, BorderLayout.EAST);
+        JLabel jlTopTitol = new JLabel("                    Top 5 usuaris més acceptats");
+        jpRefresh.add(jlTopTitol, BorderLayout.CENTER);
+        jpTop5Users.add(jpTop5Table, BorderLayout.CENTER);
+        jpTop5Users.add(jpRefresh, BorderLayout.NORTH);
+        //jpTop5Table.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
 
         JLabel jlUsuari = new JLabel("  Usuari:");
         jlUsuari.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jpTop5Users.add(jlUsuari);
+        jpTop5Table.add(jlUsuari);
         JLabel jlNCopsAcceptat = new JLabel(("  Nombre de cops acceptat"));
         jlNCopsAcceptat.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jpTop5Users.add(jlNCopsAcceptat);
+        jpTop5Table.add(jlNCopsAcceptat);
 
         jlTop1 = new JLabel("");
         jlTop1NCops = new JLabel("");
-        jpTop5Users.add(jlTop1);
-        jpTop5Users.add(jlTop1NCops);
+        jpTop5Table.add(jlTop1);
+        jpTop5Table.add(jlTop1NCops);
 
         jlTop2 = new JLabel("");
         jlTop2NCops = new JLabel("");
-        jpTop5Users.add(jlTop2);
-        jpTop5Users.add(jlTop2NCops);
+        jpTop5Table.add(jlTop2);
+        jpTop5Table.add(jlTop2NCops);
 
         jlTop3 = new JLabel("");
         jlTop3NCops = new JLabel("");
-        jpTop5Users.add(jlTop3);
-        jpTop5Users.add(jlTop3NCops);
+        jpTop5Table.add(jlTop3);
+        jpTop5Table.add(jlTop3NCops);
 
         jlTop4 = new JLabel("");
         jlTop4NCops = new JLabel("");
-        jpTop5Users.add(jlTop4);
-        jpTop5Users.add(jlTop4NCops);
+        jpTop5Table.add(jlTop4);
+        jpTop5Table.add(jlTop4NCops);
 
         jlTop5 = new JLabel("");
         jlTop5NCops = new JLabel("");
-        jpTop5Users.add(jlTop5);
-        jpTop5Users.add(jlTop5NCops);
+        jpTop5Table.add(jlTop5);
+        jpTop5Table.add(jlTop5NCops);
 
         //inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions)
         inicialitzaTop5(noms, puntuacions);
@@ -142,8 +152,6 @@ public class View extends JFrame {
     }
 
     public void inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions){
-        //String[] testTop5 = {"Sara", "Manel", "Javo", "Marcel", "Jofre"};   //TEST
-        //Integer[] testTop5NCops = {53,43,24,15,8};                          //TEST
         String[] nomsArr = new String[noms.size()];
         nomsArr = noms.toArray(nomsArr);
         Integer[] puntuacionsArr = new Integer[puntuacions.size()];
@@ -235,7 +243,7 @@ public class View extends JFrame {
                 jlTop1NCops.setText(("     "+acceptacions[0].toString()));
                 jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException e) {
+            }catch (IndexOutOfBoundsException | NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -244,7 +252,7 @@ public class View extends JFrame {
                 jlTop2NCops.setText(("     "+acceptacions[1].toString()));
                 jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException e) {
+            }catch (IndexOutOfBoundsException | NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -253,7 +261,7 @@ public class View extends JFrame {
                 jlTop3NCops.setText(("     "+acceptacions[2].toString()));
                 jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException e) {
+            }catch (IndexOutOfBoundsException | NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -262,7 +270,7 @@ public class View extends JFrame {
                 jlTop4NCops.setText(("     "+acceptacions[3].toString()));
                 jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException e) {
+            }catch (IndexOutOfBoundsException | NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -271,7 +279,7 @@ public class View extends JFrame {
                 jlTop5NCops.setText(("     " + acceptacions[4].toString()));
                 jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException e) {
+            }catch (IndexOutOfBoundsException | NullPointerException e) {
                 e.printStackTrace();
             }
         }else {
@@ -288,6 +296,8 @@ public class View extends JFrame {
         jbVeure.setActionCommand("VEURE");
         jbVeure.addActionListener(c);
 
+        jbRefresh.setActionCommand("ACTUALITZA");
+        jbRefresh.addActionListener(c);
 
     }
 }

@@ -502,7 +502,7 @@ public class ControllerClient implements ActionListener {
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        urlFoto = getDemanarFoto().getPathUsuari().toString();
+        //urlFoto = getDemanarFoto().getPathUsuari().toString();
 
         if (getEditProfileView().getJrbC().isSelected()){
             if (getEditProfileView().getJrbJava().isSelected()){
@@ -523,7 +523,12 @@ public class ControllerClient implements ActionListener {
         descripcion = getEditProfileView().getJtfDescription().getText();
         isPremium = getEditProfileView().getJcbPremium().isEnabled();
 
-        nomFoto = getDemanarFoto().getNomFoto();
+        try {
+            nomFoto = getDemanarFoto().getNomFoto();
+        } catch (NullPointerException e) {
+            //No s'ha canviat la fotillo
+            nomFoto = u.getUrlFoto();
+        }
 
         User user = new User( u.getUserName(),edat,isPremium,correo, password, nomFoto, lenguaje, descripcion);
 

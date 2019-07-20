@@ -182,17 +182,23 @@ public class View extends JFrame {
 
         //Panel Foto perfil
         Image imatge = null;
-        try {
-            if(user.getUrlFoto() == null){
-                imatge = new ImagePanel().ImagePath(user.getUrlFoto());
-            } else {
-                imatge = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
+        if (user != null) {
+            try {
+                if (user.getUrlFoto() == null) {
+                    imatge = new ImagePanel().ImagePath(user.getUrlFoto());
+                } else {
+                    imatge = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
+                }
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
+                jpMatches.add(jlImage);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
-        jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
-        jpMatches.add(jlImage);
 
         //general
         /*User user = users.remove(0);

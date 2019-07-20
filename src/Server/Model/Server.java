@@ -10,7 +10,7 @@ import User.Model.Mensaje;
 import User.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuracio;
+import Server.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -117,11 +117,70 @@ public class Server extends Thread{
     }
 
     public boolean comprobarRegistro(User user){
+
         if (!usuariManager.searchUsuari(user.getUserName())){ //Si l'usuari no existeix
+
+//NO BORREU AIXOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
+/*
+
+            boolean registreOk = true;
+
+            String username = user.getUserName();
+            String password = user.getPassword();
+            int edat = user.getEdat();
+            String correo = user.getCorreo();
+            String urlFoto = user.getUrlFoto();
+            String lenguaje = user.getLenguaje();
+            String descripción = user.getDescription();
+
+
+            //Cal que la contrasenya tingui com a mínim una longitud de 8 caràcters així com contingui com a mínim
+            // majúscules, minúscules i valors numèrics
+            boolean teMajus = true;
+            if (password.equals(password.toLowerCase())) {
+                teMajus = false;
+            }
+
+            boolean teMinus = true;
+            if (password.equals(password.toUpperCase())) {
+                teMinus = false;
+            }
+
+            boolean teNumeros = false;
+            char[] passwordArray = password.toCharArray();
+            for (char i : passwordArray) {
+                if (i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9' || i == '0') {
+                    teNumeros = true;
+                }
+            }
+
+            boolean passOk;
+            if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
+                passOk = true;
+            } else {
+                passOk = false;
+                registreOk = false;
+            }
+
+            if (passOk){
+                if (edat < 17){
+                    System.out.println("Tienes que tener más de 17 años!");
+                    registreOk = false;                }
+                if (edat > 100){
+                    System.out.println("Este programa no es para dinosaurios!");
+                    registreOk = false;
+                }
+            }else{
+                registreOk = false;
+            }
+
+*/
+
+
+
             usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(),
                     user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription()));
-//, String urlFoto, String lenguaje, String description
-            // ****
             return true;
         }
         return false;
@@ -255,5 +314,9 @@ public class Server extends Thread{
             }
         }
         return false;
+    }
+
+    public void deleteMatch(String u1, String u2) {
+        usuariManager.deleteMatch(u1, u2);
     }
 }

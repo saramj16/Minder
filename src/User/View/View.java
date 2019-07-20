@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe vista principal del client, conte 3 pestanyes dedicades a buscar match, el perfil propi i chats
+ */
 public class View extends JFrame {
     private final int WIDTH = 400;  //Amplada
     private final int HEIGHT = 300; //Alçada
@@ -77,13 +80,22 @@ public class View extends JFrame {
     private JTextField jtfMessage;
     private JButton jbSend;
     public JPanel jtaMessages;
+    private JButton jbUndoMatch;
+    private JLabel jlUserChatting;
+    private JPanel jpScroll;
+
 
     private JButton[] panels;
 
     private ArrayList<ClosedChat> chats;
 
 
-
+    /**
+     * Constructor de la vista principal del programa client
+     * @param currentUser
+     * @param firstUser
+     * @throws IOException
+     */
     public View(User currentUser, User firstUser) throws IOException {
 
         this.setTitle(" M I N D E R ");
@@ -94,14 +106,7 @@ public class View extends JFrame {
         tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
-        //chats = new ArrayList<>();
-        ClosedChat[] chats = new ClosedChat[10];
-        //chats[1] = new ClosedChat();
-        //showClosedChats(chats, actionListener);
-        for (int i = 0; i < 10; i++) {
-            ClosedChat chat = new ClosedChat();
-            chats[i] = chat;
-        }
+
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(tabbedPane);
@@ -109,6 +114,12 @@ public class View extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Retorna el panell del perfil propi, una de les tres pestanyes de la vista principal
+     * @param user
+     * @return
+     * @throws IOException
+     */
     public JPanel getJpProfile(User user) throws IOException {
         jpProfile = new JPanel();
         jpProfile.setLayout(new GridLayout(1,2));
@@ -160,7 +171,11 @@ public class View extends JFrame {
         return jpProfile;
     }
 
-
+    /**
+     * Panell de la vista principal, retorna una de les 3 pestanyes: la dedicada a buscar Matches
+     * @param user
+     * @return
+     */
     public JPanel getJpMatches(User user) {
         jpMatches = new JPanel();
         jpMatches.setLayout(new GridLayout(1,2));
@@ -228,10 +243,15 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * Retorna el panell dedicat a xatejar amb els matches ja fets
+     * @param user
+     * @return
+     */
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
 
-        JPanel jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
+        jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
         JScrollPane scrollpaneChats = new JScrollPane(jpScroll);
 
         if(user.getListaMatch().size() == 0 || user.getListaMatch() == null){
@@ -240,7 +260,7 @@ public class View extends JFrame {
         }else {
             panels = new JButton[user.getListaMatch().size()];
             for (int i = 0; i < user.getListaMatch().size(); i++){
-               panels[i] = new JButton("Chat with --> " + user.getListaMatch().get(i).getUser2().getUserName());
+               panels[i] = new JButton(user.getListaMatch().get(i).getUser2().getUserName());
                jpScroll.add(panels[i]);
             }
 
@@ -261,16 +281,46 @@ public class View extends JFrame {
         JPanel jBot = new JPanel(new BorderLayout());
         jtfMessage = new JTextField();
         jBot.add(jtfMessage, BorderLayout.CENTER);
-        jbSend = new JButton("Send");
+        jbSend = new JButton("Enviar");
         jBot.add(jbSend, BorderLayout.EAST);
 
+        JPanel jNorth = new JPanel(new BorderLayout());
+        jlUserChatting = new JLabel("Usuari");
+        jbUndoMatch = new JButton("Desfer el Match");
+        jNorth.add(jlUserChatting, BorderLayout.CENTER);
+        jNorth.add(jbUndoMatch, BorderLayout.EAST);
+
+        jRight.add(jNorth, BorderLayout.NORTH);
         jRight.add(jBot, BorderLayout.SOUTH);
         jpMatches.add(jRight);
 
         return jpMatches;
     }
 
-    public void autenticationController(ActionListener controller){
+    public JButton[] getPanels() {
+        return panels;
+    }
+
+    /**
+     * Metode que força els panells (JButtons) del chat als entrats per parametres
+     * @param panells
+     */
+    public void setPanels(JButton[] panells) {
+        this.panels = panells;
+        jpScroll.removeAll();
+        for (JButton jb : panells) {
+            jpScroll.add(jb);
+            System.out.println(panels.length);
+            System.out.println("XXXXXXXXXXXXXXX "+jb.getText());
+        }
+        this.jpScroll.revalidate();
+    }
+
+    /**
+     * Metode per registrar el controlador a la vista principal
+     * @param controller
+     */
+    public void registerController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
         jbMatchYes.setActionCommand("AcceptUser");
 
@@ -288,6 +338,9 @@ public class View extends JFrame {
 
         jbLogOut.addActionListener(controller);
         jbLogOut.setActionCommand("LogOut");
+
+        jbUndoMatch.addActionListener(controller);
+        jbUndoMatch.setActionCommand("UndoMatch");
 
         if (panels != null && panels.length > 0){
             for (int i = 0; i < panels.length; i++){
@@ -337,6 +390,10 @@ public class View extends JFrame {
 
     public JTextArea getTa() {
         return ta;
+    }
+
+    public void setJlUserChatting(String userChatting) {
+        this.jlUserChatting.setText(userChatting);
     }
 
     public void setTa(JTextArea ta) {

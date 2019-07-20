@@ -1,13 +1,12 @@
 package User.Network;
 
-import Server.Network.DedicatedServer;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
 import User.View.AutenticationView;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuracio;
+import User.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.Socket;
@@ -73,7 +72,7 @@ public class ServerComunication extends Thread{
                 ok = diStream.readBoolean();
                 break;
 
-            case 4://user declinaod --> object1 = currentUser, object2 = likedUser
+            case 4://user declinado --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;
@@ -92,6 +91,16 @@ public class ServerComunication extends Thread{
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
                 ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
+                break;
+
+            case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser
+                System.out.println("Desfent match...");
+                ooStream.writeObject(object1);
+                ooStream.writeObject(object2);
+
+                /*ArrayList<Match> llistaMatches = new ArrayList<>();
+                llistaMatches = oiStream.readObject(llistaMatches);*/
+                break;
         }
 
         return ok;

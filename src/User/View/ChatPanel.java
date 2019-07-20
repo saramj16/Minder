@@ -22,7 +22,7 @@ public class ChatPanel extends JPanel {
     private void creaChat() {
         jpPanell = new JButton();
         JLabel nom = new JLabel(nomUsuari);
-        JLabel p = new JLabel("Chat with --> ");
+        JLabel p = new JLabel("Chat with: ");
         JLabel msm = new JLabel(ultimMissatge);
 
         jpPanell.add(p);

@@ -6,7 +6,7 @@ import Server.Model.entity.UsuariManager;
 import Server.View.View;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import configReader.Configuracio;
+import Server.Model.configReader.Configuracio;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

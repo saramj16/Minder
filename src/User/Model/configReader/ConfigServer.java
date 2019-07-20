@@ -1,4 +1,4 @@
-package configReader;
+package User.Model.configReader;
 
 public class ConfigServer {
     private String port_bbdd;

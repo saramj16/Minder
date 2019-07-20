@@ -1,4 +1,4 @@
-package configReader;
+package Server.Model.configReader;
 
 public class ConfigClient {
     private String ip_server;

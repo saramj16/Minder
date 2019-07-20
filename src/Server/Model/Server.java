@@ -58,6 +58,7 @@ public class Server extends Thread{
 
         try {
             ServerSocket sServer = new ServerSocket(port);
+            ServerSocket sServer2 = new ServerSocket(port+10);
 
             addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "Java", "pene"));
             addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));
@@ -67,7 +68,8 @@ public class Server extends Thread{
 
             while (running) {
                 Socket sClient = sServer.accept();
-                DedicatedServer ds = new DedicatedServer(sClient, this, usuariManager);
+                Socket sClient2 = sServer2.accept();
+                DedicatedServer ds = new DedicatedServer(sClient, this, usuariManager, sClient2);
                 dedicatedServerList.add(ds);
             }
             sServer.close();
@@ -118,65 +120,6 @@ public class Server extends Thread{
     public boolean comprobarRegistro(User user){
 
         if (!usuariManager.searchUsuari(user.getUserName())){ //Si l'usuari no existeix
-
-
-
-/*
-
-            boolean registreOk = true;
-
-            String username = user.getUserName();
-            String password = user.getPassword();
-            int edat = user.getEdat();
-            String correo = user.getCorreo();
-            String urlFoto = user.getUrlFoto();
-            String lenguaje = user.getLenguaje();
-            String descripción = user.getDescription();
-
-
-            //Cal que la contrasenya tingui com a mínim una longitud de 8 caràcters així com contingui com a mínim
-            // majúscules, minúscules i valors numèrics
-            boolean teMajus = true;
-            if (password.equals(password.toLowerCase())) {
-                teMajus = false;
-            }
-
-            boolean teMinus = true;
-            if (password.equals(password.toUpperCase())) {
-                teMinus = false;
-            }
-
-            boolean teNumeros = false;
-            char[] passwordArray = password.toCharArray();
-            for (char i : passwordArray) {
-                if (i == '1' || i == '2' || i == '3' || i == '4' || i == '5' || i == '6' || i == '7' || i == '8' || i == '9' || i == '0') {
-                    teNumeros = true;
-                }
-            }
-
-            boolean passOk;
-            if (password.length() > 8 && teMajus && teMinus && teNumeros ) {
-                passOk = true;
-            } else {
-                passOk = false;
-                registreOk = false;
-            }
-
-            if (passOk){
-                if (edat < 17){
-                    System.out.println("Tienes que tener más de 17 años!");
-                    registreOk = false;                }
-                if (edat > 100){
-                    System.out.println("Este programa no es para dinosaurios!");
-                    registreOk = false;
-                }
-            }else{
-                registreOk = false;
-            }
-
-*/
-
-
 
             usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(),
                     user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription()));
@@ -304,7 +247,7 @@ public class Server extends Thread{
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
     }
 
-    public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) {
+    public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) throws IOException {
         for (DedicatedServer ds : dedicatedServerList){
             if (ds.getMainUser().equals(userRecibe)){
                 ds.setIfMessageArrived(currentUser, mensajeRecibido);

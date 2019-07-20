@@ -1,5 +1,7 @@
 package User.Network;
 
+import User.Controller.ControllerClient;
+import User.Model.Connectivity;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -13,17 +15,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerComunication extends Thread{
-    private Socket sClient;
     private static  int port;// = 9999;
     private static String ip;// = "localhost";
-    public AutenticationView autenticationView;
     private DataInputStream diStream;
     private DataOutputStream doStream;
     private ObjectInputStream oiStream;
     private ObjectOutputStream ooStream;
 
 
-    public ServerComunication(AutenticationView autenticationView) throws IOException {
+    public ServerComunication() throws IOException {
         //Totxaco per llegor del Json el port del servidor
         Configuracio config = new Configuracio();
         Gson gson = new Gson();
@@ -31,18 +31,19 @@ public class ServerComunication extends Thread{
         try {
             jReader = new JsonReader(new FileReader("data/config.json"));
             config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
-            this.port = Integer.parseInt(config.getConfigClient().getPort_server());
-            this.ip = config.getConfigClient().getIp_server();
+            port = Integer.parseInt(config.getConfigClient().getPort_server());
+            ip = config.getConfigClient().getIp_server();
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
             System.out.println("Error: Fitxer no trobat.");
         }
 
-        sClient = new Socket(ip, port);
-        this.autenticationView = autenticationView;
+        Socket sClient = new Socket(ip, port);
+       // Socket sClient2 = new Socket(ip, port+1);
         diStream = new DataInputStream(sClient.getInputStream());
         doStream = new DataOutputStream(sClient.getOutputStream());
         oiStream = new ObjectInputStream(sClient.getInputStream());
         ooStream = new ObjectOutputStream(sClient.getOutputStream());
+
         start();
     }
 
@@ -90,6 +91,7 @@ public class ServerComunication extends Thread{
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
                 ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
+                break;
         }
 
         return ok;
@@ -156,5 +158,21 @@ public class ServerComunication extends Thread{
         ArrayList<Mensaje> m = (ArrayList<Mensaje>) oiStream.readObject();
 
         return m;
+    }
+
+    public static int getPort() {
+        return port;
+    }
+
+    public static void setPort(int port) {
+        ServerComunication.port = port;
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static void setIp(String ip) {
+        ServerComunication.ip = ip;
     }
 }

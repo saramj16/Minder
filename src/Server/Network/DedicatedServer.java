@@ -27,13 +27,15 @@ public class DedicatedServer extends Thread{
     private static DataInputStream diStream;
     private ObjectOutputStream ooStream;
     private ObjectInputStream oiStream;
+    private static DataOutputStream doStream2;
+    private ObjectOutputStream ooStream2;
     private boolean running;
     private User user;
     private User mainUser;
     private UsuariManager usuariManager;
 
 
-    public DedicatedServer(Socket socket, Server server, UsuariManager usuariManager) throws IOException {
+    public DedicatedServer(Socket socket, Server server, UsuariManager usuariManager, Socket s2) throws IOException {
         this.server = server;
         sServidor = socket;
         this.usuariManager = usuariManager;
@@ -42,6 +44,10 @@ public class DedicatedServer extends Thread{
         doStream = new DataOutputStream(sServidor.getOutputStream());
         ooStream = new ObjectOutputStream(sServidor.getOutputStream());
         oiStream = new ObjectInputStream(sServidor.getInputStream());
+
+        ooStream2 = new ObjectOutputStream(s2.getOutputStream());
+        doStream2 = new DataOutputStream(s2.getOutputStream());
+
         start();
     }
 
@@ -67,7 +73,6 @@ public class DedicatedServer extends Thread{
                         String password = diStream.readUTF();
 
                         ok = server.comprobarLogIn(username, password);
-
                         doStream.writeBoolean(ok);
 
                         if (ok) {
@@ -198,7 +203,8 @@ public class DedicatedServer extends Thread{
     }
 
 
-    public void setIfMessageArrived(User currentUser, String mensaje) {
-        usuariManager.preparaChat(mainUser.getUserName(), currentUser.getUserName());
+    public void setIfMessageArrived(User currentUser, String mensaje) throws IOException {
+        doStream2.writeInt(1);
+        doStream2.writeUTF(mensaje);
     }
 }

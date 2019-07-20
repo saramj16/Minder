@@ -1,6 +1,7 @@
 package User.Controller;
 
 import Server.Model.Server;
+import User.Model.Connectivity;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -32,12 +33,14 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> sawMatches;
     private ArrayList<Match> matches;
     private User chatUser;
+    private Connectivity connectivity;
 
-    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
+    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) throws IOException {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
         this.sawMatches = new ArrayList<>();
+        this.connectivity = new Connectivity(ServerComunication.getIp(), ServerComunication.getPort(), this);
     }
 
     public void start() {
@@ -484,6 +487,24 @@ public class ControllerClient implements ActionListener {
 
         return user;
     }
+
+
+    public void functionalities(int id, Object o1, Object o2){
+        switch (id){
+            case 1: //recibimos mensaje = o1, o2 = null
+                String mensaje = (String) o1;
+                String chat = currentUser.getUserName() + ": " + mensaje + "\n";
+                mainView.getTa().append(chat);
+                break;
+        }
+    }
+
+
+
+
+
+
+
 
 
     private Mensaje getMensaje(){

@@ -66,7 +66,9 @@ public class DedicatedServer extends Thread{
         }
         try {
             while (running) {
+                System.out.println("esperamos otro ID de una acción");
                 int id = diStream.readInt();
+                System.out.println("id = " + id);
                 switch (id) {
                     case 1:
                         String username = diStream.readUTF();
@@ -127,10 +129,14 @@ public class DedicatedServer extends Thread{
                         break;
 
                     case 7://sendMessage
-                        String mensajeRecibido = oiStream.readUTF();
+                        System.out.println("enviamos mensajes");
+                        String mensajeRecibido = diStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
+                        System.out.println("añadimos mensaje a la bbdd");
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
+                        System.out.println("miramos si el otro user esta conectado");
                         server.isUserRecibeConnected(userRecibe, mainUser, mensajeRecibido);
+                        System.out.println("BREAK!!");
                         break;
 
                     case 8: //Undo match
@@ -141,11 +147,11 @@ public class DedicatedServer extends Thread{
                         break;
 
 
-                    case 10://chat mensajes
+                    /*case 10://chat mensajes
                         User user1 = (User) oiStream.readObject();
                         User user2 = (User) oiStream.readObject();
                         ooStream.writeObject(server.getMessages(user1.getUserName(), user2.getUserName()));
-                        break;
+                        break;*/
                 }
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {
@@ -213,5 +219,8 @@ public class DedicatedServer extends Thread{
     public void setIfMessageArrived(User currentUser, String mensaje) throws IOException {
         doStream2.writeInt(1);
         doStream2.writeUTF(mensaje);
+        System.out.println("enviamos mensaje: " + mensaje);
+        doStream2.writeUTF(currentUser.getUserName());
+        System.out.println("al user: " + currentUser.getUserName());
     }
 }

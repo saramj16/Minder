@@ -101,7 +101,7 @@ public class ServerComunication extends Thread{
                 break;
 
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
-                ooStream.writeUTF(String.valueOf(object1));
+                doStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
                 break;
 

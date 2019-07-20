@@ -304,12 +304,15 @@ public class Server extends Thread{
 
     public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
+        System.out.println("mensaje añadido");
     }
 
     public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) throws IOException {
         for (DedicatedServer ds : dedicatedServerList){
             if (ds.getMainUser().getUserName().equals(userRecibe.getUserName())){
+                System.out.println("el user está conectado");
                 ds.setIfMessageArrived(currentUser, mensajeRecibido);
+                System.out.println("mensaje enviado al otro user!!");
             }
         }
     }

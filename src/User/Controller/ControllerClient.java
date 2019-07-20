@@ -225,7 +225,7 @@ public class ControllerClient implements ActionListener {
                 }
                 try {
                     networkManager.functionalities(7, mensaje, chatUser);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -322,7 +322,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             default: //Chat
-                String mensajes = null;
+               /* String mensajes = null;
                 if (event.getActionCommand().startsWith("Chat")){
                     String[] split = event.getActionCommand().split(" ");
                     int i = Integer.parseInt(split[1]);
@@ -345,7 +345,7 @@ public class ControllerClient implements ActionListener {
                         mainView.getTa().setText(" ");
                     }
                 }
-                break;
+                break;*/
         }
     }
 
@@ -532,9 +532,10 @@ public class ControllerClient implements ActionListener {
 
     public void functionalities(int id, Object o1, Object o2){
         switch (id){
-            case 1: //recibimos mensaje = o1, o2 = null
+            case 1: //recibimos mensaje = o1, o2 = username de uqien lo ha enviado
                 String mensaje = (String) o1;
-                String chat = currentUser.getUserName() + ": " + mensaje + "\n";
+                String username = (String) o2;
+                String chat = username + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
                 break;
         }

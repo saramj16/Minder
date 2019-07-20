@@ -42,7 +42,7 @@ public class ControllerClient implements ActionListener {
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
         this.sawMatches = new ArrayList<>();
-        this.connectivity = new Connectivity(ServerComunication.getIp(), ServerComunication.getPort(), this);
+       // this.connectivity = new Connectivity(ServerComunication.getIp(), ServerComunication.getPort(), this);
     }
 
     public void start() {

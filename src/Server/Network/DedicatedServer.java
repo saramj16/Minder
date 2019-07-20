@@ -130,7 +130,7 @@ public class DedicatedServer extends Thread{
                         String mensajeRecibido = oiStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
-                        server.isUserRecibeConnected(userRecibe, currentUser, mensajeRecibido);
+                        server.isUserRecibeConnected(userRecibe, mainUser, mensajeRecibido);
                         break;
 
                     case 8: //Undo match

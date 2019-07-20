@@ -1,5 +1,6 @@
 package User.Network;
 
+import Server.Model.Controller.Controller;
 import User.Controller.ControllerClient;
 import User.Model.Connectivity;
 import User.Model.Match;
@@ -23,11 +24,15 @@ public class ServerComunication extends Thread{
     private DataOutputStream doStream;
     private ObjectInputStream oiStream;
     private ObjectOutputStream ooStream;
+    private ObjectInputStream oiStream2;
+    private DataInputStream diStream2;
+    private Connectivity connectivity;
+    private ControllerClient controller;
 
 
     public ServerComunication() throws IOException {
         //Totxaco per llegor del Json el port del servidor
-        Configuracio config = new Configuracio();
+        Configuracio config;
         Gson gson = new Gson();
         JsonReader jReader;
         try {
@@ -40,11 +45,16 @@ public class ServerComunication extends Thread{
         }
 
         Socket sClient = new Socket(ip, port);
-       // Socket sClient2 = new Socket(ip, port+1);
+        Socket sClient2 = new Socket(ip, port+10);
+
         diStream = new DataInputStream(sClient.getInputStream());
         doStream = new DataOutputStream(sClient.getOutputStream());
         oiStream = new ObjectInputStream(sClient.getInputStream());
         ooStream = new ObjectOutputStream(sClient.getOutputStream());
+
+        oiStream2 = new ObjectInputStream(sClient2.getInputStream());
+        diStream2 = new DataInputStream(sClient2.getInputStream());
+        this.connectivity = new Connectivity(oiStream2, diStream2);
 
         start();
     }
@@ -93,7 +103,6 @@ public class ServerComunication extends Thread{
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
                 ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
-                break;
                 break;
 
             case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser
@@ -186,5 +195,18 @@ public class ServerComunication extends Thread{
 
     public static void setIp(String ip) {
         ServerComunication.ip = ip;
+    }
+
+    public void setController(ControllerClient controller) {
+        this.controller = controller;
+        connectivity.setController(controller);
+    }
+
+    public Connectivity getConnectivity() {
+        return connectivity;
+    }
+
+    public void setConnectivity(Connectivity connectivity) {
+        this.connectivity = connectivity;
     }
 }

@@ -14,10 +14,10 @@ public class MainUser {
         ServerComunication serverComunication = new ServerComunication();
        // serverComunication.funcion();
         ControllerClient controller = new ControllerClient(autenticationView, serverComunication);
-      //  serverComunication.setController(controller)
+        serverComunication.setController(controller);
 
         controller.start();
         autenticationView.setVisible(true);
-
+        serverComunication.getConnectivity().go();
     }
 }

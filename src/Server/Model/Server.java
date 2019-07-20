@@ -308,7 +308,7 @@ public class Server extends Thread{
 
     public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) throws IOException {
         for (DedicatedServer ds : dedicatedServerList){
-            if (ds.getMainUser().equals(userRecibe)){
+            if (ds.getMainUser().getUserName().equals(userRecibe.getUserName())){
                 ds.setIfMessageArrived(currentUser, mensajeRecibido);
             }
         }

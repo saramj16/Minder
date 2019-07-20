@@ -10,6 +10,9 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * Classe que conte les imatges dels usuaris perque puguin ser vistes des de la vista principal
+ */
 public class ImagePanel extends JPanel{
     private  BufferedImage image;
     //private Blob imatge;

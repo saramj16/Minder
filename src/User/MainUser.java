@@ -9,7 +9,9 @@ import User.View.View;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * Classe main del Client
+ */
 public class MainUser {
     public static void main(String[] args) throws IOException, SQLException {
 

@@ -19,6 +19,9 @@ import java.sql.PreparedStatement;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * Class DemanarFoto, vista desplegable per tal de que l'usuari pugui penjar la seva foto de perfil
+ */
 public class DemanarFoto extends JFrame {
     JButton button;
     JButton button2;
@@ -31,6 +34,10 @@ public class DemanarFoto extends JFrame {
     Path pathUsuari;
     InputStream is;
 
+    /**
+     * Constructor de DemanarFoto
+     * @throws IOException
+     */
     public DemanarFoto() throws IOException {
         button = new JButton("Browse");
         button.setBounds(40, 300, 100, 40);
@@ -49,6 +56,9 @@ public class DemanarFoto extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        /**
+         * Action Listener del boto BROWSE
+         */
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +85,9 @@ public class DemanarFoto extends JFrame {
             }
         });
 
+        /**
+         * Action Listener del boto ADD
+         */
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

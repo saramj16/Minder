@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class ControllerClient implements ActionListener {
@@ -92,7 +91,7 @@ public class ControllerClient implements ActionListener {
             case "RegisterFromAutentication":
                 autenticationView.setVisible(false);
                 registrationView = new RegistrationView();
-                registrationView.autenticationController(this);
+                registrationView.registerController(this);
                 registrationView.setVisible(true);
                 break;
 
@@ -164,7 +163,7 @@ public class ControllerClient implements ActionListener {
             case "EditProfile":
                 try {
                     this.editProfile = new EditProfile(currentUser);
-                    editProfile.autenticationController(this);
+                    editProfile.registerController(this);
                     mainView.setVisible(false);
                     editProfile.setVisible(true);
                 } catch (IOException e) {

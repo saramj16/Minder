@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * Classe que conté la Finestra desplegable des de la vista principal per tal editar el perfil
+ */
 public class EditProfile extends JFrame {
 
     private JButton jbChangeImage, jbSave;
@@ -25,12 +28,19 @@ public class EditProfile extends JFrame {
     private JLabel jlPremium;
     private JLabel jlImage;
 
+    /**
+     * Constructor de la finestra
+     * @param user
+     * @throws IOException
+     */
     public EditProfile(User user) throws IOException {
         configuraFinestra();
         dadesEditaPrefil(user.getUserName(), user.getEdat(), user.getCorreo(), user.getPassword(), user.getDescription(), user.getLenguaje(), user.isPremium(), user.getUrlFoto());
     }
 
-
+    /**
+     * Configuracio basica de la finestra
+     */
     private void configuraFinestra(){
         this.setSize(600, 400);
         this.setTitle("MINDER");
@@ -41,7 +51,18 @@ public class EditProfile extends JFrame {
     }
 
 
-
+    /**
+     * Inicialitza els valors d'edita perfil als de l'usuari
+     * @param nom
+     * @param edat
+     * @param correu
+     * @param password
+     * @param descripcio
+     * @param lenguage
+     * @param premium
+     * @param pathImage
+     * @throws IOException
+     */
     public void dadesEditaPrefil(String nom, int edat, String correu, String password, String descripcio,  String lenguage, boolean premium, String pathImage) throws IOException {
 
         jlNom = new JLabel(nom);
@@ -83,6 +104,9 @@ public class EditProfile extends JFrame {
         configuraElements();
     }
 
+    /**
+     * Configura els component basics de la vista
+     */
     private void configuraElements() {
         this.setLayout(new BorderLayout());
 
@@ -129,7 +153,11 @@ public class EditProfile extends JFrame {
         this.add(jpInferior, BorderLayout.PAGE_END);
     }
 
-    public void autenticationController(ActionListener controller){
+    /**
+     * registra els controladors dels botons
+     * @param controller
+     */
+    public void registerController(ActionListener controller){
         jbSave.addActionListener(controller);
         jbSave.setActionCommand("SaveEditProfile");
 

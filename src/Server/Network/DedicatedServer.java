@@ -133,6 +133,14 @@ public class DedicatedServer extends Thread{
                         server.isUserRecibeConnected(userRecibe, currentUser, mensajeRecibido);
                         break;
 
+                    case 8: //Undo match
+                        User usuari = (User)oiStream.readObject();
+                        User usuariChat = (User)oiStream.readObject();
+                        server.deleteMatch( usuari.getUserName(),  usuariChat.getUserName());
+                        //ooStream.writeObject(server.getMatchList(usuari.getUserName()));
+                        break;
+
+
                     case 10://chat mensajes
                         User user1 = (User) oiStream.readObject();
                         User user2 = (User) oiStream.readObject();
@@ -166,7 +174,6 @@ public class DedicatedServer extends Thread{
              }
         }
     }
-
 
 
     public static void disconnectClient() {

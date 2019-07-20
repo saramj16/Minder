@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
@@ -201,7 +203,7 @@ public class ControllerClient implements ActionListener {
                                     e.printStackTrace();
                                 }
                             }
-                            mainView.autenticationController(this);
+                            mainView.registerController(this);
                             mainView.setVisible(true);
                         }else{
                             JOptionPane.showMessageDialog(null, "algun tipo de error al guardar los cambios!");
@@ -227,6 +229,44 @@ public class ControllerClient implements ActionListener {
                     e.printStackTrace();
                 }
                 break;
+
+
+            case "UndoMatch":
+                if (chatUser == null){
+                    chatUser = currentUser.getListaMatch().get(0).getUser2();
+                }
+                JOptionPane.showMessageDialog(null, "Match desfet!");
+                mainView.setJlUserChatting("");
+
+
+
+                //JButton[] panels = new JButton[mainView.getPanels().length];
+                JButton[] panels = mainView.getPanels();
+                JButton jbRemoved = new JButton("");
+                LinkedList<JButton> panelsList = new LinkedList();
+                for (JButton jb : panels) {
+                    if (!jb.getText().equals(chatUser.getUserName())) {
+                        panelsList.add(jb);
+                    }
+                }
+                JButton[] newPanels = new JButton[panelsList.size()];
+                newPanels = panelsList.toArray(newPanels);
+
+                /*System.out.println("panels.length "+panels.length);
+                System.out.println("newPanels.length "+newPanels.length);
+                System.out.println("panelsList.size() "+panelsList.size()); */
+
+                mainView.setPanels(newPanels);
+
+
+
+                try{
+                    networkManager.functionalities(8, currentUser, chatUser);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
 
             case "DemanarFoto":
                 try {
@@ -270,7 +310,7 @@ public class ControllerClient implements ActionListener {
                         e.printStackTrace();
                     }
                 }
-                mainView.autenticationController(this);
+                mainView.registerController(this);
                 mainView.setVisible(true);
                 break;
 
@@ -281,7 +321,7 @@ public class ControllerClient implements ActionListener {
                 autenticationView.setVisible(true);
                 break;
 
-            default: //CHat!
+            default: //Chat
                 String mensajes = null;
                 if (event.getActionCommand().startsWith("Chat")){
                     String[] split = event.getActionCommand().split(" ");
@@ -290,6 +330,7 @@ public class ControllerClient implements ActionListener {
                     ArrayList<Mensaje> messages = null;
                     try {
                         messages = networkManager.getMessages(currentUser, currentUser.getListaMatch().get(i).getUser2());
+                        mainView.setJlUserChatting(chatUser.getUserName());
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -316,7 +357,7 @@ public class ControllerClient implements ActionListener {
         }else{
             this.mainView = new View(currentUser, null);
         }
-        mainView.autenticationController(this);
+        mainView.registerController(this);
         mainView.setVisible(true);
     }
 
@@ -529,4 +570,11 @@ public class ControllerClient implements ActionListener {
     private EditProfile getEditProfileView() { return editProfile; }
     public void setEditProfileView(EditProfile editProfile) { this.editProfile = editProfile; }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public User getFirstUser() {
+        return possiblesMatxs.get(0);
+    }
 }

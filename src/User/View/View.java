@@ -77,6 +77,10 @@ public class View extends JFrame {
     private JTextField jtfMessage;
     private JButton jbSend;
     public JPanel jtaMessages;
+    private JButton jbUndoMatch;
+    private JLabel jlUserChatting;
+    private JPanel jpScroll;
+
 
     private JButton[] panels;
 
@@ -226,7 +230,7 @@ public class View extends JFrame {
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
 
-        JPanel jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
+        jpScroll = new JPanel(new GridLayout(user.getListaMatch().size(),1));
         JScrollPane scrollpaneChats = new JScrollPane(jpScroll);
 
         if(user.getListaMatch().size() == 0 || user.getListaMatch() == null){
@@ -235,7 +239,7 @@ public class View extends JFrame {
         }else {
             panels = new JButton[user.getListaMatch().size()];
             for (int i = 0; i < user.getListaMatch().size(); i++){
-               panels[i] = new JButton("Chat with --> " + user.getListaMatch().get(i).getUser2().getUserName());
+               panels[i] = new JButton(user.getListaMatch().get(i).getUser2().getUserName());
                jpScroll.add(panels[i]);
             }
 
@@ -256,16 +260,38 @@ public class View extends JFrame {
         JPanel jBot = new JPanel(new BorderLayout());
         jtfMessage = new JTextField();
         jBot.add(jtfMessage, BorderLayout.CENTER);
-        jbSend = new JButton("Send");
+        jbSend = new JButton("Enviar");
         jBot.add(jbSend, BorderLayout.EAST);
 
+        JPanel jNorth = new JPanel(new BorderLayout());
+        jlUserChatting = new JLabel("Usuari");
+        jbUndoMatch = new JButton("Desfer el Match");
+        jNorth.add(jlUserChatting, BorderLayout.CENTER);
+        jNorth.add(jbUndoMatch, BorderLayout.EAST);
+
+        jRight.add(jNorth, BorderLayout.NORTH);
         jRight.add(jBot, BorderLayout.SOUTH);
         jpMatches.add(jRight);
 
         return jpMatches;
     }
 
-    public void autenticationController(ActionListener controller){
+    public JButton[] getPanels() {
+        return panels;
+    }
+
+    public void setPanels(JButton[] panells) {
+        this.panels = panells;
+        jpScroll.removeAll();
+        for (JButton jb : panells) {
+            jpScroll.add(jb);
+            System.out.println(panels.length);
+            System.out.println("XXXXXXXXXXXXXXX "+jb.getText());
+        }
+        this.jpScroll.revalidate();
+    }
+
+    public void registerController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
         jbMatchYes.setActionCommand("AcceptUser");
 
@@ -283,6 +309,9 @@ public class View extends JFrame {
 
         jbLogOut.addActionListener(controller);
         jbLogOut.setActionCommand("LogOut");
+
+        jbUndoMatch.addActionListener(controller);
+        jbUndoMatch.setActionCommand("UndoMatch");
 
         if (panels != null && panels.length > 0){
             for (int i = 0; i < panels.length; i++){
@@ -332,6 +361,10 @@ public class View extends JFrame {
 
     public JTextArea getTa() {
         return ta;
+    }
+
+    public void setJlUserChatting(String userChatting) {
+        this.jlUserChatting.setText(userChatting);
     }
 
     public void setTa(JTextArea ta) {

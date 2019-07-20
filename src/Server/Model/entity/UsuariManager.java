@@ -26,6 +26,10 @@ public class UsuariManager {
         }
     }
 
+    public void deleteMatch(String u1, String u2) {
+        matxDAO.deleteMatx(u1, u2);
+    }
+
     public void modificiaUsuari(Usuari u){
 
         usuariDAO.modificaUsuari(u);

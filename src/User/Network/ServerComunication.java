@@ -13,6 +13,7 @@ import User.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class ServerComunication extends Thread{
@@ -164,11 +165,12 @@ public class ServerComunication extends Thread{
         System.out.println("password " + password);
         String urlFoto = diStream.readUTF();
         System.out.println("url " + urlFoto);
-        String leneguaje = diStream.readUTF();
-        System.out.println("lenguaje " + leneguaje);
+        String lenguaje = diStream.readUTF();
+        System.out.println("lenguaje " + lenguaje);
         String description = diStream.readUTF();
         System.out.println("description " + description);
-        User u = new User(nom,edat,premium,correu,password,urlFoto,leneguaje,description);
+
+        User u = new User(nom,edat,premium,correu,password,urlFoto,lenguaje,description);
         return u;
     }
 

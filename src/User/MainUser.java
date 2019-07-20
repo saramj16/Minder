@@ -7,6 +7,10 @@ import User.View.AutenticationView;
 
 import java.io.IOException;
 
+import java.sql.SQLException;
+/**
+ * Classe main del Client
+ */
 public class MainUser {
     public static void main(String[] args) throws IOException {
 

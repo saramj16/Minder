@@ -113,7 +113,8 @@ public class Server extends Thread{
     }
 
     private void updateUser(User user2modificate, User userModificated) {
-        usuariManager.modificiaUsuari(new Usuari(userModificated.getUserName(),userModificated.getEdat(),userModificated.isPremium(), userModificated.getCorreo(), userModificated.getPassword(), userModificated.getUrlFoto(), userModificated.getLenguaje(), userModificated.getDescription()));
+        usuariManager.modificiaUsuari(new Usuari(userModificated.getUserName(),userModificated.getEdat(),userModificated.isPremium(),
+                userModificated.getCorreo(), userModificated.getPassword(), userModificated.getUrlFoto(), userModificated.getLenguaje(), userModificated.getDescription()));
 
     }
 
@@ -191,6 +192,7 @@ public class Server extends Thread{
         ArrayList<User> userLikeLikedUsers;
 
         userLikeLikedUsers = getLikedUsers(userLike.getUserName());
+       // currentUser.getListaLikedUsers().add(userLike);
         addLikedUserToCurrentUser(currentUser, userLike);
 
         for (User u : userLikeLikedUsers){
@@ -202,7 +204,7 @@ public class Server extends Thread{
         return false;
     }
 
-    private ArrayList<User> getLikedUsers(String userLike) throws SQLException {
+    public ArrayList<User> getLikedUsers(String userLike) throws SQLException {
         ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike);
 
         return convertUsuaristoUsers(likedUsers);

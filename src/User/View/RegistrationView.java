@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe Vista de la finestra de registre al programa client
+ */
 public class RegistrationView extends JFrame{
 
     private JPanel mainpanel;
@@ -21,11 +24,17 @@ public class RegistrationView extends JFrame{
     private JRadioButton jrbPremiumYes;
     private JRadioButton jrbPremiumNo;
 
+    /**
+     * Constructor
+     */
     public RegistrationView(){
         configuraVentana();
         configuraCentro();
     }
 
+    /**
+     * Configuracio basica de la finestra
+     */
     private void configuraVentana(){
         this.setSize(400, 300);
         this.setTitle("MINDER");
@@ -33,6 +42,9 @@ public class RegistrationView extends JFrame{
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Configura el centre de la finestra
+     */
     private void configuraCentro(){
         //mainpanel = new JPanel(new GridLayout(14,1));
         mainpanel = new JPanel(new BorderLayout());
@@ -100,17 +112,16 @@ public class RegistrationView extends JFrame{
         this.add(mainpanel);
     }
 
-    public void autenticationController(ActionListener controller){
+    /**
+     * Registra els controladors de la finestra
+     * @param controller
+     */
+    public void registerController(ActionListener controller){
         register.addActionListener(controller);
         register.setActionCommand("Register");
 
         demanarFoto.addActionListener(controller);
         demanarFoto.setActionCommand("DemanarFoto");
-    }
-
-
-    public void showUsuariJaExistent() {
-
     }
 
 

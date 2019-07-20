@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe vista principal del client, conte 3 pestanyes dedicades a buscar match, el perfil propi i chats
+ */
 public class View extends JFrame {
     private final int WIDTH = 400;  //Amplada
     private final int HEIGHT = 300; //Alçada
@@ -23,7 +26,7 @@ public class View extends JFrame {
 
     //Profile Pane and its elements
     private JPanel jpProfile;
-    private JPanel jpImage;
+    private JLabel jlImage;
     private JLabel jlName;
     private JLabel jlAge;
     private JLabel jlLanguage;
@@ -87,7 +90,12 @@ public class View extends JFrame {
     private ArrayList<ClosedChat> chats;
 
 
-
+    /**
+     * Constructor de la vista principal del programa client
+     * @param currentUser
+     * @param firstUser
+     * @throws IOException
+     */
     public View(User currentUser, User firstUser) throws IOException {
 
         this.setTitle(" M I N D E R ");
@@ -98,14 +106,7 @@ public class View extends JFrame {
         tabbedPane.add("Profile",getJpProfile(currentUser));
         tabbedPane.add("Chats",getJpChats(currentUser));
 
-        //chats = new ArrayList<>();
-        ClosedChat[] chats = new ClosedChat[10];
-        //chats[1] = new ClosedChat();
-        //showClosedChats(chats, actionListener);
-        for (int i = 0; i < 10; i++) {
-            ClosedChat chat = new ClosedChat();
-            chats[i] = chat;
-        }
+
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(tabbedPane);
@@ -113,6 +114,12 @@ public class View extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Retorna el panell del perfil propi, una de les tres pestanyes de la vista principal
+     * @param user
+     * @return
+     * @throws IOException
+     */
     public JPanel getJpProfile(User user) throws IOException {
         jpProfile = new JPanel();
         jpProfile.setLayout(new GridLayout(1,2));
@@ -120,7 +127,7 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         //jpProfilePic.setBackground(Color.BLUE);
-        Image image = new ImagePanel().ImagePath(user.getUrlFoto());
+        Image image = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
         JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jpProfilePic.add(imgPanel);
 
@@ -164,15 +171,28 @@ public class View extends JFrame {
         return jpProfile;
     }
 
-
+    /**
+     * Panell de la vista principal, retorna una de les 3 pestanyes: la dedicada a buscar Matches
+     * @param user
+     * @return
+     */
     public JPanel getJpMatches(User user) {
         jpMatches = new JPanel();
         jpMatches.setLayout(new GridLayout(1,2));
 
         //Panel Foto perfil
-        JPanel jpMatchPic = new JPanel();
-        jpMatchPic.setBackground(Color.PINK );
-        jpMatches.add(jpMatchPic);
+        Image imatge = null;
+        try {
+            if(user.getUrlFoto() == null){
+                imatge = new ImagePanel().ImagePath(user.getUrlFoto());
+            } else {
+                imatge = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
+        jpMatches.add(jlImage);
 
         //general
         /*User user = users.remove(0);
@@ -227,6 +247,11 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * Retorna el panell dedicat a xatejar amb els matches ja fets
+     * @param user
+     * @return
+     */
     public JPanel getJpChats(User user) {
         jpMatches = new JPanel(new GridLayout(1,2));
 
@@ -280,6 +305,10 @@ public class View extends JFrame {
         return panels;
     }
 
+    /**
+     * Metode que força els panells (JButtons) del chat als entrats per parametres
+     * @param panells
+     */
     public void setPanels(JButton[] panells) {
         this.panels = panells;
         jpScroll.removeAll();
@@ -291,6 +320,10 @@ public class View extends JFrame {
         this.jpScroll.revalidate();
     }
 
+    /**
+     * Metode per registrar el controlador a la vista principal
+     * @param controller
+     */
     public void registerController(ActionListener controller){
         jbMatchYes.addActionListener(controller);
         jbMatchYes.setActionCommand("AcceptUser");

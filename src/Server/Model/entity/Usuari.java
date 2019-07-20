@@ -18,7 +18,6 @@ public class Usuari {
     private String urlFoto;
     private String lenguaje;
     private String description;
-    //private InputStream foto;
 
     public Usuari(String userName, int edat, boolean premium, String correo, String password) {
         this.userName = userName;
@@ -37,7 +36,6 @@ public class Usuari {
         this.urlFoto = urlFoto;
         this.lenguaje = lenguaje;
         this.description = description;
-        //this.foto = foto;
     }
 
     public Usuari() {

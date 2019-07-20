@@ -1,6 +1,8 @@
 package User.Model;
 
+import java.awt.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -53,5 +55,4 @@ public class User implements Serializable {
     public void setListaLikedUsers(ArrayList<User> listaLikedUsers) { this.listaLikedUsers = listaLikedUsers; }
     public ArrayList<Match> getListaMatch() { return listaMatch; }
     public void setListaMatch(ArrayList<Match> listaMatch) { this.listaMatch = listaMatch; }
-
 }

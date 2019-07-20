@@ -3,6 +3,7 @@ package Server.Model.database.dao;
 import Server.Model.entity.Usuari;
 import Server.Model.database.DBConnector;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -171,6 +172,30 @@ public class UsuariDAO {
         return false;
     }
 
+    public boolean comprovaUsuariCorreu(String correu, String password){
+        System.out.println(correu);
+        System.out.println(password);
+        String query = "SELECT * FROM Usuari WHERE correo = '"+correu+"' AND password = '" + password + "';";
+        //  System.out.println(query);
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String correu1 = resultat.getString("correo");
+                System.out.println(correu1);
+                String password2 = resultat.getString("password");
+                System.out.println(password2);
+                if (correu.equals(correu1) && password.equals(password2)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     /**
      *
@@ -196,7 +221,7 @@ public class UsuariDAO {
                                             resultat.getString("password"),
                                             resultat.getString("urlFoto"),
                                             resultat.getString("lenguaje"),
-                                            resultat.getString("description") );
+                                            resultat.getString("description"));
                 usuariList.add(usuari);
                 System.out.println(usuari.getUserName());
             }
@@ -216,9 +241,40 @@ public class UsuariDAO {
      * @return Usuari amb tota la informació d'aquell Usuari
      *
      */
-    public synchronized Usuari getUsuari(String userName) {
+    public Usuari getUsuariByName(String userName) {
 
         String query = "SELECT * FROM Usuari WHERE userName = '" + userName + "';";
+        //System.out.println(query);
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String nom = resultat.getString("userName");
+                int edat = resultat.getInt("edat");
+                boolean premium = resultat.getBoolean("premium");
+                String correo = resultat.getString("correo");
+                String password = resultat.getString("password");
+                String urlFoto = resultat.getString("urlFoto");
+                String lenguaje = resultat.getString("lenguaje");
+                String description = resultat.getString("description");
+
+
+                Usuari usuari = new Usuari(nom, edat,premium,correo,password,urlFoto,lenguaje,description);
+
+                return usuari;
+
+            }
+        } catch (SQLException e) {
+            System.out.println("NOM NO TROBAT A LA BBDD");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public Usuari getUsuariByMail(String mail) {
+
+        String query = "SELECT * FROM Usuari WHERE correo = '" + mail + "';";
         //System.out.println(query);
         ResultSet resultat = dbConnector.selectQuery(query);
 

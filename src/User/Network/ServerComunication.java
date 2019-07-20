@@ -64,7 +64,7 @@ public class ServerComunication extends Thread{
     public boolean functionalities (int id, Object object1, Object object2) throws IOException {
         boolean ok = false;
         doStream.writeInt(id);
-        System.out.println(id);
+        System.out.println("fucnionalidad del ServerComunication: " + id);
 
         switch (id){
             case 1://object1 = username, object2 = password
@@ -102,8 +102,10 @@ public class ServerComunication extends Thread{
                 break;
 
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
-                doStream.writeUTF(String.valueOf(object1));
+                System.out.println("mandamos el mensaje al ds");
+                ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
+                System.out.println("mandamos el user al que va el mensaje");
                 break;
 
             case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser

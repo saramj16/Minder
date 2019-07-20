@@ -130,7 +130,7 @@ public class DedicatedServer extends Thread{
 
                     case 7://sendMessage
                         System.out.println("enviamos mensajes");
-                        String mensajeRecibido = diStream.readUTF();
+                        String mensajeRecibido = oiStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
                         System.out.println("añadimos mensaje a la bbdd");
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
@@ -147,7 +147,7 @@ public class DedicatedServer extends Thread{
                         break;
 
 
-                    /*case 10://chat mensajes
+                   /* case 10://chat mensajes
                         User user1 = (User) oiStream.readObject();
                         User user2 = (User) oiStream.readObject();
                         ooStream.writeObject(server.getMessages(user1.getUserName(), user2.getUserName()));
@@ -187,6 +187,8 @@ public class DedicatedServer extends Thread{
             sServidor.close();
             diStream.close();
             doStream.close();
+            doStream2.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

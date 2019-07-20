@@ -236,7 +236,8 @@ public class View extends JFrame {
                 jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
+                System.out.println("no hay user 0!");
             }
 
             try {
@@ -245,7 +246,8 @@ public class View extends JFrame {
                 jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("no hay user 1!");
             }
 
             try {
@@ -254,7 +256,9 @@ public class View extends JFrame {
                 jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("no hay user 2!");
+
             }
 
             try {
@@ -263,7 +267,8 @@ public class View extends JFrame {
                 jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("no hay user 3!");
             }
 
             try {
@@ -272,7 +277,8 @@ public class View extends JFrame {
                 jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+              //  e.printStackTrace();
+                System.out.println("no hay user 4!");
             }
         }else {
             jlTop1.setText("   1.- No users!");

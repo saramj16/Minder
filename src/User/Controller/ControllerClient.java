@@ -217,6 +217,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "SendMessage":
+                System.out.println("Entramos en enviar mensage -> Controlador");
                 String mensaje = (mainView.getJtfMessage().getText());
                 String chat = currentUser.getUserName() + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
@@ -230,6 +231,8 @@ public class ControllerClient implements ActionListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                autenticationView.autenticationController(this);
+
                 break;
 
 
@@ -321,9 +324,9 @@ public class ControllerClient implements ActionListener {
                 autenticationView = new AutenticationView();
                 autenticationView.autenticationController(this);
                 autenticationView.setVisible(true);
-                break;
+            break;
 
-            default: //Chat
+           /* default: //Chat
                 String mensajes = null;
                 if (event.getActionCommand().startsWith("Chat")){
                     String[] split = event.getActionCommand().split(" ");
@@ -347,7 +350,7 @@ public class ControllerClient implements ActionListener {
                         mainView.getTa().setText(" ");
                     }
                 }
-                break;
+                break;*/
         }
     }
 
@@ -559,7 +562,7 @@ public class ControllerClient implements ActionListener {
         return mensaje;
     }
 
-    private AutenticationView getAutenticationView() { return autenticationView; }
+    public AutenticationView getAutenticationView() { return autenticationView; }
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }
     private RegistrationView getRegistrationView() { return registrationView; }
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
@@ -582,4 +585,6 @@ public class ControllerClient implements ActionListener {
     public User getFirstUser() {
         return possiblesMatxs.get(0);
     }
+
+
 }

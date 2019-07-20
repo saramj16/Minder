@@ -315,6 +315,7 @@ public class Server extends Thread{
                 System.out.println("el user está conectado");
                 ds.setIfMessageArrived(currentUser, mensajeRecibido);
                 System.out.println("mensaje enviado al otro user!!");
+                break;
             }
         }
     }

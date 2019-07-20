@@ -127,7 +127,7 @@ public class View extends JFrame {
         //Panel Foto perfil
         JPanel jpProfilePic = new JPanel();
         //jpProfilePic.setBackground(Color.BLUE);
-        Image image = new ImagePanel().ImagePath(user.getUrlFoto());
+        Image image = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
         JLabel imgPanel = new JLabel(new ImageIcon(image.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
         jpProfilePic.add(imgPanel);
 
@@ -183,7 +183,11 @@ public class View extends JFrame {
         //Panel Foto perfil
         Image imatge = null;
         try {
-            imatge = new ImagePanel().ImagePath(user.getUrlFoto());
+            if(user.getUrlFoto() == null){
+                imatge = new ImagePanel().ImagePath(user.getUrlFoto());
+            } else {
+                imatge = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

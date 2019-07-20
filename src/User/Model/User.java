@@ -45,8 +45,7 @@ public class User implements Serializable {
     public void setCorreo(String correo) { this.correo = correo; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getUrlFoto() {
-        return System.getProperty("user.dir") + "/src/Server/Imatges/" + urlFoto; }
+    public String getUrlFoto() { return urlFoto; }
     public void setUrlFoto(String urlFoto) { this.urlFoto = urlFoto; }
     public String getLenguaje() { return lenguaje; }
     public void setLenguaje(String lenguaje) { this.lenguaje = lenguaje; }

@@ -430,6 +430,7 @@ public class ControllerClient implements ActionListener {
             correo = getRegistrationView().getCorreo().getText();
             urlFoto = getDemanarFoto().getPathUsuari().toString();
             nomFoto = getDemanarFoto().getNomFoto();
+            System.out.println("NOM" + nomFoto);
             lenguaje = getRegistrationView().getLenguaje();
             descripción = getRegistrationView().getDescripción().getText();
         }catch (NullPointerException | NumberFormatException e){

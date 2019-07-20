@@ -1,16 +1,11 @@
 package User.View;
 
-import Server.Model.Server;
-import Server.Model.entity.UsuariManager;
-import User.Model.Match;
-import User.Model.Mensaje;
 import User.Model.User;
+import ignore.ClosedChat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 

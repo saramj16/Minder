@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe Vista de la Finestra que permet a l'usuari fer Log In o desplegar la Finestra de registre
+ */
 public class AutenticationView extends JFrame {
     private JPanel mainPanel;
     private TextField usernameTextField;
@@ -11,11 +14,17 @@ public class AutenticationView extends JFrame {
     private JButton registerLabel;
     private JButton logInButton;
 
+    /**
+     * Constructor
+     */
     public AutenticationView(){
         configuraVentana();
         configuraCentro();
     }
 
+    /**
+     * Configuració basica de la finestra
+     */
     private void configuraVentana(){
         this.setSize(400, 300);
         this.setTitle("MINDER");
@@ -23,7 +32,10 @@ public class AutenticationView extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    private void configuraCentro(){
+    /**
+     * Configura el panell central
+     */
+    public void configuraCentro(){
         JPanel jpAuthenticate = new JPanel(new BorderLayout());
 
         mainPanel = new JPanel(new GridLayout(6, 1));
@@ -53,7 +65,7 @@ public class AutenticationView extends JFrame {
         this.add(jpAuthenticate);
     }
 
-    public void autenticationController(ActionListener controller){
+    public void registerController(ActionListener controller){
         logInButton.addActionListener(controller);
         logInButton.setActionCommand("logIn");
 

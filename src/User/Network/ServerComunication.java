@@ -13,6 +13,9 @@ import java.net.Socket;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+/**
+ * Classe network que permet la connexió del client amb el servidor
+ */
 public class ServerComunication extends Thread{
     private Socket sClient;
     private static  int port;// = 9999;
@@ -24,6 +27,11 @@ public class ServerComunication extends Thread{
     private ObjectOutputStream ooStream;
 
 
+    /**
+     * Constructor de la classe
+     * @param autenticationView
+     * @throws IOException
+     */
     public ServerComunication(AutenticationView autenticationView) throws IOException {
         //Totxaco per llegor del Json el port del servidor
         Configuracio config = new Configuracio();
@@ -47,7 +55,15 @@ public class ServerComunication extends Thread{
         start();
     }
 
-
+    /**
+     * Funcio que implementa les funcionalitats de la classe.
+     * En funcio de l'int que rebi fa una opcio o una altra
+     * @param id
+     * @param object1
+     * @param object2
+     * @return
+     * @throws IOException
+     */
     public boolean functionalities (int id, Object object1, Object object2) throws IOException {
         boolean ok = false;
         doStream.writeInt(id);
@@ -72,19 +88,19 @@ public class ServerComunication extends Thread{
                 ok = diStream.readBoolean();
                 break;
 
-            case 4://user declinado --> object1 = currentUser, object2 = likedUser
+            case 4: //user declinado --> object1 = currentUser, object2 = likedUser
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;
 
-            case 5://editar usuario --> object1 = user modificado, object2= null
+            case 5: //editar usuario --> object1 = user modificado, object2= null
                 ooStream.writeObject(object1);
                 ok = diStream.readBoolean();
                 //Aqui no lee bien la mierda esta
-                System.out.println("OK: " + ok);
+                System.out.println("Editar usuario OK: " + ok);
                 break;
 
-            case 6://refresh
+            case 6: //refresh
                 System.out.println("refresh");
                 break;
 
@@ -97,9 +113,6 @@ public class ServerComunication extends Thread{
                 System.out.println("Desfent match...");
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
-
-                /*ArrayList<Match> llistaMatches = new ArrayList<>();
-                llistaMatches = oiStream.readObject(llistaMatches);*/
                 break;
         }
 

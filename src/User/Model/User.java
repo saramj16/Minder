@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+/**
+ * Classe User. Conté tota la informació dels usuaris del programa
+ */
 public class User implements Serializable {
 
     private String userName;
@@ -18,6 +21,18 @@ public class User implements Serializable {
     private ArrayList<Match> listaMatch;
     private ArrayList<User> listaLikedUsers;
 
+
+    /**
+     * Constructor de User
+     * @param userName
+     * @param edat
+     * @param premium
+     * @param correo
+     * @param password
+     * @param urlFoto
+     * @param lenguaje
+     * @param description
+     */
     public User(String userName, int edat, boolean premium, String correo, String password,
                 String urlFoto, String lenguaje, String description){
 

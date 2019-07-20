@@ -6,12 +6,22 @@ import User.Model.User;
 
 import java.util.Date;
 
+/**
+ * Missatge amb contingut, data, emissor i receptor
+ */
 public class Missatge {
     private String missatge;
     private String userSend;
     private String userReceive;
     private Date dataMessage;
 
+    /**
+     * constructor
+     * @param missatge
+     * @param userSend
+     * @param userReceive
+     * @param dataMessage
+     */
     public Missatge(String missatge, String userSend, String userReceive, Date dataMessage) {
         this.missatge = missatge;
         this.userSend = userSend;

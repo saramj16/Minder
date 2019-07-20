@@ -14,6 +14,9 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
+/**
+ * Classe servidor dedicat que permet que el servidor atengui més d'un usuari simultàneament
+ */
 public class DedicatedServer extends Thread{
 
     //CLIENT ATRIBUTES
@@ -27,6 +30,12 @@ public class DedicatedServer extends Thread{
     private User user;
     private User mainUser;
 
+    /**
+     * Constructor del Servidor Dedicat
+     * @param socket
+     * @param server
+     * @throws IOException
+     */
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.server = server;
         sServidor = socket;
@@ -41,6 +50,9 @@ public class DedicatedServer extends Thread{
     //-------------------------------------------------------------------------------//
 
 
+    /**
+     * Inicia el Thread de funcionament del servidor dedicat
+     */
     @Override
     public void run() {
         boolean ok;
@@ -55,7 +67,7 @@ public class DedicatedServer extends Thread{
             while (running) {
                 int id = diStream.readInt();
                 switch (id) {
-                    case 1:
+                    case 1: //Comprova login --> object1 = username, object2 = password
                         String username = diStream.readUTF();
                         String password = diStream.readUTF();
 
@@ -73,7 +85,7 @@ public class DedicatedServer extends Thread{
                         }
                         break;
 
-                    case 2:
+                    case 2: //registrar usuario --> object1 = user registrandose, object2= null
                         User user = (User) oiStream.readObject();
                         ok = server.comprobarRegistro(user);
                         if (ok) {
@@ -84,7 +96,7 @@ public class DedicatedServer extends Thread{
                         sendMatches(user);
                         break;
 
-                    case 3: //user aceptado(liked)
+                    case 3: //user aceptado(liked) --> object1 = currentUser, object2 = likedUser
                         currentUser = (User) oiStream.readObject();
                         likedUser = (User) oiStream.readObject();
                         ok = server.acceptUser(currentUser, likedUser);
@@ -92,14 +104,14 @@ public class DedicatedServer extends Thread{
                         sendMatches(currentUser);
                         break;
 
-                    case 4:
+                    case 4: //user declinado --> object1 = currentUser, object2 = likedUser
                         currentUser = (User) oiStream.readObject();
                         likedUser = (User) oiStream.readObject();
                         server.declineUser(currentUser, likedUser);
                         sendMatches(currentUser);
                         break;
 
-                    case 5:
+                    case 5: //editar usuario --> object1 = user modificado, object2= null
                         user = (User) oiStream.readObject();
                         ok = server.actualizaUser(user);
                         doStream.writeBoolean(ok);
@@ -109,19 +121,18 @@ public class DedicatedServer extends Thread{
                         }
                         break;
 
-                    case 6:
-                        System.out.println("opcion 6 del ds");
+                    case 6: //refresh
                         ooStream.writeObject(server.getAllUsers());
                         break;
 
-                    case 7://sendMessage
+                    case 7://sendMessage --> obj1 = mensaje obj2 = user2 del chat
                         String mensajeRecibido = oiStream.readUTF();
                         User userRecibe = (User) oiStream.readObject();
                         server.addMensaje(mensajeRecibido, mainUser, userRecibe);
                         ok = server.isUserRecibeConnected(userRecibe, mensajeRecibido);
                         break;
 
-                    case 8: //Undo match
+                    case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser
                         User usuari = (User)oiStream.readObject();
                         User usuariChat = (User)oiStream.readObject();
                         server.deleteMatch( usuari.getUserName(),  usuariChat.getUserName());

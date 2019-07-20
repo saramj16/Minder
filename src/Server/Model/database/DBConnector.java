@@ -8,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.*;
 
+/**
+ * Classe encarregada de realitzar la connexió del servidor amb la bbdd. Per fer-ho agafa la informació
+ * del fitzer adjunt config.json
+ */
 public class DBConnector {
         private String userName;
         private String password;

@@ -1,5 +1,8 @@
 package Server.Model.configReader;
 
+/**
+ * Classe Configuració. Comprèn la informació tant del client emmagatzemada al config.json
+ */
 public class ConfigClient {
     private String ip_server;
     private String port_server;

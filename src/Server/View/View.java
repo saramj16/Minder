@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Classe View del programa servidor
+ */
 public class View extends JFrame {
     private final int WIDTH = 400;  //Amplada
     private final int HEIGHT = 300; //Alçada
@@ -37,24 +40,30 @@ public class View extends JFrame {
     private JLabel jlTop5NCops;
 
 
+    /**
+     * Constructor del view servidor
+     * @param noms
+     * @param puntuacions
+     */
     public View(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Finestra Servidor");
+        setTitle("Minder: Servidor ");
 
         tabbedPane = new JTabbedPane();
-        //tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
 
         tabbedPane.add("Evolució", getJpEvolucio());
         tabbedPane.add("Top 5 Usuaris", getJpTop5Users(noms, puntuacions));
-        //tabbedPane.add("Top 5 Users", getTop5());
-        //pack();
 
         add(tabbedPane);
         setVisible(true);
     }
 
+    /**
+     * Crea el JPanel que mostra l'evolució del nombre de Matches respecte el temps
+     * @return
+     */
     public JPanel getJpEvolucio() {
         JPanel jpChart = new JPanel();
         jpChart.setLayout(new BorderLayout());
@@ -100,6 +109,12 @@ public class View extends JFrame {
         return jpChart;
     }
 
+    /**
+     * Retorna el Top 5 dins un JPanel a col.locar a la seva corresponent pestanya
+     * @param noms
+     * @param puntuacions
+     * @return
+     */
     public JPanel getJpTop5Users(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
         JPanel jpTop5Users = new JPanel(new BorderLayout());
         JPanel jpTop5Table = new JPanel(new GridLayout(6,2, 0,0));
@@ -151,6 +166,11 @@ public class View extends JFrame {
 
     }
 
+    /**
+     * Dóna valors al Top 5
+     * @param noms
+     * @param puntuacions
+     */
     public void inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions){
         String[] nomsArr = new String[noms.size()];
         nomsArr = noms.toArray(nomsArr);
@@ -159,8 +179,8 @@ public class View extends JFrame {
         setTop5(nomsArr , puntuacionsArr);
     }
 
-    /*
-    Retorna 1 si diari, 2 si setmanal o 3 si mensual
+    /**
+    * Retorna 1 si diari, 2 si setmanal o 3 si mensual
      */
     public int getSelectedEvolution() {
         if (jrbDay.isSelected()) {
@@ -179,6 +199,10 @@ public class View extends JFrame {
     }
 
 
+    /**
+     * Configura la gràfica en posició inicial
+     * @param horesMatches
+     */
     public void setStart(int horesMatches[]) {
         chart.reset();
         repaint();
@@ -292,6 +316,10 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * Registra el controlador
+     * @param c
+     */
     public void registerController (Controller c) {
         jbVeure.setActionCommand("VEURE");
         jbVeure.addActionListener(c);

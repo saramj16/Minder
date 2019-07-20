@@ -9,11 +9,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
+/**
+ * Classe que getiona a la bbdd els missatges enviats entre dos usuaris  i
+ * s'engarrega de poder-los utilitzar al programa
+ */
 public class MissatgeDAO {
 
     private DBConnector dbConnector;
 
+    /**
+     * Constructor
+     */
     public MissatgeDAO(){
         dbConnector = DBConnector.getInstance();
 
@@ -28,15 +34,6 @@ public class MissatgeDAO {
      * @return void
      *
      */
-    /*public void addMissatge(Missatge missatge) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        String query = "INSERT INTO Missatge(missatge, userSend, dateMessage ) VALUES ('"
-                +missatge.getMissatge()+"', '"+missatge.getUserSend() + "', '" + dtf.format(now) + "');";
-        System.out.println(query);
-        DBConnector.getInstance().insertQuery(query);
-    }*/
     public void addMissatge(Missatge missatge) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();

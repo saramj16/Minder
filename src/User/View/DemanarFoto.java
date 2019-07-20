@@ -18,6 +18,9 @@ import java.sql.PreparedStatement;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+/**
+ * Classe per la Vista desplegable que ens permet seleccionar fotografies del nostre ordinador
+ */
 public class DemanarFoto extends JFrame {
     JButton button;
     JButton button2;
@@ -31,6 +34,11 @@ public class DemanarFoto extends JFrame {
     InputStream is;
     String extension;
 
+
+    /**
+     * Monta la finestra
+     * @throws IOException
+     */
     public DemanarFoto() throws IOException {
         button = new JButton("Browse");
         button.setBounds(40, 300, 100, 40);
@@ -49,6 +57,9 @@ public class DemanarFoto extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        /**
+         * Afegeix actionListner al butó BROWSE
+         */
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +86,9 @@ public class DemanarFoto extends JFrame {
             }
         });
 
+        /**
+         * Afegeix actionListner al butó ADD
+         */
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

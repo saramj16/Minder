@@ -1,7 +1,6 @@
 package User.Controller;
 
 import Server.Model.Server;
-import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -16,11 +15,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Classe controlador del client. Capta tots els events de les diferents finestres que en formen part.
+ */
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
@@ -37,6 +38,11 @@ public class ControllerClient implements ActionListener {
     private User chatUser;
     private ArrayList<User> usersILiked;
 
+    /**
+     * Constructor
+     * @param autenticationView
+     * @param networkManager
+     */
     public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
@@ -44,8 +50,11 @@ public class ControllerClient implements ActionListener {
         this.sawMatches = new ArrayList<>();
     }
 
+    /**
+     * Inicia el thread
+     */
     public void start() {
-        autenticationView.autenticationController(this);
+        autenticationView.registerController(this);
         try {
             this.connectedUsers = networkManager.getAllUsers();
         } catch (IOException | ClassNotFoundException e) {
@@ -53,6 +62,11 @@ public class ControllerClient implements ActionListener {
         }
     }
 
+    /**
+     * Capta quin actionevent es realitza i reacciona conseqüentment
+     * @param event
+     */
+    @Override
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
 
@@ -316,7 +330,7 @@ public class ControllerClient implements ActionListener {
             case "LogOut":
                 mainView.setVisible(false);
                 autenticationView = new AutenticationView();
-                autenticationView.autenticationController(this);
+                autenticationView.registerController(this);
                 autenticationView.setVisible(true);
                 break;
 

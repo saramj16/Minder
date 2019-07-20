@@ -8,11 +8,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ * Classe que gestiona la taula Usuari a la bbdd  i s'engarrega de poder-los utilitzar al programa
+ */
 public class UsuariDAO {
 
     private DBConnector dbConnector;
 
+    /**
+     * Constructor
+     */
     public UsuariDAO(){
         dbConnector = DBConnector.getInstance();
 
@@ -123,8 +128,6 @@ public class UsuariDAO {
      * @return void
      *
      */
-    //Crec que la canviare, en funcio de com fem la vista
-    //Igual es mes senzill agafar la nova info i unicament eliminar l'anterior i tornar a inserirlo
     public void modificaUsuari(Usuari u) {
         String query;
         if (u.isPremium()) {
@@ -152,7 +155,6 @@ public class UsuariDAO {
         System.out.println(username);
         System.out.println(password);
         String query = "SELECT * FROM Usuari WHERE userName = '"+username+"' AND password = '" + password + "';";
-      //  System.out.println(query);
 
         ResultSet resultat = dbConnector.selectQuery(query);
 
@@ -172,6 +174,12 @@ public class UsuariDAO {
         return false;
     }
 
+    /**
+     * Comprova que el login d'un usuari ha estat possible utilitzant com a identificador el correu enlloc del nom
+     * @param correu
+     * @param password
+     * @return
+     */
     public boolean comprovaUsuariCorreu(String correu, String password){
         System.out.println(correu);
         System.out.println(password);
@@ -272,6 +280,11 @@ public class UsuariDAO {
     }
 
 
+    /**
+     * Retorna l'usuari el qual tingui com a correu assignat a la conta el indicat per paràmetres
+     * @param mail
+     * @return
+     */
     public Usuari getUsuariByMail(String mail) {
 
         String query = "SELECT * FROM Usuari WHERE correo = '" + mail + "';";

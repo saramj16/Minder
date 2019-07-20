@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Classe que gestiona els Matx a la bbdd i s'engarrega de poder-los utilitzar al programa
+ */
 public class MatxDAO {
 
     private DBConnector dbConnector;
@@ -388,6 +390,10 @@ public class MatxDAO {
         return num;
     }
 
+    /**
+     * Retorna un Top amb els 5 usuaris més acceptats en format ArrayList de Strings
+     * @return
+     */
     public ArrayList<String> top5UsuarisMesAcceptats (){
         ArrayList<String> usuaris = new ArrayList<>(5);
         String nom;
@@ -409,6 +415,10 @@ public class MatxDAO {
         return usuaris;
     }
 
+    /**
+     * Retorna les puntuacions dels 5 usuaris més acceptats en format d'ArrayList de Integers
+     * @return
+     */
     public ArrayList<Integer> top5NAcceptacions(){
         ArrayList<Integer> numAcceptacions = new ArrayList<>(5);
         int num;

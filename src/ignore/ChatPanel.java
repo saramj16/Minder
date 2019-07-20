@@ -1,4 +1,4 @@
-package User.View;
+package ignore;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

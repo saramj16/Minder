@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+/**
+ * Classe Usuari. Conté informació basica dels usuaris del nostre programa
+ */
 public class Usuari {
 
     private String userName;
@@ -19,6 +22,14 @@ public class Usuari {
     private String lenguaje;
     private String description;
 
+    /**
+     * Costructor 1
+     * @param userName
+     * @param edat
+     * @param premium
+     * @param correo
+     * @param password
+     */
     public Usuari(String userName, int edat, boolean premium, String correo, String password) {
         this.userName = userName;
         this.edat = edat;
@@ -27,6 +38,17 @@ public class Usuari {
         this.password = password;
     }
 
+    /**
+     * Constructor 2
+     * @param userName
+     * @param edat
+     * @param premium
+     * @param correo
+     * @param password
+     * @param urlFoto
+     * @param lenguaje
+     * @param description
+     */
     public Usuari(String userName, int edat, boolean premium, String correo, String password, String urlFoto, String lenguaje, String description) {
         this.userName = userName;
         this.edat = edat;

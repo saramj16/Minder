@@ -1,5 +1,8 @@
 package User.Model.configReader;
 
+/**
+ * Classe que conté informació del Servidor emmagatzemada al config.json
+ */
 public class ConfigServer {
     private String port_bbdd;
     private String ip_bbdd;

@@ -1,16 +1,11 @@
 package User.View;
 
-import Server.Model.Server;
-import Server.Model.entity.UsuariManager;
-import User.Model.Match;
-import User.Model.Mensaje;
 import User.Model.User;
+import ignore.ClosedChat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -182,19 +177,22 @@ public class View extends JFrame {
 
         //Panel Foto perfil
         Image imatge = null;
-        try {
-            if (user != null){
-                if(user.getUrlFoto() == null){
+        if (user != null) {
+            try {
+                if (user.getUrlFoto() == null) {
                     imatge = new ImagePanel().ImagePath(user.getUrlFoto());
                 } else {
                     imatge = new ImagePanel().ImagePath(System.getProperty("user.dir") + "/src/Server/Imatges/" + user.getUrlFoto());
                 }
-
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+            }
+            try {
                 jlImage = new JLabel(new ImageIcon(imatge.getScaledInstance(300, 250, Image.SCALE_SMOOTH)));
                 jpMatches.add(jlImage);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         //general

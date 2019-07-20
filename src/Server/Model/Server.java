@@ -18,6 +18,9 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe Servidor. Inicialitza els servidors dedicats i fa de nexe entre aquests i la resta de classes del programa
+ */
 public class Server extends Thread{
     private int serverPort;
     private UsuariManager usuariManager;
@@ -26,7 +29,11 @@ public class Server extends Thread{
     private ArrayList<DedicatedServer> dedicatedServerList;
     private int port = 9999;
 
-
+    /**
+     * Constructor
+     * @param usuariManager
+     * @throws SQLException
+     */
     public Server(UsuariManager usuariManager) throws SQLException {
         this.usuariManager = usuariManager;
         this.users = getAllUsers();
@@ -54,6 +61,9 @@ public class Server extends Thread{
     //---------------------------------------------------------------------------------------//
 
 
+    /**
+     * Thread de funcionament del servidor
+     */
     public void run() {
 
         try {
@@ -81,15 +91,28 @@ public class Server extends Thread{
         }
     }
 
-
+    /**
+     * Esborra un servidor de la llista de servidors en funcionament
+     * @param dedicatedServer
+     */
     public void removeFromDedicatedList(DedicatedServer dedicatedServer) {
         dedicatedServerList.remove(dedicatedServer);
     }
 
+    /**
+     * Afegeix un usuari a la bbdd
+     * @param u
+     */
     public void addUsuari(Usuari u){
         usuariManager.addUsuari(u);
     }
 
+    /**
+     * Retorna true si existeix un usuari amb el username i contrasenya donats
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean comprobarLogIn(String username, String password){
         //System.out.println("login = true");
         try {
@@ -100,6 +123,12 @@ public class Server extends Thread{
         return false;
     }
 
+    /**
+     * Actualitza un usuari donat a la BBDD
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public boolean actualizaUser(User user) throws SQLException {
         User user1 = getUser(user.getUserName());
 
@@ -112,19 +141,26 @@ public class Server extends Thread{
         }
     }
 
+    /**
+     * Modifica els valors dels atributs d'un usuari donat
+     * @param user2modificate
+     * @param userModificated
+     */
     private void updateUser(User user2modificate, User userModificated) {
         usuariManager.modificiaUsuari(new Usuari(userModificated.getUserName(),userModificated.getEdat(),userModificated.isPremium(),
                 userModificated.getCorreo(), userModificated.getPassword(), userModificated.getUrlFoto(), userModificated.getLenguaje(), userModificated.getDescription()));
 
     }
 
+    /**
+     * Comproba que el registre d'un usuari nou compleix les condicions necessàries
+     * @param user
+     * @return
+     */
     public boolean comprobarRegistro(User user){
 
         if (!usuariManager.searchUsuari(user.getUserName())){ //Si l'usuari no existeix
 
-//NO BORREU AIXOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
-/*
 
             boolean registreOk = true;
 
@@ -177,17 +213,24 @@ public class Server extends Thread{
                 registreOk = false;
             }
 
-*/
-
-
-
-            usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(),
-                    user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription()));
-            return true;
+            if (registreOk) {
+                usuariManager.addUsuari(new Usuari(user.getUserName(), user.getEdat(), user.isPremium(), user.getCorreo(),
+                        user.getPassword(), user.getUrlFoto(), user.getLenguaje(), user.getDescription()));
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }
 
+    /**
+     * Marca a la bbdd que un usuari ha acceptat a un altre
+     * @param currentUser
+     * @param userLike
+     * @return
+     * @throws SQLException
+     */
     public boolean acceptUser(User currentUser, User userLike) throws SQLException {
         ArrayList<User> userLikeLikedUsers;
 
@@ -204,6 +247,12 @@ public class Server extends Thread{
         return false;
     }
 
+    /**
+     * Retorna un arrayList d'usuaris amb els que un usuari ha decidit que faria pràctiques
+     * @param userLike
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<User> getLikedUsers(String userLike) throws SQLException {
         ArrayList<Usuari> likedUsers = usuariManager.getUsuarisAccepted(userLike);
 
@@ -211,6 +260,12 @@ public class Server extends Thread{
 
     }
 
+    /**
+     * Retorna la llista de Matches d'un usuari en concret
+     * @param userLike
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Match> getMatchList(String userLike) throws SQLException {
         ArrayList<Matx> matches = usuariManager.getMatxedUsers(userLike);
 
@@ -225,11 +280,21 @@ public class Server extends Thread{
 
     }
 
+    /**
+     * Afegeix un nou usuari a la llista d'usuaris amb likes d'un usuari
+     * @param currentUser
+     * @param userLike
+     */
     private void addLikedUserToCurrentUser(User currentUser, User userLike) {
         usuariManager.addAccepted(currentUser.getUserName(), userLike.getUserName());
 
     }
 
+    /**
+     * Retorna tots els usuaris del programa
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<User> getAllUsers() throws SQLException {
 
         ArrayList<Usuari> usuaris;
@@ -238,6 +303,13 @@ public class Server extends Thread{
         return convertUsuaristoUsers(usuaris);
     }
 
+    /**
+     * Retorna tots els missatges entre dos usuaris en concret
+     * @param user1
+     * @param user2
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Mensaje> getMessages(String user1, String user2) throws SQLException {
 
         ArrayList<Missatge> missatges;
@@ -247,6 +319,11 @@ public class Server extends Thread{
     }
 
 
+    /**
+     * Converteix de la classe Usuari a la Classe User
+     * @param usuaris
+     * @return
+     */
     public ArrayList<User> convertUsuaristoUsers(ArrayList<Usuari> usuaris)  {
         ArrayList<User> users = new ArrayList<>();
 
@@ -260,6 +337,12 @@ public class Server extends Thread{
         return users;
     }
 
+    /**
+     * Converteix de la classe Matx a la classe Mach
+     * @param matxes
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Match> convertMatxToMach (ArrayList<Matx> matxes) throws SQLException {
         ArrayList<Match> matches = new ArrayList<>(matxes.size());
 
@@ -272,6 +355,12 @@ public class Server extends Thread{
         return matches;
     }
 
+    /**
+     * Converteix de la classe Missatge a Mensaje
+     * @param missatges
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Mensaje> convertMissatgeToMensaje (ArrayList<Missatge> missatges) throws SQLException {
         ArrayList<Mensaje> mensajes = new ArrayList<>(missatges.size());
 
@@ -284,6 +373,12 @@ public class Server extends Thread{
         return mensajes;
     }
 
+    /**
+     * Retorna un usuari en concret en base a un nom rebut
+     * @param username
+     * @return
+     * @throws SQLException
+     */
     public User getUser(String username) throws SQLException {
 
        Usuari u = usuariManager.getUsuari(username);
@@ -294,16 +389,31 @@ public class Server extends Thread{
        return user;
     }
 
+    /**
+     * Marca un usuari com a no acceptat per un altre
+     * @param currentUser
+     * @param declinedUser
+     */
     public void declineUser(User currentUser, User declinedUser) {
         usuariManager.addVist(currentUser.getUserName(),declinedUser.getUserName());
     }
 
+    /**
+     * Anuncia canvis produits per un usuari a tots els servidors dedicats
+     * @param user
+     */
     public void announceChanges(User user) {
         for (DedicatedServer ds : dedicatedServerList){
             ds.anounceChanges(user);
         }
     }
 
+    /**
+     * Afegeix un missatge nou entre dos usuaris
+     * @param mensajeRecibido
+     * @param currentUser
+     * @param userRecibe
+     */
     public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
         System.out.println("mensaje añadido");
@@ -320,6 +430,11 @@ public class Server extends Thread{
         }
     }
 
+    /**
+     * Esborra un match entre dos usuaris concrets
+     * @param u1
+     * @param u2
+     */
     public void deleteMatch(String u1, String u2) {
         usuariManager.deleteMatch(u1, u2);
     }

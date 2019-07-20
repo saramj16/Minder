@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Classe View del programa servidor
+ */
 public class View extends JFrame {
     private final int WIDTH = 400;  //Amplada
     private final int HEIGHT = 300; //Alçada
@@ -22,6 +25,8 @@ public class View extends JFrame {
     private JLabel jlInfo;
 
 
+    private JButton jbRefresh;
+
     private JLabel jlTop1;
     private JLabel jlTop2;
     private JLabel jlTop3;
@@ -35,24 +40,30 @@ public class View extends JFrame {
     private JLabel jlTop5NCops;
 
 
+    /**
+     * Constructor del view servidor
+     * @param noms
+     * @param puntuacions
+     */
     public View(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Finestra Servidor");
+        setTitle("Minder: Servidor ");
 
         tabbedPane = new JTabbedPane();
-        //tabbedPane.setBounds(0,0, WIDTH, HEIGHT);
 
         tabbedPane.add("Evolució", getJpEvolucio());
         tabbedPane.add("Top 5 Usuaris", getJpTop5Users(noms, puntuacions));
-        //tabbedPane.add("Top 5 Users", getTop5());
-        //pack();
 
         add(tabbedPane);
         setVisible(true);
     }
 
+    /**
+     * Crea el JPanel que mostra l'evolució del nombre de Matches respecte el temps
+     * @return
+     */
     public JPanel getJpEvolucio() {
         JPanel jpChart = new JPanel();
         jpChart.setLayout(new BorderLayout());
@@ -98,41 +109,55 @@ public class View extends JFrame {
         return jpChart;
     }
 
+    /**
+     * Retorna el Top 5 dins un JPanel a col.locar a la seva corresponent pestanya
+     * @param noms
+     * @param puntuacions
+     * @return
+     */
     public JPanel getJpTop5Users(ArrayList<String> noms, ArrayList<Integer> puntuacions) {
-        JPanel jpTop5Users = new JPanel(new GridLayout(6,2, 0,0));
-        //jpTop5Users.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
+        JPanel jpTop5Users = new JPanel(new BorderLayout());
+        JPanel jpTop5Table = new JPanel(new GridLayout(6,2, 0,0));
+        jbRefresh = new JButton("Actualitza");
+        JPanel jpRefresh = new JPanel(new BorderLayout());
+        jpRefresh.add(jbRefresh, BorderLayout.EAST);
+        JLabel jlTopTitol = new JLabel("                    Top 5 usuaris més acceptats");
+        jpRefresh.add(jlTopTitol, BorderLayout.CENTER);
+        jpTop5Users.add(jpTop5Table, BorderLayout.CENTER);
+        jpTop5Users.add(jpRefresh, BorderLayout.NORTH);
+        //jpTop5Table.setBorder(BorderFactory.createEmptyBorder(,2,2,2));
 
         JLabel jlUsuari = new JLabel("  Usuari:");
         jlUsuari.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jpTop5Users.add(jlUsuari);
+        jpTop5Table.add(jlUsuari);
         JLabel jlNCopsAcceptat = new JLabel(("  Nombre de cops acceptat"));
         jlNCopsAcceptat.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jpTop5Users.add(jlNCopsAcceptat);
+        jpTop5Table.add(jlNCopsAcceptat);
 
         jlTop1 = new JLabel("");
         jlTop1NCops = new JLabel("");
-        jpTop5Users.add(jlTop1);
-        jpTop5Users.add(jlTop1NCops);
+        jpTop5Table.add(jlTop1);
+        jpTop5Table.add(jlTop1NCops);
 
         jlTop2 = new JLabel("");
         jlTop2NCops = new JLabel("");
-        jpTop5Users.add(jlTop2);
-        jpTop5Users.add(jlTop2NCops);
+        jpTop5Table.add(jlTop2);
+        jpTop5Table.add(jlTop2NCops);
 
         jlTop3 = new JLabel("");
         jlTop3NCops = new JLabel("");
-        jpTop5Users.add(jlTop3);
-        jpTop5Users.add(jlTop3NCops);
+        jpTop5Table.add(jlTop3);
+        jpTop5Table.add(jlTop3NCops);
 
         jlTop4 = new JLabel("");
         jlTop4NCops = new JLabel("");
-        jpTop5Users.add(jlTop4);
-        jpTop5Users.add(jlTop4NCops);
+        jpTop5Table.add(jlTop4);
+        jpTop5Table.add(jlTop4NCops);
 
         jlTop5 = new JLabel("");
         jlTop5NCops = new JLabel("");
-        jpTop5Users.add(jlTop5);
-        jpTop5Users.add(jlTop5NCops);
+        jpTop5Table.add(jlTop5);
+        jpTop5Table.add(jlTop5NCops);
 
         //inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions)
         inicialitzaTop5(noms, puntuacions);
@@ -141,9 +166,12 @@ public class View extends JFrame {
 
     }
 
+    /**
+     * Dóna valors al Top 5
+     * @param noms
+     * @param puntuacions
+     */
     public void inicialitzaTop5 (ArrayList<String> noms, ArrayList<Integer> puntuacions){
-        //String[] testTop5 = {"Sara", "Manel", "Javo", "Marcel", "Jofre"};   //TEST
-        //Integer[] testTop5NCops = {53,43,24,15,8};                          //TEST
         String[] nomsArr = new String[noms.size()];
         nomsArr = noms.toArray(nomsArr);
         Integer[] puntuacionsArr = new Integer[puntuacions.size()];
@@ -151,8 +179,8 @@ public class View extends JFrame {
         setTop5(nomsArr , puntuacionsArr);
     }
 
-    /*
-    Retorna 1 si diari, 2 si setmanal o 3 si mensual
+    /**
+    * Retorna 1 si diari, 2 si setmanal o 3 si mensual
      */
     public int getSelectedEvolution() {
         if (jrbDay.isSelected()) {
@@ -171,6 +199,10 @@ public class View extends JFrame {
     }
 
 
+    /**
+     * Configura la gràfica en posició inicial
+     * @param horesMatches
+     */
     public void setStart(int horesMatches[]) {
         chart.reset();
         repaint();
@@ -290,10 +322,16 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * Registra el controlador
+     * @param c
+     */
     public void registerController (Controller c) {
         jbVeure.setActionCommand("VEURE");
         jbVeure.addActionListener(c);
 
+        jbRefresh.setActionCommand("ACTUALITZA");
+        jbRefresh.addActionListener(c);
 
     }
 }

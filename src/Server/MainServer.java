@@ -13,10 +13,16 @@ import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe main del programa servidor
+ */
 public class MainServer {
 
 
-
+    /**
+     * Cosntructor del main
+     * @param args
+     */
     public static void main(String[] args){
         Server server = null;
         // ServerNetworkManager networkManager = null;

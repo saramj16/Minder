@@ -17,11 +17,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Classe controlador del client. Capta tots els events de les diferents finestres que en formen part.
+ */
 public class ControllerClient implements ActionListener {
     private AutenticationView autenticationView;
     private RegistrationView registrationView;
@@ -47,8 +49,11 @@ public class ControllerClient implements ActionListener {
        // this.connectivity = new Connectivity(ServerComunication.getIp(), ServerComunication.getPort(), this);
     }
 
+    /**
+     * Inicia el thread
+     */
     public void start() {
-        autenticationView.autenticationController(this);
+        autenticationView.registerController(this);
         try {
             this.connectedUsers = networkManager.getAllUsers();
         } catch (IOException | ClassNotFoundException e) {
@@ -56,6 +61,11 @@ public class ControllerClient implements ActionListener {
         }
     }
 
+    /**
+     * Capta quin actionevent es realitza i reacciona conseqüentment
+     * @param event
+     */
+    @Override
     public void actionPerformed(ActionEvent event){
         boolean ok = false;
 
@@ -322,7 +332,7 @@ public class ControllerClient implements ActionListener {
             case "LogOut":
                 mainView.setVisible(false);
                 autenticationView = new AutenticationView();
-                autenticationView.autenticationController(this);
+                autenticationView.registerController(this);
                 autenticationView.setVisible(true);
             break;
 
@@ -508,7 +518,7 @@ public class ControllerClient implements ActionListener {
         password = getEditProfileView().getPasswordTextField().getText();
         edat = (int) getEditProfileView().getJsEdat().getValue();
         correo = getEditProfileView().getJtfCorreu().getText();
-        urlFoto = getDemanarFoto().getPathUsuari().toString();
+        //urlFoto = getDemanarFoto().getPathUsuari().toString();
 
         if (getEditProfileView().getJrbC().isSelected()){
             if (getEditProfileView().getJrbJava().isSelected()){
@@ -529,7 +539,12 @@ public class ControllerClient implements ActionListener {
         descripcion = getEditProfileView().getJtfDescription().getText();
         isPremium = getEditProfileView().getJcbPremium().isEnabled();
 
-        nomFoto = getDemanarFoto().getNomFoto();
+        try {
+            nomFoto = getDemanarFoto().getNomFoto();
+        } catch (NullPointerException e) {
+            //No s'ha canviat la fotillo
+            nomFoto = u.getUrlFoto();
+        }
 
         User user = new User( u.getUserName(),edat,isPremium,correo, password, nomFoto, lenguaje, descripcion);
 

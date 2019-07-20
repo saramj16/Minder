@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Classe que gestiona els Matx a la bbdd i s'engarrega de poder-los utilitzar al programa
+ */
 public class MatxDAO {
 
     private DBConnector dbConnector;

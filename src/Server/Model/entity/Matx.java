@@ -2,6 +2,11 @@ package Server.Model.entity;
 
 import java.util.Date;
 
+/**
+ * Classe Match (No escrivim match perquè ens genera errors ja que és una paraula clau)
+ * Indica que dos usuaris han estat acceptats mutuament i que volen chatejar. Pot ser desfer si un dels dos
+ * usuaris ho desitja.
+ */
 public class Matx {
     private String user1;
     private String user2;
@@ -10,6 +15,15 @@ public class Matx {
     private boolean vist;
     private Date dataMatch;
 
+    /**
+     * Constructor
+     * @param user1
+     * @param user2
+     * @param matx
+     * @param accept
+     * @param vist
+     * @param dataMatch
+     */
     public Matx(String user1, String user2, boolean matx, boolean accept, boolean vist, Date dataMatch) {
         this.user1 = user1;
         this.user2 = user2;

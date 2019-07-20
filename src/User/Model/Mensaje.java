@@ -3,6 +3,9 @@ package User.Model;
 
 import java.io.Serializable;
 
+/**
+ * Classe missatge. Conté informació necessària per a l'implementació del chat
+ */
 public class Mensaje implements Serializable {
     private String mensaje;
     private User userSend;

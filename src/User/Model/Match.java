@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
+/**
+ * Classe Match. Necessària per establir relacions entre usuaris i poder xatejar
+ */
 public class Match implements Serializable {
     private User user1;
     private User user2;

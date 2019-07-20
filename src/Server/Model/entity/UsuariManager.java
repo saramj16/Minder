@@ -44,8 +44,11 @@ public class UsuariManager {
         usuariDAO.deleteUsuari(nom);
     }
 
+
     public boolean comprovaLogin(String username, String password) throws SQLException {
-       return usuariDAO.comprovaUsuari(username,password);
+        boolean isLoginOk =((usuariDAO.comprovaUsuari(username,password)) ||  (usuariDAO.comprovaUsuariCorreu(username,password)));
+        System.out.println("isLoginOk: "+isLoginOk);
+        return isLoginOk;
     }
 
     public ArrayList<Usuari> getAllUsuari() {
@@ -66,7 +69,11 @@ public class UsuariManager {
     }
 
     public Usuari getUsuari(String userName) {
-        return usuariDAO.getUsuari(userName);
+        Usuari u = usuariDAO.getUsuariByName(userName);
+        if ( u == null) {
+            u = usuariDAO.getUsuariByMail(userName);
+        }
+        return u;
     }
 
     public void addAccepted(String user1, String user2){

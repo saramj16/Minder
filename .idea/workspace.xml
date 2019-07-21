@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c698fea7-d226-4f24-a72a-4db1bfc0e093" name="Default Changelist" comment="Millora de Profile (VISTA)">
-      <change beforePath="$PROJECT_DIR$/.idea/Minder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Minder.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6__2_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_persistence.xml" beforeDir="false" />
+    <list default="true" id="c698fea7-d226-4f24-a72a-4db1bfc0e093" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Model/database/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Model/database/DBConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Model/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-234">
-              <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+            <state relative-caret-position="406">
+              <caret line="443" column="50" selection-start-line="443" selection-start-column="27" selection-end-line="443" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -33,35 +29,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/UsuariManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+            <state relative-caret-position="471">
+              <caret line="252" column="45" selection-start-line="252" selection-start-column="45" selection-end-line="252" selection-end-column="45" />
+              <folding>
+                <element signature="e#7529#7530#0" expanded="true" />
+                <element signature="e#7579#7580#0" expanded="true" />
+                <element signature="e#7647#7648#0" expanded="true" />
+                <element signature="e#7701#7702#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/User/View/RegistrationView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="624">
+              <caret line="160" selection-start-line="160" selection-end-line="160" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/UsuariDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4031">
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/UsuariDAO.java">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/MatxDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="128" selection-start-line="127" selection-start-column="21" selection-end-line="128" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User/Controller/ControllerClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User/View/ImagePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="542">
+              <caret line="465" column="24" lean-forward="true" selection-start-line="465" selection-start-column="24" selection-end-line="465" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -69,33 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/User/View/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="111" selection-start-line="111" selection-end-line="111" />
-              <folding>
-                <element signature="e#8374#8375#0" expanded="true" />
-                <element signature="e#8408#8409#0" expanded="true" />
-                <element signature="e#8460#8461#0" expanded="true" />
-                <element signature="e#8506#8507#0" expanded="true" />
-                <element signature="e#8547#8548#0" expanded="true" />
-                <element signature="e#8580#8581#0" expanded="true" />
-                <element signature="e#8636#8637#0" expanded="true" />
-                <element signature="e#8680#8681#0" expanded="true" />
-                <element signature="e#8718#8719#0" expanded="true" />
-                <element signature="e#8752#8753#0" expanded="true" />
-                <element signature="e#8806#8807#0" expanded="true" />
-                <element signature="e#8852#8853#0" expanded="true" />
-                <element signature="e#8884#8885#0" expanded="true" />
-                <element signature="e#8909#8910#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User/View/EditProfile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+            <state relative-caret-position="624">
+              <caret line="407" selection-start-line="407" selection-end-line="407" />
             </state>
           </provider>
         </entry>
@@ -103,8 +80,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Model/database/DBConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+            <state relative-caret-position="564">
+              <caret line="125" selection-start-line="125" selection-end-line="125" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/User/MainUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -112,17 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/User/Network/ServerComunication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1428">
-              <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User/Model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+            <state relative-caret-position="-2571">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -139,8 +125,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="manellopez2015 &lt;manel.lf@students.salle.url.edu&gt;" />
         <option value="manellopez2015 &lt;manellopez.alu@gmail.com&gt;" />
+        <option value="manellopez2015 &lt;manel.lf@students.salle.url.edu&gt;" />
         <option value="manellopez2015 &lt;manel.lf@students.salle.url.edu&gt;mI" />
         <option value="Manel &lt;manellopez.alu@gmail.com&gt;" />
       </list>
@@ -154,21 +140,37 @@
         <option value="$PROJECT_DIR$/src/Server/Model/EditProfile.java" />
         <option value="$PROJECT_DIR$/src/View/Profile.java" />
         <option value="$PROJECT_DIR$/src/View/View.java" />
-        <option value="$PROJECT_DIR$/src/User/MainUser.java" />
         <option value="$PROJECT_DIR$/src/Server/View/BarChart.java" />
         <option value="$PROJECT_DIR$/src/Server/MainServer.java" />
         <option value="$PROJECT_DIR$/src/Server/View/GraficaBarres.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Controller.java" />
         <option value="$PROJECT_DIR$/src/Server/View/View.java" />
-        <option value="$PROJECT_DIR$/src/User/View/RegistrationView.java" />
-        <option value="$PROJECT_DIR$/src/User/View/AutenticationView.java" />
-        <option value="$PROJECT_DIR$/src/Server/Model/database/dao/UsuariDAO.java" />
         <option value="$PROJECT_DIR$/src/Network/ServerNetworkManager.java" />
-        <option value="$PROJECT_DIR$/src/User/View/View.java" />
-        <option value="$PROJECT_DIR$/src/User/Controller/ControllerClient.java" />
-        <option value="$PROJECT_DIR$/src/User/View/ImagePanel.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/database/dao/MatxDAO.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/database/dao/MissatgeDAO.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/database/dao/UsuariDAO.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/database/DBConnector.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/entity/Matx.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/entity/Missatge.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/entity/Usuari.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/entity/UsuariManager.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Server.java" />
+        <option value="$PROJECT_DIR$/src/Server/Network/DedicatedServer.java" />
+        <option value="$PROJECT_DIR$/src/User/Controller/ControllerClient.java" />
+        <option value="$PROJECT_DIR$/src/User/Model/Connectivity.java" />
+        <option value="$PROJECT_DIR$/src/User/Model/Match.java" />
+        <option value="$PROJECT_DIR$/src/User/Model/Mensaje.java" />
+        <option value="$PROJECT_DIR$/src/User/Model/User.java" />
+        <option value="$PROJECT_DIR$/src/User/Network/ServerComunication.java" />
+        <option value="$PROJECT_DIR$/src/User/View/AutenticationView.java" />
+        <option value="$PROJECT_DIR$/src/User/View/DemanarFoto.java" />
         <option value="$PROJECT_DIR$/src/User/View/EditProfile.java" />
+        <option value="$PROJECT_DIR$/src/User/View/ImagePanel.java" />
+        <option value="$PROJECT_DIR$/src/User/View/RegistrationView.java" />
+        <option value="$PROJECT_DIR$/src/User/View/View.java" />
+        <option value="$PROJECT_DIR$/src/User/MainUser.java" />
+        <option value="$PROJECT_DIR$/data/config.json" />
       </list>
     </option>
   </component>
@@ -185,8 +187,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="170" />
-    <option name="y" value="15" />
+    <option name="x" value="241" />
+    <option name="y" value="22" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
@@ -198,53 +200,49 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="configReader" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
@@ -252,45 +250,22 @@
               <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="View" type="462c0819:PsiDirectoryNode" />
+              <item name="Network" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
+              <item name="Minder-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Minder-master" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="User" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="User" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="User" type="462c0819:PsiDirectoryNode" />
-              <item name="Imatges" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Minder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Minder" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="User" type="462c0819:PsiDirectoryNode" />
-              <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -298,7 +273,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556093426009" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-5.1.47-bin.jar!/" />
+    <property name="last_opened_file_path" value="D:/Uni/Minder-master" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -315,7 +290,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.MainUser">
+  <component name="RunManager" selected="Application.MainServer">
     <configuration name="MainServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Server.MainServer" />
       <module name="Minder" />
@@ -348,8 +323,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainUser" />
         <item itemvalue="Application.MainServer" />
+        <item itemvalue="Application.MainUser" />
       </list>
     </recent_temporary>
   </component>
@@ -520,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560866245371</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="pa ti javo">
+      <created>1563725718170</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1563725718170</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -528,9 +510,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29127517" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.295302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -539,7 +520,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26628897" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.0509915" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -587,7 +568,8 @@
     <MESSAGE value="test 4" />
     <MESSAGE value="test 5" />
     <MESSAGE value="2 funcions més a la vista" />
-    <option name="LAST_COMMIT_MESSAGE" value="2 funcions més a la vista" />
+    <MESSAGE value="pa ti javo" />
+    <option name="LAST_COMMIT_MESSAGE" value="pa ti javo" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -618,41 +600,10 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml~origin_master" />
     <entry file="file://$PROJECT_DIR$/src/Server/Model/EditProfile.java" />
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.desktop/java/awt/Window.java" />
-    <entry file="file://$PROJECT_DIR$/src/configReader/Configuration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/configReader/ConfigClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/configReader/ConfigServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Network/NetworkManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/MatxDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/configReader/Configuration.java" />
+    <entry file="file://$PROJECT_DIR$/src/configReader/ConfigClient.java" />
+    <entry file="file://$PROJECT_DIR$/src/configReader/ConfigServer.java" />
+    <entry file="file://$PROJECT_DIR$/src/Network/NetworkManager.java" />
     <entry file="file://$PROJECT_DIR$/src/Server/View/GraficaBarres.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -664,23 +615,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/View/ClosedChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Controller.java" />
+    <entry file="file://$PROJECT_DIR$/src/User/View/ClosedChat.java" />
     <entry file="file://$PROJECT_DIR$/src/Server/View/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
@@ -691,138 +627,202 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Network/ClientNetworkManager.java">
+    <entry file="file://$PROJECT_DIR$/src/Network/ClientNetworkManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/Network/ServerNetworkManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+        <state relative-caret-position="391">
+          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/View/AutenticationView.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/MissatgeDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="35" column="64" lean-forward="true" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
+        <state relative-caret-position="1292">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/View/RegistrationView.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/Matx.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="64" selection-start-line="64" selection-end-line="65" selection-end-column="64" />
+        <state relative-caret-position="624">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/Missatge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/Usuari.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="624">
+          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Network/DedicatedServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="239" column="1" selection-start-line="239" selection-start-column="1" selection-end-line="239" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/MainServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="-124">
           <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/MainUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/UsuariManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Network/ServerNetworkManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/Model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-234">
-          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/View/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="111" selection-start-line="111" selection-end-line="111" />
-          <folding>
-            <element signature="e#8374#8375#0" expanded="true" />
-            <element signature="e#8408#8409#0" expanded="true" />
-            <element signature="e#8460#8461#0" expanded="true" />
-            <element signature="e#8506#8507#0" expanded="true" />
-            <element signature="e#8547#8548#0" expanded="true" />
-            <element signature="e#8580#8581#0" expanded="true" />
-            <element signature="e#8636#8637#0" expanded="true" />
-            <element signature="e#8680#8681#0" expanded="true" />
-            <element signature="e#8718#8719#0" expanded="true" />
-            <element signature="e#8752#8753#0" expanded="true" />
-            <element signature="e#8806#8807#0" expanded="true" />
-            <element signature="e#8852#8853#0" expanded="true" />
-            <element signature="e#8884#8885#0" expanded="true" />
-            <element signature="e#8909#8910#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/View/ImagePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/database/DBConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/User/Controller/ControllerClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
+        <state relative-caret-position="624">
+          <caret line="611" column="1" selection-start-line="611" selection-start-column="1" selection-end-line="611" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/Network/ServerComunication.java">
+    <entry file="file://$PROJECT_DIR$/src/User/Model/Connectivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
+        <state relative-caret-position="624">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/Model/Match.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/Model/Mensaje.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/Model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/View/AutenticationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/View/DemanarFoto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="34" column="21" lean-forward="true" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+          <folding>
+            <element signature="e#1609#2838#0" expanded="true" />
+            <element signature="e#2837#2838#0" expanded="true" />
+            <element signature="e#2945#4428#0" expanded="true" />
+            <element signature="e#4427#4428#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/User/View/EditProfile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+        <state relative-caret-position="624">
+          <caret line="207" selection-start-line="207" selection-end-line="207" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/View/ImagePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="46" column="1" selection-start-line="46" selection-start-column="1" selection-end-line="46" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/View/RegistrationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="160" selection-start-line="160" selection-end-line="160" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/View/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="407" selection-start-line="407" selection-end-line="407" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/MainUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/Network/ServerComunication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2571">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/UsuariDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="128" selection-start-line="127" selection-start-column="21" selection-end-line="128" />
+        <state relative-caret-position="-4031">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/entity/UsuariManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="252" column="45" selection-start-line="252" selection-start-column="45" selection-end-line="252" selection-end-column="45" />
+          <folding>
+            <element signature="e#7529#7530#0" expanded="true" />
+            <element signature="e#7579#7580#0" expanded="true" />
+            <element signature="e#7647#7648#0" expanded="true" />
+            <element signature="e#7701#7702#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="443" column="50" selection-start-line="443" selection-start-column="27" selection-end-line="443" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/database/DBConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="564">
+          <caret line="125" selection-start-line="125" selection-end-line="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/database/dao/MatxDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="465" column="24" lean-forward="true" selection-start-line="465" selection-start-column="24" selection-end-line="465" selection-end-column="24" />
         </state>
       </provider>
     </entry>

@@ -4,7 +4,7 @@
 		"ip_bbdd": "jdbc:mysql://localhost",
 		"name_bbdd": "minder",
 		"username_bbdd": "root",
-		"password_bbdd": "admin",
+		"password_bbdd": "5432",
 		"port_client": "9999"
 	},
 	"configClient": {

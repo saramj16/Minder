@@ -10,7 +10,7 @@ import User.Model.configReader.Configuracio;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.Blob;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -181,5 +181,27 @@ public class ServerComunication extends Thread{
         ArrayList<Mensaje> m = (ArrayList<Mensaje>) oiStream.readObject();
 
         return m;
+    }
+
+    public ArrayList<String> getAcceptedUsers(User currentUser){
+        Connection con;
+        String nom;
+        String query1  = "SELECT user2 FROM Matx WHERE user1 = '"+ currentUser.getUserName() +"' AND accept = 1;";
+        ArrayList<String> llista = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/minder","root","5432");
+            PreparedStatement ps = con.prepareStatement(query1);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) { nom = resultSet.getString("user2");
+                System.out.println(nom);
+                llista.add(nom);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i<llista.size(); i++){
+            System.out.println("NOM" + llista.get(i));
+        }
+        return llista;
     }
 }

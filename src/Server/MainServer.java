@@ -41,6 +41,8 @@ public class MainServer {
             e.printStackTrace();
         }
 
+
+
         Configuracio config;
         Gson gson = new Gson();
         JsonReader jReader;         //Lector

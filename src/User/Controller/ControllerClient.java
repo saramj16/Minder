@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -28,7 +29,6 @@ public class ControllerClient implements ActionListener {
     private ServerComunication networkManager;
     private DemanarFoto demanarFoto;
     private View mainView;
-    private Server server;
     private User currentUser;
     private ArrayList<User> connectedUsers;
     private EditProfile editProfile;
@@ -36,7 +36,6 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> sawMatches;
     private ArrayList<Match> matches;
     private User chatUser;
-    private ArrayList<User> usersILiked;
 
     /**
      * Constructor
@@ -94,7 +93,7 @@ public class ControllerClient implements ActionListener {
                             e.printStackTrace();
                         }
                         System.out.println("Current user = " + currentUser.getUserName());
-                        possiblesMatxs = ordenaUsuarios(currentUser);
+                        possiblesMatxs = ordenaUsuarios(currentUser, networkManager);
                         try {
                             startMainView(currentUser);
                         } catch (IOException | ClassNotFoundException e) {
@@ -200,7 +199,7 @@ public class ControllerClient implements ActionListener {
                             /*possiblesMatxs = ordenaUsuarios(currentUser);
                             editProfile.setVisible(false);
                             startMainView(currentUser);*/
-                            possiblesMatxs = ordenaUsuarios(currentUser);
+                            possiblesMatxs = ordenaUsuarios(currentUser, networkManager);
                             if (possiblesMatxs.size() != 0){
                                 mainView.setUserLooking(possiblesMatxs.get(0));
                                 try {
@@ -292,7 +291,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "Refresh":
-                ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser);
+                ArrayList<User> newPossiblesMatxs = ordenaUsuarios(currentUser, networkManager);
 
                 for (User sm : sawMatches) {
                     for (int j = 0; j < newPossiblesMatxs.size(); j++) {
@@ -374,11 +373,11 @@ public class ControllerClient implements ActionListener {
         mainView.setVisible(true);
     }
 
-    private ArrayList<User> ordenaUsuarios(User user) {
-
+    private ArrayList<User> ordenaUsuarios(User user, ServerComunication networkManager) {
+        ArrayList<String> usersILike = networkManager.getAcceptedUsers(user);
         ArrayList<User> allUsers = connectedUsers;
         ArrayList<User> usuarios = new ArrayList<>();
-        int trobat;
+        int trobat = 0;
         for (User allUser : allUsers) {
             trobat = 0;
             for (int i = 0; i < user.getListaMatch().size(); i++) {
@@ -389,32 +388,35 @@ public class ControllerClient implements ActionListener {
                     trobat = 1;
                 }
             }
-            System.out.println("SIZE: " + user.getListaLikedUsers().size());
-            for (int j = 0; j < user.getListaLikedUsers().size(); j++){
-                System.out.println("LIKE:" + user.getListaLikedUsers().get(j).getUserName());
-                if(allUser.getUserName().equals(user.getListaLikedUsers().get(j).getUserName())){
+            System.out.println("SIZE: " + usersILike.size());
+            for (int j = 0; j < usersILike.size(); j++){
+                System.out.println("LIKE:" + usersILike.get(j));
+                if(allUser.getUserName().equals(usersILike.get(j))){
                     trobat = 1;
                 }
             }
+            ArrayList<String> likeByUsers = networkManager.getAcceptedUsers(allUser);
             System.out.println("trobat =" + trobat);
             if (trobat == 0) {
                 if (user.isPremium()) {
-                    for (int k = 0; k < allUser.getListaLikedUsers().size(); k++) {
-                        //System.out.println("listaliked = " + user.getListaLikedUsers().get(j));
-                        if (user.getUserName().equals(allUser.getListaLikedUsers().get(k).getUserName())) {
+                    trobat = 2;
+                    for(int k = 0; k < likeByUsers.size(); k++){
+                        if(user.getUserName().equals(likeByUsers.get(k))){
                             usuarios.add(allUser);
-                            trobat = 1;
                         }
-                    }
-                    if (trobat == 0 && !allUser.getUserName().equals(user.getUserName()) && allUser.getLenguaje().equals(user.getLenguaje())) {
-                        usuarios.add(allUser);
-                        System.out.println("ENTRA");
                     }
                 } else {
                     //System.out.println("llenguatge = " + allUsers.get(i).getLenguaje());
                     if ((allUser.getLenguaje().equals(user.getLenguaje())) && !(allUser.getUserName().equals(user.getUserName()))) {
                         usuarios.add(allUser);
                     }
+                }
+            }
+        }
+        if(trobat == 2){
+            for (User allUser2 : allUsers) {
+                if(!usuarios.contains(allUser2) && allUser2.getLenguaje().equals(user.getLenguaje()) && !allUser2.getUserName().equals(user.getUserName())){
+                    usuarios.add(allUser2);
                 }
             }
         }
@@ -560,8 +562,6 @@ public class ControllerClient implements ActionListener {
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }
     private RegistrationView getRegistrationView() { return registrationView; }
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }
-    public Server getServer() { return server; }
-    public void setServer(Server server) { this.server = server; }
     private DemanarFoto getDemanarFoto() {
         return demanarFoto;
     }

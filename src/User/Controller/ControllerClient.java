@@ -379,6 +379,11 @@ public class ControllerClient implements ActionListener {
         mainView.setVisible(true);
     }
 
+    /**
+     * Ordena els usuaris per fer la llista de possibles matxs
+     * @param user
+     * @param networkManager
+     */
     private ArrayList<User> ordenaUsuarios(User user, ServerComunication networkManager) {
         ArrayList<String> usersILike = networkManager.getAcceptedUsers(user);
         ArrayList<User> allUsers = connectedUsers;

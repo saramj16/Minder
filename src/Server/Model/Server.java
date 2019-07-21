@@ -68,6 +68,7 @@ public class Server extends Thread{
 
         try {
             ServerSocket sServer = new ServerSocket(port);
+            ServerSocket sServer2 = new ServerSocket(port+10);
 
             addUsuari(new Usuari("Jofre", 25, true, "jofre@minder.com", "jofre","", "Java", "pene"));
             addUsuari(new Usuari("Sara", 20, true, "sara@minder.com", "sara", "", "C", "pene"));
@@ -77,7 +78,8 @@ public class Server extends Thread{
 
             while (running) {
                 Socket sClient = sServer.accept();
-                DedicatedServer ds = new DedicatedServer(sClient, this);
+                Socket sClient2 = sServer2.accept();
+                DedicatedServer ds = new DedicatedServer(sClient, this, usuariManager, sClient2);
                 dedicatedServerList.add(ds);
             }
             sServer.close();
@@ -414,22 +416,18 @@ public class Server extends Thread{
      */
     public void addMensaje(String mensajeRecibido, User currentUser, User userRecibe) {
         usuariManager.afegeixMissatge(currentUser.getUserName(), userRecibe.getUserName(), mensajeRecibido);
+        System.out.println("mensaje añadido");
     }
 
-    /**
-     * Retorna true si el usuari receptor d'un missatge està connectat
-     * @param userRecibe
-     * @param mensajeRecibido
-     * @return
-     */
-    public boolean isUserRecibeConnected(User userRecibe, String mensajeRecibido) {
+    public void isUserRecibeConnected(User userRecibe, User currentUser, String mensajeRecibido) throws IOException {
         for (DedicatedServer ds : dedicatedServerList){
-            if (ds.getMainUser().getUserName().equals(userRecibe)){
-            //    ds.updateChat
-                return true;
+            if (ds.getMainUser().getUserName().equals(userRecibe.getUserName())){
+                System.out.println("el user está conectado");
+                ds.setIfMessageArrived(currentUser, mensajeRecibido);
+                System.out.println("mensaje enviado al otro user!!");
+                break;
             }
         }
-        return false;
     }
 
     /**

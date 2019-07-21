@@ -54,7 +54,7 @@ public class MissatgeDAO {
      * @return ArrayList<Missatge> llista amb tots els missatges que ha enviat userSend a userRecive
      *
      */
-    public ArrayList<Missatge> llistaMissatges (String userSend, String userRecive){
+    public synchronized ArrayList<Missatge> llistaMissatges (String userSend, String userRecive){
 
         String query = "SELECT * FROM Missatge WHERE userSend = '"+ userSend +"' AND userReceive = '" + userRecive + "';";
 

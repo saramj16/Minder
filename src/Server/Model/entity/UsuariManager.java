@@ -128,13 +128,7 @@ public class UsuariManager {
         matxDAO.addVist(user1,user2);
     }
 
-    /**
-     * Afegeix un match nou entre dos usuaris
-     * @param user1
-     * @param user2
-     * @return
-     */
-    public boolean addMatx (String user1, String user2){
+    public synchronized boolean addMatx (String user1, String user2){
         if(matxDAO.comprovaMatx(user1,user2)){
             matxDAO.addMatx(user1,user2);
             return true;
@@ -142,13 +136,7 @@ public class UsuariManager {
         return false;
     }
 
-    /**
-     * Retorna el chat emmagatzemat a la bbdd entre dos usuaris perquè sigui mostrat al client
-     * @param usuari1
-     * @param usuari2
-     * @return
-     */
-    public ArrayList<Missatge> preparaChat (String usuari1, String usuari2){
+    public synchronized ArrayList<Missatge> preparaChat (String usuari1, String usuari2){
         ArrayList<Missatge> missatges = new ArrayList<>(), missatgesUsuari1, missatgesUsuari2;
         //Agafem els missatges dels dos usuaris
         missatgesUsuari1 = missatgeDAO.llistaMissatges(usuari1, usuari2);
@@ -201,21 +189,13 @@ public class UsuariManager {
         return missatges;
     }
 
-    /**
-     * Marca un usuari com a vist (però no acceptat, és a dir, denegat) per un altre
-     * @param user1
-     * @param user2
-     */
-    public void addVist(String user1, String user2) {
+    public synchronized void addVist(String user1, String user2) {
 
         matxDAO.addVist(user1,user2);
     }
 
-    /**
-     * Retorna un array d'enters amb el nombre de matches/hore del dia
-     * @return
-     */
-    public int[] llistaMatchesDiaria(){
+
+    public synchronized int[] llistaMatchesDiaria(){
         Calendar now = Calendar.getInstance();
         int numMatches[] = new int[now.get(Calendar.HOUR_OF_DAY)+1];
 
@@ -226,11 +206,7 @@ public class UsuariManager {
         return numMatches;
     }
 
-    /**
-     * Retorna un array d'enters amb el nombre de matches/dia de la setmana
-     * @return
-     */
-    public int[] llistaMatchesSetmanal(){
+    public synchronized int[] llistaMatchesSetmanal(){
         Calendar now = Calendar.getInstance();
         int numMatches[] = new int[now.get(Calendar.DAY_OF_WEEK)];
 
@@ -241,11 +217,7 @@ public class UsuariManager {
         return numMatches;
     }
 
-    /**
-     * Retorna un array d'enters amb el nombre de matches/dia del mes
-     * @return
-     */
-    public int[] llistaMatchesMensual(){
+    public synchronized int[] llistaMatchesMensual(){
         Calendar now = Calendar.getInstance();
         int numMatches[] = new int[now.get(Calendar.DAY_OF_MONTH)];
 
@@ -257,13 +229,7 @@ public class UsuariManager {
     }
 
 
-    /**
-     * Afegeix un missatge nou entre dues persones a la bbdd
-     * @param userSend
-     * @param userRecieve
-     * @param missatge
-     */
-    public void afegeixMissatge(String userSend, String userRecieve, String missatge){
+    public synchronized void afegeixMissatge(String userSend, String userRecieve, String missatge){
         missatgeDAO.addMissatge(new Missatge(missatge, userSend, userRecieve, null));
     }
 

@@ -1,6 +1,8 @@
 package User.Controller;
 
 import Server.Model.Server;
+import User.Model.Connectivity;
+import Server.Model.entity.UsuariManager;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -17,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -36,13 +37,15 @@ public class ControllerClient implements ActionListener {
     private ArrayList<User> sawMatches;
     private ArrayList<Match> matches;
     private User chatUser;
+    private Connectivity connectivity;
+
 
     /**
      * Constructor
      * @param autenticationView
      * @param networkManager
      */
-    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) {
+    public ControllerClient(AutenticationView autenticationView, ServerComunication networkManager) throws IOException  {
         this.autenticationView = autenticationView;
         this.networkManager = networkManager;
         this.possiblesMatxs = new ArrayList<>();
@@ -227,6 +230,7 @@ public class ControllerClient implements ActionListener {
                 break;
 
             case "SendMessage":
+                System.out.println("Entramos en enviar mensage -> Controlador");
                 String mensaje = (mainView.getJtfMessage().getText());
                 String chat = currentUser.getUserName() + ": " + mensaje + "\n";
                 mainView.getTa().append(chat);
@@ -240,6 +244,8 @@ public class ControllerClient implements ActionListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                autenticationView.registerController(this);
+
                 break;
 
 
@@ -552,13 +558,32 @@ public class ControllerClient implements ActionListener {
     }
 
 
+    public void functionalities(int id, Object o1, Object o2){
+        switch (id){
+            case 1: //recibimos mensaje = o1, o2 = username de uqien lo ha enviado
+                String mensaje = (String) o1;
+                String username = (String) o2;
+                String chat = username + ": " + mensaje + "\n";
+                mainView.getTa().append(chat);
+                break;
+        }
+    }
+
+
+
+
+
+
+
+
+
     private Mensaje getMensaje(){
         Mensaje mensaje = null;
 
         return mensaje;
     }
 
-    private AutenticationView getAutenticationView() { return autenticationView; }
+    public AutenticationView getAutenticationView() { return autenticationView; }
     public void setAutenticationView(AutenticationView autenticationView) { this.autenticationView = autenticationView; }
     private RegistrationView getRegistrationView() { return registrationView; }
     public void setRegistrationView(RegistrationView registrationView) { this.registrationView = registrationView; }

@@ -1,5 +1,8 @@
 package User.Network;
 
+import Server.Model.Controller.Controller;
+import User.Controller.ControllerClient;
+import User.Model.Connectivity;
 import User.Model.Match;
 import User.Model.Mensaje;
 import User.Model.User;
@@ -25,33 +28,38 @@ public class ServerComunication extends Thread{
     private DataOutputStream doStream;
     private ObjectInputStream oiStream;
     private ObjectOutputStream ooStream;
+    private ObjectInputStream oiStream2;
+    private DataInputStream diStream2;
+    private Connectivity connectivity;
+    private ControllerClient controller;
 
 
-    /**
-     * Constructor de la classe
-     * @param autenticationView
-     * @throws IOException
-     */
-    public ServerComunication(AutenticationView autenticationView) throws IOException {
+    public ServerComunication() throws IOException {
         //Totxaco per llegor del Json el port del servidor
-        Configuracio config = new Configuracio();
+        Configuracio config;
         Gson gson = new Gson();
         JsonReader jReader;
         try {
             jReader = new JsonReader(new FileReader("data/config.json"));
             config = gson.fromJson(jReader, Configuracio.class);                       //Llegeix el fitxer Json
-            this.port = Integer.parseInt(config.getConfigClient().getPort_server());
-            this.ip = config.getConfigClient().getIp_server();
+            port = Integer.parseInt(config.getConfigClient().getPort_server());
+            ip = config.getConfigClient().getIp_server();
         } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
             System.out.println("Error: Fitxer no trobat.");
         }
 
-        sClient = new Socket(ip, port);
-        this.autenticationView = autenticationView;
+        Socket sClient = new Socket(ip, port);
+        Socket sClient2 = new Socket(ip, port+10);
+
         diStream = new DataInputStream(sClient.getInputStream());
         doStream = new DataOutputStream(sClient.getOutputStream());
         oiStream = new ObjectInputStream(sClient.getInputStream());
         ooStream = new ObjectOutputStream(sClient.getOutputStream());
+
+        oiStream2 = new ObjectInputStream(sClient2.getInputStream());
+        diStream2 = new DataInputStream(sClient2.getInputStream());
+        this.connectivity = new Connectivity(oiStream2, diStream2);
+
         start();
     }
 
@@ -67,7 +75,7 @@ public class ServerComunication extends Thread{
     public boolean functionalities (int id, Object object1, Object object2) throws IOException {
         boolean ok = false;
         doStream.writeInt(id);
-        System.out.println(id);
+        System.out.println("fucnionalidad del ServerComunication: " + id);
 
         switch (id){
             case 1://object1 = username, object2 = password
@@ -105,8 +113,10 @@ public class ServerComunication extends Thread{
                 break;
 
             case 7: //sendMessage --> obj1 = mensaje obj2 = user2 del chat
+                System.out.println("mandamos el mensaje al ds");
                 ooStream.writeUTF(String.valueOf(object1));
                 ooStream.writeObject(object2);
+                System.out.println("mandamos el user al que va el mensaje");
                 break;
 
             case 8: //Undo match  --> obj1 = currentUser, obj2 = chatUser
@@ -181,6 +191,35 @@ public class ServerComunication extends Thread{
         ArrayList<Mensaje> m = (ArrayList<Mensaje>) oiStream.readObject();
 
         return m;
+    }
+
+    public static int getPort() {
+        return port;
+    }
+
+    public static void setPort(int port) {
+        ServerComunication.port = port;
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static void setIp(String ip) {
+        ServerComunication.ip = ip;
+    }
+
+    public void setController(ControllerClient controller) {
+        this.controller = controller;
+        connectivity.setController(controller);
+    }
+
+    public Connectivity getConnectivity() {
+        return connectivity;
+    }
+
+    public void setConnectivity(Connectivity connectivity) {
+        this.connectivity = connectivity;
     }
 
     public ArrayList<String> getAcceptedUsers(User currentUser){

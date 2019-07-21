@@ -267,8 +267,9 @@ public class View extends JFrame {
                 jlTop1NCops.setText(("     "+acceptacions[0].toString()));
                 jlTop1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop1NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
+            }catch (IndexOutOfBoundsException e) {
+               // e.printStackTrace();
+                System.out.println("no hay user 0!");
             }
 
             try {
@@ -276,8 +277,9 @@ public class View extends JFrame {
                 jlTop2NCops.setText(("     "+acceptacions[1].toString()));
                 jlTop2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop2NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
+            }catch (IndexOutOfBoundsException e) {
+                //e.printStackTrace();
+                System.out.println("no hay user 1!");
             }
 
             try {
@@ -285,8 +287,10 @@ public class View extends JFrame {
                 jlTop3NCops.setText(("     "+acceptacions[2].toString()));
                 jlTop3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop3NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
+            }catch (IndexOutOfBoundsException e) {
+                //e.printStackTrace();
+                System.out.println("no hay user 2!");
+
             }
 
             try {
@@ -294,8 +298,9 @@ public class View extends JFrame {
                 jlTop4NCops.setText(("     "+acceptacions[3].toString()));
                 jlTop4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop4NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
+            }catch (IndexOutOfBoundsException e) {
+                //e.printStackTrace();
+                System.out.println("no hay user 3!");
             }
 
             try {
@@ -303,8 +308,9 @@ public class View extends JFrame {
                 jlTop5NCops.setText(("     " + acceptacions[4].toString()));
                 jlTop5.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 jlTop5NCops.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }catch (IndexOutOfBoundsException | NullPointerException e) {
-                e.printStackTrace();
+            }catch (IndexOutOfBoundsException e) {
+              //  e.printStackTrace();
+                System.out.println("no hay user 4!");
             }
         }else {
             jlTop1.setText("   1.- No users!");

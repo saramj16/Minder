@@ -52,7 +52,7 @@ public class AutenticationView extends JFrame {
 
         mainPanel.add(new JLabel("  Username: "), CENTER_ALIGNMENT);
         mainPanel.add(usernameTextField, CENTER_ALIGNMENT);
-       // mainPanel.add(new JLabel(""));
+        // mainPanel.add(new JLabel(""));
         mainPanel.add(new JLabel("  Password: "), CENTER_ALIGNMENT);
         mainPanel.add(passwordTextField, CENTER_ALIGNMENT);
         mainPanel.add(logInButton);

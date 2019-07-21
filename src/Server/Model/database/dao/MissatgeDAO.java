@@ -68,7 +68,7 @@ public class MissatgeDAO {
                         resultat.getString("userSend"),
                         resultat.getString("userReceive"),
                         resultat.getTimestamp("dataMessage")
-                         );
+                );
                 messageList.add(missatges);
                 //System.out.println(missatges.getDataMessage());
             }

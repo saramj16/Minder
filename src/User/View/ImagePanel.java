@@ -27,7 +27,7 @@ public class ImagePanel extends JPanel{
                 image = ImageIO.read(new File("./src/Server/Imatges/default.jpeg"));
             }
         }
-       return image;
+        return image;
     }
 
     private Image image2;

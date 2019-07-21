@@ -223,15 +223,15 @@ public class UsuariDAO {
 
         ArrayList<Usuari> usuariList = new ArrayList<>();
         try{
-           while (resultat.next()) {
+            while (resultat.next()) {
                 Usuari usuari = new Usuari(resultat.getString("userName"),
-                                            resultat.getInt("edat"),
-                                            resultat.getBoolean("premium"),
-                                            resultat.getString("correo"),
-                                            resultat.getString("password"),
-                                            resultat.getString("urlFoto"),
-                                            resultat.getString("lenguaje"),
-                                            resultat.getString("description"));
+                        resultat.getInt("edat"),
+                        resultat.getBoolean("premium"),
+                        resultat.getString("correo"),
+                        resultat.getString("password"),
+                        resultat.getString("urlFoto"),
+                        resultat.getString("lenguaje"),
+                        resultat.getString("description"));
                 usuariList.add(usuari);
                 System.out.println(usuari.getUserName());
             }

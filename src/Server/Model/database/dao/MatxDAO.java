@@ -431,4 +431,38 @@ public class MatxDAO {
         }
         return numAcceptacions;
     }
+
+    public synchronized ArrayList<String> selectLlistaMatch(String user1) {
+        ArrayList<String> matxedUsersVists = new ArrayList<>();
+        ArrayList<String> allUsers = new ArrayList<>();
+
+        String query = "SELECT user2 FROM Matx WHERE user1 = '"+ user1 +"' AND vist = " + true + ";";
+
+        ResultSet resultat = dbConnector.selectQuery(query);
+
+        try{
+            while(resultat.next()){
+                String nom = resultat.getString("user2");
+                matxedUsersVists.add(nom);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String query1 = "SELECT userName FROM Usuari WHERE userName != '"+ user1 +  ";";
+        ResultSet resultat1 = dbConnector.selectQuery(query1);
+
+        try{
+            while(resultat1.next()){
+                String nom1 = resultat1.getString("userName");
+                allUsers.add(nom1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (String username : matxedUsersVists) {
+            allUsers.remove(username);
+        }
+        return allUsers;
+    }
 }

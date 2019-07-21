@@ -250,4 +250,8 @@ public class UsuariManager {
         return matxDAO.top5NAcceptacions();
     }
 
+    public ArrayList<String> getLlistaPossiblesMatch(String user){
+        return matxDAO.selectLlistaMatch(user);
+    }
+
 }

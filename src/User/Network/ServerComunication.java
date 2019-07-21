@@ -34,6 +34,8 @@ public class ServerComunication extends Thread{
     private ControllerClient controller;
 
 
+
+
     public ServerComunication() throws IOException {
         //Totxaco per llegor del Json el port del servidor
         Configuracio config;
@@ -124,6 +126,13 @@ public class ServerComunication extends Thread{
                 ooStream.writeObject(object1);
                 ooStream.writeObject(object2);
                 break;
+
+            case 9: //Rebre llista possibles match
+                System.out.println("demanant llista de possibles match...");
+                doStream.writeUTF((String)object1);
+                ArrayList<User> possiblesMatch = new ArrayList<>();
+                //possiblesMatch =  oiStream.readObject(possiblesMatch);
+                break;
         }
 
         return ok;
@@ -153,7 +162,7 @@ public class ServerComunication extends Thread{
 
         if (sizeMatches != 0){
             for (int i = 0; i < sizeMatches; i++){
-                 match = (Match) oiStream.readObject();
+                match = (Match) oiStream.readObject();
                 matches.add(match);
             }
         }
@@ -227,8 +236,22 @@ public class ServerComunication extends Thread{
         String nom;
         String query1  = "SELECT user2 FROM Matx WHERE user1 = '"+ currentUser.getUserName() +"' AND accept = 1;";
         ArrayList<String> llista = new ArrayList<>();
+
+        //Totxaco per llegor del Json el port
+        Server.Model.configReader.Configuracio config = new Server.Model.configReader.Configuracio();
+        Gson gson = new Gson();
+        JsonReader jReader;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/minder","root","5432");
+            jReader = new JsonReader(new FileReader("data/config.json"));
+            config = gson.fromJson(jReader, Server.Model.configReader.Configuracio.class);                       //Llegeix el fitxer Json
+            //this.port = Integer.parseInt(config.getConfigServer().getPort_client()) ;
+        } catch (FileNotFoundException error) {         //Catch per si no podem obrir l'arxiu Json
+            System.out.println("Error: Fitxer no trobat.");
+        }
+
+        try {
+            con = DriverManager.getConnection(config.getConfigServer().getIp_bbdd(),
+                    config.getConfigServer().getUsername_bbdd(), config.getConfigServer().getPassword_bbdd());
             PreparedStatement ps = con.prepareStatement(query1);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) { nom = resultSet.getString("user2");

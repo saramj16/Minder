@@ -87,7 +87,7 @@ public class ControllerClient implements ActionListener {
                         e.printStackTrace();
                     }
                     if (!ok) {
-                        JOptionPane.showMessageDialog(null, "Credenciales mal introducidas!");
+                        JOptionPane.showMessageDialog(null, "Credenciales incorrectas!");
                     } else {
                         autenticationView.setVisible(false);
                         try {
@@ -391,17 +391,15 @@ public class ControllerClient implements ActionListener {
         int trobat = 0;
         for (User allUser : allUsers) {
             trobat = 0;
-            System.out.println("TAMANY: " + user.getListaMatch().size());
-            if(matches != null) {
-                for (int i = 0; i < matches.size(); i++) {
-                    System.out.println("U1:" + matches.get(i).getUser1().getUserName());
-                    System.out.println("U2:" + matches.get(i).getUser2().getUserName());
-                    if (allUser.getUserName().equals(matches.get(i).getUser1().getUserName())
-                            || (allUser.getUserName().equals(matches.get(i).getUser2().getUserName()))) {
-                        trobat = 1;
-                    }
+            for (int i = 0; i < user.getListaMatch().size(); i++) {
+                System.out.println("U1:" + user.getListaMatch().get(i).getUser1().getUserName());
+                System.out.println("U2:" + user.getListaMatch().get(i).getUser2().getUserName());
+                if(allUser.getUserName().equals(user.getListaMatch().get(i).getUser1().getUserName())
+                        || (allUser.getUserName().equals(user.getListaMatch().get(i).getUser2().getUserName()))){
+                    trobat = 1;
                 }
             }
+            System.out.println("SIZE: " + usersILike.size());
             for (int j = 0; j < usersILike.size(); j++){
                 System.out.println("LIKE:" + usersILike.get(j));
                 if(allUser.getUserName().equals(usersILike.get(j))){
@@ -428,8 +426,7 @@ public class ControllerClient implements ActionListener {
         }
         if(trobat == 2){
             for (User allUser2 : allUsers) {
-                if(!usuarios.contains(allUser2) && allUser2.getLenguaje().equals(user.getLenguaje()) && !allUser2.getUserName().equals(user.getUserName())
-                && !usersILike.contains(allUser2.getUserName())){
+                if(!usuarios.contains(allUser2) && allUser2.getLenguaje().equals(user.getLenguaje()) && !allUser2.getUserName().equals(user.getUserName())){
                     usuarios.add(allUser2);
                 }
             }

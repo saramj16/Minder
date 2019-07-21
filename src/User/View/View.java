@@ -265,8 +265,8 @@ public class View extends JFrame {
         }else {
             panels = new JButton[user.getListaMatch().size()];
             for (int i = 0; i < user.getListaMatch().size(); i++){
-               panels[i] = new JButton(user.getListaMatch().get(i).getUser2().getUserName());
-               jpScroll.add(panels[i]);
+                panels[i] = new JButton(user.getListaMatch().get(i).getUser2().getUserName());
+                jpScroll.add(panels[i]);
             }
 
             jpMatches.add(jpScroll);
@@ -349,7 +349,7 @@ public class View extends JFrame {
 
         if (panels != null && panels.length > 0){
             for (int i = 0; i < panels.length; i++){
-               // User user = mainUser.getListaMatch().get(i).getUser2();
+                // User user = mainUser.getListaMatch().get(i).getUser2();
                 panels[i].addActionListener(controller);
                 panels[i].setActionCommand("Chat " + i);
             }

@@ -152,6 +152,13 @@ public class DedicatedServer extends Thread{
                         break;
 
 
+                    case 9: //Enviar llista possibles match
+                        String nomUsuari = (String)diStream.readUTF();
+                        ArrayList<User> possiblesMatch = server.getLlistaPossiblesMatch(nomUsuari);
+                        ooStream.writeObject(possiblesMatch);
+                        break;
+
+
                     case 10://chat mensajes
                         User user1 = (User) oiStream.readObject();
                         User user2 = (User) oiStream.readObject();
@@ -182,7 +189,7 @@ public class DedicatedServer extends Thread{
         if (matches.size() > 0){
             for (int i = 0; i < matches.size(); i++) {
                 ooStream.writeObject(matches.get(i));
-             }
+            }
         }
     }
 

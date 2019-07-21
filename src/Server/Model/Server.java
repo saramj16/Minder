@@ -235,7 +235,7 @@ public class Server extends Thread{
         ArrayList<User> userLikeLikedUsers;
 
         userLikeLikedUsers = getLikedUsers(userLike.getUserName());
-       // currentUser.getListaLikedUsers().add(userLike);
+        // currentUser.getListaLikedUsers().add(userLike);
         addLikedUserToCurrentUser(currentUser, userLike);
 
         for (User u : userLikeLikedUsers){
@@ -381,12 +381,12 @@ public class Server extends Thread{
      */
     public User getUser(String username) throws SQLException {
 
-       Usuari u = usuariManager.getUsuari(username);
+        Usuari u = usuariManager.getUsuari(username);
 
 
-       User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());
+        User user = new User(u.getUserName(), u.getEdat(), u.isPremium(), u.getCorreo(), u.getPassword(), u.getUrlFoto(), u.getLenguaje(), u.getDescription());
 
-       return user;
+        return user;
     }
 
     /**
@@ -438,4 +438,15 @@ public class Server extends Thread{
     public void deleteMatch(String u1, String u2) {
         usuariManager.deleteMatch(u1, u2);
     }
+
+
+
+    public ArrayList<User> getLlistaPossiblesMatch(String username) throws SQLException {
+        ArrayList<Usuari> users = new ArrayList<>();
+        for (String str : usuariManager.getLlistaPossiblesMatch(username)) {
+            users.add(usuariManager.getUsuari(str));
+        }
+        return convertUsuaristoUsers(users);
+    }
+
 }

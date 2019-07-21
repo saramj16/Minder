@@ -25,7 +25,7 @@ public class Connectivity extends Thread {
 
         while (true){
             try {
-               id = diStream2.readInt();
+                id = diStream2.readInt();
             } catch (IOException e) {
                 e.printStackTrace();
             }
